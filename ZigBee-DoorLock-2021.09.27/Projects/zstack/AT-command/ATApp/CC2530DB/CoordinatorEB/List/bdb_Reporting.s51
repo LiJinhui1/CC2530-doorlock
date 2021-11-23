@@ -1,0 +1,2076 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+// IAR C/C++ Compiler V10.30.1.6000 for 8051              23/Nov/2021  10:54:57
+// Copyright 2004-2018 IAR Systems AB.
+// PC-locked license - IAR Embedded Workbench for 8051
+//
+//    Core               =  plain
+//    Code model         =  banked
+//    Data model         =  large
+//    Calling convention =  xdata reentrant
+//    Constant location  =  data_rom
+//    Dptr setup         =  1,16
+//                          
+//    Source file        =  
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Components\stack\bdb\bdb_Reporting.c
+//    Command line       =  
+//        -f C:\Users\ADMINI~1\AppData\Local\Temp\EWB44D.tmp
+//        (F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Components\stack\bdb\bdb_Reporting.c
+//        -D ZIGBEEPRO -D INTER_PAN -D DISABLE_GREENPOWER_BASIC_PROXY -D
+//        HAL_UART=TRUE -D HAL_UART_ISR=1 -D HAL_UART_DMA=0 -D
+//        HAL_UART_ISR_RX_MAX=100 -D SECURE=1 -D TC_LINKKEY_JOIN -D NV_INIT -D
+//        NV_RESTORE -D xZTOOL_P1 -D xMT_TASK -D xMT_APP_FUNC -D xMT_SYS_FUNC
+//        -D xMT_ZDO_FUNC -D xMT_ZDO_MGMT -D xMT_APP_CNF_FUNC -D
+//        LEGACY_LCD_DEBUG -D LCD_SUPPORTED=DEBUG -D MULTICAST_ENABLED=FALSE -D
+//        ZCL_READ -D ZCL_WRITE -D ZCL_DISCOVER -D ZCL_BASIC -D ZCL_IDENTIFY -D
+//        ZCL_SCENES -D ZCL_GROUPS -D ZCL_REPORT_CONFIGURING_DEVICE -D
+//        ZCL_REPORT_DESTINATION_DEVICE -lC
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\CoordinatorEB\List
+//        -lA
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\CoordinatorEB\List
+//        --diag_suppress Pe001,Pa010 -o
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\CoordinatorEB\Obj
+//        -e --debug --core=plain --dptr=16,1 --data_model=large
+//        --code_model=banked --calling_convention=xdata_reentrant
+//        --place_constants=data_rom --nr_virtual_regs 16 -f
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\Tools\CC2530DB\f8wCoord.cfg
+//        (-DCPU32MHZ -DROOT=__near_func -DMAC_CFG_APP_PENDING_QUEUE=TRUE
+//        -DMAC_CFG_TX_DATA_MAX=5 -DMAC_CFG_TX_MAX=8 -DMAC_CFG_RX_MAX=5
+//        -DZDO_COORDINATOR -DRTR_NWK) -f
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg
+//        (-DZIGBEEPRO -DSECURE=1 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+//        -DDEFAULT_CHANLIST=0x00000800 -DZDAPP_CONFIG_PAN_ID=0xFFFF
+//        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
+//        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
+//        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
+//        -DAPSC_ACK_WAIT_DURATION_POLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7
+//        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
+//        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
+//        -DAPS_MAX_GROUPS=10 -DMAX_RTG_ENTRIES=15 -DNWK_MAX_BINDING_ENTRIES=4
+//        -DMAX_BINDING_CLUSTER_IDS=4 -DDEFAULT_KEY={0}
+//        -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
+//        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE
+//        -DPOLL_RATE=300 -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100
+//        -DREJOIN_POLL_RATE=440 -DREJOIN_BACKOFF=900000 -DREJOIN_SCAN=900000)
+//        -f
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL.cfg
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\Source\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\Source\ZCL\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\Source\UserAPI\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\Source\Controller\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\ZMain\TI2530DB\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\hal\include\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\hal\target\CC2530EB\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\mac\include\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\mac\high_level\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\single_chip\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\mt\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\osal\include\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\services\saddr\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\services\sdata\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\af\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\bdb\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\gp\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\nwk\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\sapi\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\sec\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\sys\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\zcl\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\zdo\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\zmac\
+//        -I
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\zmac\f8w\
+//        -Ohz --require_prototypes)
+//    Locale             =  Chinese (Simplified)_CHN.936
+//    List file          =  
+//        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\CoordinatorEB\List\bdb_Reporting.s51
+//
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME bdb_Reporting
+
+        RTMODEL "__SystemLibrary", "CLib"
+        RTMODEL "__calling_convention", "xdata_reentrant"
+        RTMODEL "__code_model", "banked"
+        RTMODEL "__core", "plain"
+        RTMODEL "__data_model", "large"
+        RTMODEL "__dptr_size", "16"
+        RTMODEL "__extended_stack", "disabled"
+        RTMODEL "__location_for_constants", "data"
+        RTMODEL "__number_of_dptrs", "1"
+        RTMODEL "__register_banks", "*"
+        RTMODEL "__rt_version", "1"
+
+        RSEG DOVERLAY:DATA:NOROOT(0)
+        RSEG IOVERLAY:IDATA:NOROOT(0)
+        RSEG ISTACK:IDATA:NOROOT(0)
+        RSEG PSTACK:XDATA:NOROOT(0)
+        RSEG XSTACK:XDATA:NOROOT(0)
+
+
+        END
+// F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Components\stack\bdb\bdb_Reporting.c
+//    1 /**************************************************************************************************
+//    2 *  Filename:       bdb_Reporting.c
+//    3 *  Revised:        $Date: 2016-02-25 11:51:49 -0700 (Thu, 25 Feb 2016) $
+//    4 *  Revision:       $Revision: - $
+//    5 *
+//    6 *  Description:    This file contains the Reporting Attributes functions.
+//    7 *
+//    8 *
+//    9 *  Copyright 2006-2015 Texas Instruments Incorporated. All rights reserved.
+//   10 *
+//   11 *  IMPORTANT: Your use of this Software is limited to those specific rights
+//   12 *  granted under the terms of a software license agreement between the user
+//   13 *  who downloaded the software, his/her employer (which must be your employer)
+//   14 *  and Texas Instruments Incorporated (the "License").  You may not use this
+//   15 *  Software unless you agree to abide by the terms of the License. The License
+//   16 *  limits your use, and you acknowledge, that the Software may not be modified,
+//   17 *  copied or distributed unless embedded on a Texas Instruments microcontroller
+//   18 *  or used solely and exclusively in conjunction with a Texas Instruments radio
+//   19 *  frequency transceiver, which is integrated into your product.  Other than for
+//   20 *  the foregoing purpose, you may not use, reproduce, copy, prepare derivative
+//   21 *  works of, modify, distribute, perform, display or sell this Software and/or
+//   22 *  its documentation for any purpose.
+//   23 *
+//   24 *  YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
+//   25 *  PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+//   26 *  INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE,
+//   27 *  NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
+//   28 *  TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
+//   29 *  NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER
+//   30 *  LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+//   31 *  INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE
+//   32 *  OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT
+//   33 *  OF SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+//   34 *  (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+//   35 *
+//   36 *  Should you have any questions regarding your right to use this Software,
+//   37 *  contact Texas Instruments Incorporated at www.TI.com.
+//   38 **************************************************************************************************/
+//   39 
+//   40 #ifdef BDB_REPORTING
+//   41 /*********************************************************************
+//   42  * INCLUDES
+//   43  */
+//   44 
+//   45 #include "bdb.h"
+//   46 #include "zcl.h"
+//   47 #include "ZDObject.h"
+//   48 #include "bdb_Reporting.h"
+//   49 #include "OSAL.h"
+//   50 #include "zcl_ms.h"
+//   51 #include "bdb_interface.h"
+//   52 
+//   53 /*********************************************************************
+//   54  * MACROS
+//   55  */
+//   56 #define EQUAL_LLISTITEMDATA(a, b) (a.attrID == b.attrID)
+//   57 #define EQUAL_LLISTCFGATTRITEMDATA(a, b) (a.endpoint == b.endpoint && a.attrID == b.attrID && a.cluster == b.cluster)
+//   58 #define FLAGS_TURNOFFALLFLAGS(flags) (flags = 0x00)
+//   59 #define FLAGS_TURNOFFFLAG(flags, flagMask) (flags &= ~flagMask)
+//   60 #define FLAGS_TURNONFLAG(flags, flagMask) (flags |= flagMask)
+//   61 #define FLAGS_CHECKFLAG(flags, flagMask) ((flags & flagMask) > 0 ? BDBREPORTING_TRUE : BDBREPORTING_FALSE)
+//   62 
+//   63 /*********************************************************************
+//   64  * CONSTANTS
+//   65  */
+//   66 #define BDBREPORTING_HASBINDING_FLAG_MASK      0x01
+//   67 #define BDBREPORTING_NONEXTINCREMENT_FLAG_MASK 0x02
+//   68 
+//   69 
+//   70 #if BDBREPORTING_MAX_ANALOG_ATTR_SIZE == 8
+//   71 #define BDBREPORTING_DEFAULTCHANGEVALUE { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
+//   72 #endif
+//   73 #if BDBREPORTING_MAX_ANALOG_ATTR_SIZE == 4
+//   74 #define BDBREPORTING_DEFAULTCHANGEVALUE { 0x00, 0x00, 0x00, 0x00 }
+//   75 #endif
+//   76 #if BDBREPORTING_MAX_ANALOG_ATTR_SIZE == 2
+//   77 #define BDBREPORTING_DEFAULTCHANGEVALUE { 0x00, 0x00 }
+//   78 #endif
+//   79 
+//   80 #define BDBREPORTING_MAXINTERVAL_DEFAULT 0x0000
+//   81 #define BDBREPORTING_MININTERVAL_DEFAULT 0xFFFF
+//   82 
+//   83 /*********************************************************************
+//   84  * TYPEDEFS
+//   85  */
+//   86 //Data to hold informaation about an attribute in a linked list thats inside
+//   87 //the cluster-endpoint entry
+//   88 typedef struct {
+//   89 	uint16	attrID;
+//   90 	uint8	lastValueReported[BDBREPORTING_MAX_ANALOG_ATTR_SIZE];
+//   91 	uint8	reportableChange[BDBREPORTING_MAX_ANALOG_ATTR_SIZE];
+//   92 } bdbReportAttrLive_t;
+//   93 
+//   94 
+//   95 //This structrue holds the data of a attribute reporting configiration that
+//   96 //is used at runtime and it's saved in the NV
+//   97 typedef struct {
+//   98 	uint8	endpoint;
+//   99 	uint16	cluster;
+//  100 	uint16	attrID;
+//  101 	uint16	minReportInt;
+//  102 	uint16	maxReportInt;
+//  103 	uint16	defaultMinReportInt;
+//  104 	uint16	defaultMaxReportInt;
+//  105 	uint8	reportableChange[BDBREPORTING_MAX_ANALOG_ATTR_SIZE];
+//  106 	uint8	defaultReportableChange[BDBREPORTING_MAX_ANALOG_ATTR_SIZE];
+//  107 } bdbReportAttrCfgData_t;
+//  108 
+//  109 //This structure represents a node in the linked list of the attributes
+//  110 //data in the cluster-endpoint entry
+//  111 typedef struct bdbLinkedListAttrItem {
+//  112 	bdbReportAttrLive_t *		data;
+//  113 	struct bdbLinkedListAttrItem *	next;
+//  114 } bdbLinkedListAttrItem_t;
+//  115 
+//  116 
+//  117 //This structure represents a linked list of the attributes
+//  118 //data in the cluster-endpoint entry
+//  119 typedef struct bdbAttrLinkedListAttr {
+//  120 	uint8				numItems;
+//  121 	bdbLinkedListAttrItem_t *	head;
+//  122 } bdbAttrLinkedListAttr_t;
+//  123 
+//  124 // This structure is an entry of a cluster-endpoint table used by the reporting
+//  125 //code (the consolidated values) to actually report periodically
+//  126 typedef struct {
+//  127 	uint8			flags;
+//  128 	uint8			endpoint;                       // status field
+//  129 	uint16			cluster;                        // to send or receive reports of the attribute
+//  130 	uint16			consolidatedMinReportInt;       // attribute ID
+//  131 	uint16			consolidatedMaxReportInt;       // attribute data type
+//  132 	uint16			timeSinceLastReport;
+//  133 	bdbAttrLinkedListAttr_t attrLinkedList;
+//  134 } bdbReportAttrClusterEndpoint_t;
+//  135 
+//  136 
+//  137 //This structure serves to hold the flags data of a bdbReportAttrClusterEndpoint_t
+//  138 //with key =(endpoint,cluster) in instance of the bdb reporting where the table is regenerated
+//  139 typedef struct {
+//  140 	uint8	flags;
+//  141 	uint8	endpoint;
+//  142 	uint16	cluster;
+//  143 } bdbReportFlagsHolder_t;
+//  144 
+//  145 //This structure holds the data of a default attribute reporting configuration
+//  146 //entered by the application
+//  147 typedef struct {
+//  148 	uint8	endpoint;
+//  149 	uint16	cluster;
+//  150 	uint16	attrID;
+//  151 	uint16	minReportInt;
+//  152 	uint16	maxReportInt;
+//  153 	uint8	reportableChange[BDBREPORTING_MAX_ANALOG_ATTR_SIZE];
+//  154 } bdbReportAttrDefaultCfgData_t;
+//  155 
+//  156 //This structure represents a node in the linked list of the default attributes
+//  157 //configurations entered by the application
+//  158 typedef struct bdbRepAttrDefaultCfgRecordLinkedListItem {
+//  159 	bdbReportAttrDefaultCfgData_t *				data;
+//  160 	struct bdbRepAttrDefaultCfgRecordLinkedListItem *	next;
+//  161 } bdbRepAttrDefaultCfgRecordLinkedListItem_t;
+//  162 
+//  163 //This structure represents the linked list of the default attributes
+//  164 //configurations entered by the application
+//  165 typedef struct bdbRepAttrDefaultCfgRecordLinkedList {
+//  166 	uint8						numItems;
+//  167 	bdbRepAttrDefaultCfgRecordLinkedListItem_t *	head;
+//  168 } bdbRepAttrDefaultCfgRecordLinkedList_t;
+//  169 
+//  170 
+//  171 
+//  172 /*********************************************************************
+//  173  * GLOBAL VARIABLES
+//  174  */
+//  175 uint8 gAttrDataValue[BDBREPORTING_MAX_ANALOG_ATTR_SIZE];
+//  176 
+//  177 /*********************************************************************
+//  178  * EXTERNAL VARIABLES
+//  179  */
+//  180 
+//  181 /*********************************************************************
+//  182  * EXTERNAL FUNCTIONS
+//  183  */
+//  184 
+//  185 /*********************************************************************
+//  186  * LOCAL VARIABLES
+//  187  */
+//  188 
+//  189 //Table of cluster-endpoint entries used to report periodically
+//  190 bdbReportAttrClusterEndpoint_t bdb_reportingClusterEndpointArray[BDB_MAX_CLUSTERENDPOINTS_REPORTING];
+//  191 //Current size of the cluster-endpoint table
+//  192 uint8 bdb_reportingClusterEndpointArrayCount;
+//  193 //This variable has the timeout value of the currrent timer use to report peridically
+//  194 uint16 bdb_reportingNextEventTimeout;
+//  195 //This variable hasthe index of the cluster-endpoint entry that trigger the current
+//  196 //timer use to report periodically
+//  197 uint8 bdb_reportingNextClusterEndpointIndex;
+//  198 //This is the table that holds in the memory the attribute reporting configurations (dynamic table)
+//  199 bdbReportAttrCfgData_t *bdb_reportingAttrCfgRecordsArray;
+//  200 //Current size of the attribute reporting configurations table
+//  201 uint8 bdb_reportingAttrCfgRecordsArrayCount;
+//  202 //Max size of the attribute reporting configurations table
+//  203 uint8 bdb_reportingAttrCfgRecordsArrayMaxSize;
+//  204 //Linked list for holding the default attribute reporting configurations
+//  205 //enteres by the application
+//  206 bdbRepAttrDefaultCfgRecordLinkedList_t attrDefaultCfgRecordLinkedList;
+//  207 //Flag used to signal when not to accept more default attribute reporting configurations
+//  208 uint8 bdb_reportingAcceptDefaultConfs;
+//  209 
+//  210 /*********************************************************************
+//  211  * PUBLIC FUNCTIONS PROTOYPES
+//  212  */
+//  213 
+//  214 /*********************************************************************
+//  215  * LOCAL FUNCTIONS PROTOYPES
+//  216  */
+//  217 
+//  218 //Begin: Single linked list for attributes in a cluster-endpoint live entry methods
+//  219 static void bdb_InitReportAttrLiveValues(bdbReportAttrLive_t *item);
+//  220 static void bdb_linkedListAttrInit(bdbAttrLinkedListAttr_t *list);
+//  221 static uint8 bdb_linkedListAttrAdd(bdbAttrLinkedListAttr_t *list, bdbReportAttrLive_t *data);
+//  222 static bdbLinkedListAttrItem_t *bdb_linkedListAttrSearch(bdbAttrLinkedListAttr_t *list, bdbReportAttrLive_t *searchdata);
+//  223 static bdbReportAttrLive_t *bdb_linkedListAttrRemove(bdbAttrLinkedListAttr_t *list);
+//  224 static uint8 bdb_linkedListAttrFreeAll(bdbAttrLinkedListAttr_t *list);
+//  225 static void bdb_linkedListAttrClearList(bdbAttrLinkedListAttr_t *list);
+//  226 static bdbLinkedListAttrItem_t *bdb_linkedListAttrGetAtIndex(bdbAttrLinkedListAttr_t *list, uint8 index);
+//  227 //End: Single Linked List methods
+//  228 
+//  229 //Begin: Cluster-endpoint array live methods
+//  230 static void bdb_clusterEndpointArrayInit(void);
+//  231 static uint8 bdb_clusterEndpointArrayAdd(uint8 endpoint, uint16 cluster, uint16 consolidatedMinReportInt, uint16 consolidatedMaxReportInt, uint16 timeSinceLastReport);
+//  232 static uint8 bdb_clusterEndpointArrayGetMin(void);
+//  233 static void bdb_clusterEndpointArrayMoveTo(uint8 indexSrc, uint8 indexDest);
+//  234 static uint8 bdb_clusterEndpointArrayUpdateAt(uint8 index, uint16 newTimeSinceLastReport, uint8 markHasBinding, uint8 noNextIncrement);
+//  235 static void bdb_clusterEndpointArrayFreeAll(void);
+//  236 static uint8 bdb_clusterEndpointArraySearch(uint8 endpoint, uint16 cluster);
+//  237 static uint8 bdb_clusterEndpointArrayRemoveAt(uint8 index);
+//  238 static void bdb_clusterEndpointArrayIncrementAll(uint16 timeSinceLastReportIncrement, uint8 CheckNoIncrementFlag);
+//  239 //End: Cluster-endpoint array live methods
+//  240 
+//  241 //Begin: Single linked list default attr cfg records methods
+//  242 static void bdb_repAttrDefaultCfgRecordInitValues(bdbReportAttrDefaultCfgData_t *item);
+//  243 static void bdb_repAttrDefaultCfgRecordsLinkedListInit(bdbRepAttrDefaultCfgRecordLinkedList_t *list);
+//  244 static uint8 bdb_repAttrDefaultCfgRecordsLinkedListAdd(bdbRepAttrDefaultCfgRecordLinkedList_t *list, bdbReportAttrDefaultCfgData_t *data);
+//  245 static bdbRepAttrDefaultCfgRecordLinkedListItem_t *bdb_repAttrDefaultCfgRecordsLinkedListSearch(bdbRepAttrDefaultCfgRecordLinkedList_t *list, bdbReportAttrDefaultCfgData_t searchdata);
+//  246 static bdbReportAttrDefaultCfgData_t *bdb_repAttrDefaultCfgRecordsLinkedListRemove(bdbRepAttrDefaultCfgRecordLinkedList_t *list);
+//  247 static uint8 bdb_repAttrDefaultCfgRecordsLinkedListFreeAll(bdbRepAttrDefaultCfgRecordLinkedList_t *list);
+//  248 //End: Single linked list default attr cfg records methods
+//  249 
+//  250 //Begin: Reporting attr configuration array methods
+//  251 static void bdb_repAttrCfgRecordsArrayInit(void);
+//  252 static uint8 bdb_repAttrCfgRecordsArrayCreate(uint8 maxNumRepAttrConfRecords);
+//  253 static uint8 bdb_repAttrCfgRecordsArrayAdd(uint8 endpoint, uint16 cluster, uint16 attrID, uint16 minReportInt, uint16 maxReportInt, uint8 reportableChange[], uint16 defMinReportInt, uint16 defMaxReportInt, uint8 defReportChange[]);
+//  254 static void bdb_repAttrCfgRecordsArrayFreeAll(void);
+//  255 static uint8 bdb_repAttrCfgRecordsArraySearch(uint8 endpoint, uint16 cluster, uint16 attrID);
+//  256 static uint8 bdb_repAttrCfgRecordsArrayConsolidateValues(uint8 endpoint, uint16 cluster, uint16 *consolidatedMinReportInt, uint16 *consolidatedMaxReportInt);
+//  257 //End: Reporting attr configuration array methods
+//  258 
+//  259 
+//  260 static uint8 bdb_repAttrBuildClusterEndPointArrayBasedOnConfRecordsArray(void);
+//  261 static uint8 bdb_RepConstructAttrCfgArray(void);
+//  262 static void bdb_RepInitAttrCfgRecords(void);
+//  263 
+//  264 static endPointDesc_t *bdb_FindEpDesc(uint8 endPoint);
+//  265 static uint8 bdb_RepFindAttrEntry(uint8 endpoint, uint16 cluster, uint16 attrID, zclAttribute_t *attrRes);
+//  266 static uint8 bdb_RepLoadCfgRecords(void);
+//  267 static uint8 bdb_isAttrValueChangedSurpassDelta(uint8 datatype, uint8 *delta, uint8 *curValue, uint8 *lastValue);
+//  268 static uint16 bdb_RepCalculateEventElapsedTime(uint32 remainingTimeoutTimer, uint16 nextEventTimeout);
+//  269 static void bdb_RepRestartNextEventTimer(void);
+//  270 
+//  271 static void bdb_RepStartReporting(void);
+//  272 static void bdb_RepStopEventTimer(void);
+//  273 static void bdb_RepSetupReporting(void);
+//  274 static void bdb_RepReport(uint8 indexClusterEndpoint);
+//  275 
+//  276 extern zclAttrRecsList *zclFindAttrRecsList(uint8 endpoint);   //Definition is located in zcl.h
+//  277 
+//  278 /*********************************************************************
+//  279  * PUBLIC FUNCTIONS DEFINITIONS
+//  280  */
+//  281 
+//  282 /*********************************************************************
+//  283  * @fn          bdb_RepInit
+//  284  *
+//  285  * @brief       Initiates the tables and linked list used in the reporting code.
+//  286  *
+//  287  * @param       none
+//  288  *
+//  289  * @return      none
+//  290  */
+//  291 void bdb_RepInit(void)
+//  292 {
+//  293 	bdb_reportingNextEventTimeout = 0;
+//  294 	bdb_reportingAcceptDefaultConfs = BDBREPORTING_TRUE;
+//  295 	bdb_repAttrCfgRecordsArrayInit( );
+//  296 	bdb_repAttrDefaultCfgRecordsLinkedListInit(&attrDefaultCfgRecordLinkedList);
+//  297 	bdb_clusterEndpointArrayInit( );
+//  298 }
+//  299 
+//  300 /*********************************************************************
+//  301  * @fn          bdb_RepConstructReportingData
+//  302  *
+//  303  * @brief       Creates the attr reporting configurations by looking at
+//  304  *              the app endpoints, cluster and attr definitions or loads
+//  305  *              from NV the previous configurations.
+//  306  *
+//  307  * @param       none
+//  308  *
+//  309  * @return      none
+//  310  */
+//  311 void bdb_RepConstructReportingData(void)
+//  312 {
+//  313 	//Don't accept anymore default attribute configurations entries
+//  314 	bdb_reportingAcceptDefaultConfs = BDBREPORTING_FALSE;
+//  315 	//Construct the attr cfg records
+//  316 	bdb_RepInitAttrCfgRecords( );
+//  317 	//Construct the endpoint-cluster array
+//  318 	bdb_repAttrBuildClusterEndPointArrayBasedOnConfRecordsArray( );
+//  319 	//Delete reporting configuration array, it's saved in NV
+//  320 	bdb_repAttrCfgRecordsArrayFreeAll( );
+//  321 }
+//  322 
+//  323 /*********************************************************************
+//  324  * @fn          bdb_RepMarkHasBindingInEndpointClusterArray
+//  325  *
+//  326  * @brief       Marks the binding flag as ON at the entry containig the
+//  327  *              cluster-endpoint pair.
+//  328  *
+//  329  * @param       endpoint - endpoint id of the entry to locate
+//  330  * @param       cluster - cluster id of the entry to locate
+//  331  *
+//  332  * @return      none
+//  333  */
+//  334 void bdb_RepMarkHasBindingInEndpointClusterArray(uint8 endpoint, uint16 cluster, uint8 unMark, uint8 setNoNextIncrementFlag)
+//  335 {
+//  336 	uint8 foundIndex;
+//  337 
+//  338 	if (bdb_reportingClusterEndpointArrayCount > 0) {
+//  339 		foundIndex = bdb_clusterEndpointArraySearch(endpoint, cluster);
+//  340 		if (foundIndex != BDBREPORTING_INVALIDINDEX) {
+//  341 			if (unMark == BDBREPORTING_TRUE)
+//  342 				bdb_clusterEndpointArrayUpdateAt(foundIndex, 0, BDBREPORTING_FALSE, setNoNextIncrementFlag);
+//  343 			else
+//  344 				bdb_clusterEndpointArrayUpdateAt(foundIndex, 0, BDBREPORTING_TRUE, setNoNextIncrementFlag);
+//  345 		}
+//  346 	}
+//  347 }
+//  348 
+//  349 /*********************************************************************
+//  350  * @fn          bdb_RepStartReporting
+//  351  *
+//  352  * @brief       Restarts the periodic reporting timer, if the timer was already
+//  353  *              running it stops it and to before starting timer sets some state
+//  354  *              variables.
+//  355  *
+//  356  * @return      none
+//  357  */
+//  358 static void bdb_RepStartReporting(void)
+//  359 {
+//  360 	//Stop if reporting timer is active
+//  361 	if (!osal_get_timeoutEx(bdb_TaskID, BDB_REPORT_TIMEOUT)) {
+//  362 		//timerElapsedTime is zero
+//  363 		osal_stop_timerEx(bdb_TaskID, BDB_REPORT_TIMEOUT);
+//  364 		bdb_reportingNextEventTimeout = 0;
+//  365 		bdb_reportingNextClusterEndpointIndex = BDBREPORTING_INVALIDINDEX;
+//  366 		//Start Timer
+//  367 		bdb_RepRestartNextEventTimer( );
+//  368 	}
+//  369 }
+//  370 
+//  371 /*********************************************************************
+//  372  * @fn          bdb_RepStartOrContinueReporting
+//  373  *
+//  374  * @brief       Restarts the periodic reporting timer, if the timer was already
+//  375  *              running it calculates the remaining time of timer before stopping it,
+//  376  *              then sustracts this elapsed time from the next event endpoint-cluster
+//  377  *              table.
+//  378  *
+//  379  * @return      none
+//  380  */
+//  381 void bdb_RepStartOrContinueReporting(void)
+//  382 {
+//  383 	//Stop if reporting timer is active
+//  384 	uint32 remainingTimeOfEvent = osal_get_timeoutEx(bdb_TaskID, BDB_REPORT_TIMEOUT);
+//  385 
+//  386 	if (remainingTimeOfEvent == 0) {
+//  387 		//Timer was not running
+//  388 		bdb_RepStartReporting( );
+//  389 	} else {
+//  390 		uint16 elapsedTime = bdb_RepCalculateEventElapsedTime(remainingTimeOfEvent, bdb_reportingNextEventTimeout);
+//  391 		bdb_RepStopEventTimer( );
+//  392 
+//  393 		bdb_clusterEndpointArrayIncrementAll(elapsedTime, BDBREPORTING_TRUE);
+//  394 		bdb_RepStartReporting( );
+//  395 	}
+//  396 }
+//  397 
+//  398 /*********************************************************************
+//  399  * @fn          bdb_RepCalculateEventElapsedTime
+//  400  *
+//  401  * @brief       Calculate the elapsed time of the currently running timer,
+//  402  *              the remaining time is roundup.
+//  403  *
+//  404  * @param       remainingTimeoutTimer - timeout value from the osal_get_timeoutEx method,
+//  405  *              its in milliseconds units
+//  406  * @param       nextEventTimeout - the timeout given to the timer when it started
+//  407  *
+//  408  * @return      the elapsed time in seconds
+//  409  */
+//  410 static uint16 bdb_RepCalculateEventElapsedTime(uint32 remainingTimeoutTimer, uint16 nextEventTimeout)
+//  411 {
+//  412 	uint32 passTimeOfEvent = 0;
+//  413 	uint32 nextEventTimeout_32 = (uint32)nextEventTimeout;
+//  414 
+//  415 	passTimeOfEvent = nextEventTimeout_32 * 1000 >= remainingTimeoutTimer ? nextEventTimeout_32 * 1000 - remainingTimeoutTimer : 0;
+//  416 	uint16 elapsedTime = passTimeOfEvent / 1000;
+//  417 	elapsedTime = elapsedTime + ((passTimeOfEvent % 1000) > 0 ? 1 : 0); //roundup
+//  418 	return elapsedTime;
+//  419 }
+//  420 
+//  421 /*********************************************************************
+//  422  * @fn          bdb_RepProcessEvent
+//  423  *
+//  424  * @brief       Method that process the timer expired event in the reporting
+//  425  *              code, it calculate the next cluster-endpoint entry based
+//  426  *              on the minimum with consolidatedMaxReportInt - timeSinceLastReport,
+//  427  *              updates timeSinceLastReport of all entries. If the minimum is zero,
+//  428  *              report the cluster-endpoint attrs.
+//  429  *
+//  430  * @return      none
+//  431  */
+//  432 void bdb_RepProcessEvent(void)
+//  433 {
+//  434 	bdb_clusterEndpointArrayIncrementAll(bdb_reportingNextEventTimeout, BDBREPORTING_FALSE);
+//  435 	uint8 minIndex = bdb_clusterEndpointArrayGetMin( );
+//  436 	if (minIndex == BDBREPORTING_INVALIDINDEX)
+//  437 		return;
+//  438 	uint16 minVal = bdb_reportingClusterEndpointArray[minIndex].consolidatedMaxReportInt - bdb_reportingClusterEndpointArray[minIndex].timeSinceLastReport;
+//  439 	if (minVal > 0) {
+//  440 		bdb_reportingNextEventTimeout = minVal;
+//  441 	} else {
+//  442 		//Something was triggered, report clusterEndpoint with minIndex
+//  443 		bdb_reportingNextClusterEndpointIndex = minIndex;
+//  444 		bdb_RepReport(BDBREPORTING_INVALIDINDEX);
+//  445 		bdb_clusterEndpointArrayUpdateAt(minIndex, 0, BDBREPORTING_IGNORE, BDBREPORTING_IGNORE);
+//  446 		bdb_reportingNextEventTimeout = 0;
+//  447 	}
+//  448 	bdb_RepRestartNextEventTimer( );
+//  449 }
+//  450 
+//  451 /*********************************************************************
+//  452  * @fn      bdb_ProcessInConfigReportCmd
+//  453  *
+//  454  * @brief   Process the "Profile" Configure Reporting Command
+//  455  *
+//  456  * @param   pInMsg - incoming message to process
+//  457  *
+//  458  * @return  TRUE if conditions are meet (attr found, memory available, etc.),
+//  459  *          FALSE if not
+//  460  */
+//  461 uint8 bdb_ProcessInConfigReportCmd(zclIncomingMsg_t *pInMsg)
+//  462 {
+//  463 	zclCfgReportCmd_t *cfgReportCmd;
+//  464 	zclCfgReportRec_t *reportRec;
+//  465 	zclCfgReportRspCmd_t *cfgReportRspCmd;
+//  466 	zclAttrRec_t attrRec;
+//  467 	uint8 status = ZCL_STATUS_SUCCESS;
+//  468 	uint8 i;
+//  469 	uint8 iNumRspRecords;
+//  470 
+//  471 	// Find Ep Descriptor
+//  472 	endPointDesc_t *epDescriptor = bdb_FindEpDesc(pInMsg->endPoint);
+//  473 
+//  474 	if (epDescriptor == NULL)
+//  475 		return FALSE;
+//  476 
+//  477 	// get a pointer to the report configuration record
+//  478 	cfgReportCmd = (zclCfgReportCmd_t *)pInMsg->attrCmd;
+//  479 
+//  480 	if (cfgReportCmd->numAttr == 0)
+//  481 		return FALSE;
+//  482 
+//  483 	// Allocate space for the response command
+//  484 	cfgReportRspCmd = (zclCfgReportRspCmd_t *)osal_mem_alloc(sizeof(zclCfgReportRspCmd_t) +
+//  485 								 (cfgReportCmd->numAttr * sizeof(zclCfgReportStatus_t)));
+//  486 	if (cfgReportRspCmd == NULL)
+//  487 		return FALSE;
+//  488 
+//  489 	//stop any attribute reporting
+//  490 	bdb_RepStopEventTimer( );
+//  491 
+//  492 	//Load cfg records from NV
+//  493 	status = bdb_RepLoadCfgRecords( );
+//  494 	if (status != BDBREPORTING_SUCCESS) {
+//  495 		osal_mem_free(cfgReportRspCmd);
+//  496 		return FALSE;
+//  497 	}
+//  498 
+//  499 	// Process each Attribute Reporting Configuration record
+//  500 	uint8 confchanged = BDBREPORTING_FALSE;
+//  501 	iNumRspRecords = 0;
+//  502 	for (i = 0; i < cfgReportCmd->numAttr; i++) {
+//  503 		reportRec = &(cfgReportCmd->attrList[i]);
+//  504 
+//  505 		status = ZCL_STATUS_SUCCESS; // assume success for this rsp record
+//  506 
+//  507 		uint8 atrrCfgRecordIndex = bdb_repAttrCfgRecordsArraySearch(pInMsg->endPoint, pInMsg->clusterId, reportRec->attrID);
+//  508 		uint8 status2 = zclFindAttrRec(pInMsg->endPoint, pInMsg->clusterId, reportRec->attrID, &attrRec);
+//  509 		if (atrrCfgRecordIndex == BDBREPORTING_INVALIDINDEX || status2 == 0) {
+//  510 			//No cfg record found,
+//  511 			status = ZCL_STATUS_INVALID_VALUE;
+//  512 		} else {
+//  513 			if (reportRec->direction == ZCL_SEND_ATTR_REPORTS) {
+//  514 				if (reportRec->dataType == attrRec.attr.dataType) {
+//  515 					// This the attribute that is to be reported, for now pass all attrs
+//  516 					if (attrRec.attr.accessControl & ACCESS_REPORTABLE) {
+//  517 						if (reportRec->minReportInt == BDBREPORTING_MININTERVAL_DEFAULT && reportRec->maxReportInt == BDBREPORTING_MAXINTERVAL_DEFAULT) {
+//  518 							//Set the saved default configuration
+//  519 							confchanged = BDBREPORTING_TRUE;
+//  520 							bdb_reportingAttrCfgRecordsArray[atrrCfgRecordIndex].minReportInt = bdb_reportingAttrCfgRecordsArray[atrrCfgRecordIndex].defaultMinReportInt;
+//  521 							bdb_reportingAttrCfgRecordsArray[atrrCfgRecordIndex].maxReportInt = bdb_reportingAttrCfgRecordsArray[atrrCfgRecordIndex].defaultMaxReportInt;
+//  522 							osal_memset(bdb_reportingAttrCfgRecordsArray[atrrCfgRecordIndex].reportableChange, 0x00, BDBREPORTING_MAX_ANALOG_ATTR_SIZE);
+//  523 							osal_memcpy(bdb_reportingAttrCfgRecordsArray[atrrCfgRecordIndex].reportableChange, bdb_reportingAttrCfgRecordsArray[atrrCfgRecordIndex].defaultReportableChange, BDBREPORTING_MAX_ANALOG_ATTR_SIZE);
+//  524 							status = ZCL_STATUS_SUCCESS;
+//  525 						} else {
+//  526 							// valid configuration, change values
+//  527 							confchanged = BDBREPORTING_TRUE;
+//  528 							bdb_reportingAttrCfgRecordsArray[atrrCfgRecordIndex].minReportInt = reportRec->minReportInt;
+//  529 							bdb_reportingAttrCfgRecordsArray[atrrCfgRecordIndex].maxReportInt = reportRec->maxReportInt;
+//  530 							// For attributes of 'discrete' data types this field is omitted
+//  531 							if (zclAnalogDataType(reportRec->dataType)) {
+//  532 								osal_memset(bdb_reportingAttrCfgRecordsArray[atrrCfgRecordIndex].reportableChange, 0x00, BDBREPORTING_MAX_ANALOG_ATTR_SIZE);
+//  533 								osal_memcpy(bdb_reportingAttrCfgRecordsArray[atrrCfgRecordIndex].reportableChange, reportRec->reportableChange, zclGetDataTypeLength(reportRec->dataType));
+//  534 							}
+//  535 							status = ZCL_STATUS_SUCCESS;
+//  536 						}
+//  537 					} else {
+//  538 						// Attribute cannot be reported
+//  539 						status = ZCL_STATUS_UNREPORTABLE_ATTRIBUTE;
+//  540 					}
+//  541 				} else {
+//  542 					// Attribute data type is incorrect
+//  543 					status = ZCL_STATUS_INVALID_DATA_TYPE;
+//  544 				}
+//  545 			}
+//  546 			// receiving reports
+//  547 			else {
+//  548 				status = ZCL_STATUS_SUCCESS;
+//  549 			}
+//  550 		}
+//  551 
+//  552 		// If not successful then record the status
+//  553 		if (status != ZCL_STATUS_SUCCESS) {
+//  554 			cfgReportRspCmd->attrList[iNumRspRecords].status = status;
+//  555 			cfgReportRspCmd->attrList[iNumRspRecords].direction = reportRec->direction;
+//  556 			cfgReportRspCmd->attrList[iNumRspRecords].attrID = reportRec->attrID;
+//  557 			++iNumRspRecords;
+//  558 		}
+//  559 	} // going through each attribute
+//  560 
+//  561 	if (confchanged == BDBREPORTING_TRUE) {
+//  562 		//Write new configs into NV
+//  563 		status = osal_nv_item_init(ZCD_NV_BDBREPORTINGCONFIG, sizeof(bdbReportAttrCfgData_t) * bdb_reportingAttrCfgRecordsArrayCount, bdb_reportingAttrCfgRecordsArray);
+//  564 		if (status == SUCCESS)
+//  565 			//Overwrite values
+//  566 			osal_nv_write(ZCD_NV_BDBREPORTINGCONFIG, 0, sizeof(bdbReportAttrCfgData_t) * bdb_reportingAttrCfgRecordsArrayCount, bdb_reportingAttrCfgRecordsArray);
+//  567 
+//  568 		bdb_RepSetupReporting( );
+//  569 	}
+//  570 
+//  571 	// if no response records, then just say 1 with status of success
+//  572 	cfgReportRspCmd->numAttr = iNumRspRecords;
+//  573 	if (cfgReportRspCmd->numAttr == 0) {
+//  574 		// Since all attributes were configured successfully, include a single
+//  575 		// attribute status record in the response command with the status field
+//  576 		// set to SUCCESS and the attribute ID field and direction omitted.
+//  577 		cfgReportRspCmd->attrList[0].status = ZCL_STATUS_SUCCESS;
+//  578 		cfgReportRspCmd->numAttr = 1;
+//  579 	}
+//  580 
+//  581 	// Send the response back
+//  582 	zcl_SendConfigReportRspCmd(pInMsg->endPoint, &(pInMsg->srcAddr),
+//  583 				   pInMsg->clusterId, cfgReportRspCmd, ZCL_FRAME_SERVER_CLIENT_DIR,
+//  584 				   true, pInMsg->zclHdr.transSeqNum);
+//  585 	osal_mem_free(cfgReportRspCmd);
+//  586 
+//  587 	bdb_repAttrCfgRecordsArrayFreeAll( ); //Free reporting conf array from memory, its saved in NV
+//  588 
+//  589 	bdb_RepStartReporting( );
+//  590 
+//  591 	return TRUE;
+//  592 }
+//  593 
+//  594 
+//  595 /*********************************************************************
+//  596  * @fn      bdb_ProcessInReadReportCfgCmd
+//  597  *
+//  598  * @brief   Process the "Profile" Read Reporting Configuration Command
+//  599  *
+//  600  * @param   pInMsg - incoming message to process
+//  601  *
+//  602  * @return  TRUE if conditions are meet (attr found, memory available, etc.) or FALSE
+//  603  */
+//  604 uint8 bdb_ProcessInReadReportCfgCmd(zclIncomingMsg_t *pInMsg)
+//  605 {
+//  606 	zclReadReportCfgCmd_t *readReportCfgCmd;
+//  607 	zclReadReportCfgRspCmd_t *readReportCfgRspCmd;
+//  608 	zclReportCfgRspRec_t *reportRspRec;
+//  609 	uint8 hdrLen;
+//  610 	uint8 dataLen = 0;
+//  611 	zclAttrRec_t attrRec;
+//  612 	uint8 i;
+//  613 	uint8 reportChangeLen;
+//  614 	uint8 status;
+//  615 
+//  616 	// Find Ep Descriptor
+//  617 	endPointDesc_t *epDescriptor = bdb_FindEpDesc(pInMsg->endPoint);
+//  618 
+//  619 	if (epDescriptor == NULL)
+//  620 		return FALSE; // EMBEDDED RETURN
+//  621 
+//  622 	readReportCfgCmd = (zclReadReportCfgCmd_t *)pInMsg->attrCmd;
+//  623 
+//  624 	// Find out the response length (Reportable Change field is of variable length)
+//  625 	for (i = 0; i < readReportCfgCmd->numAttr; i++) {
+//  626 		// For supported attributes with 'analog' data type, find out the length of
+//  627 		// the Reportable Change field
+//  628 		if (zclFindAttrRec(epDescriptor->endPoint, pInMsg->clusterId,
+//  629 				   readReportCfgCmd->attrList[i].attrID, &attrRec)) {
+//  630 			if (zclAnalogDataType(attrRec.attr.dataType)) {
+//  631 				reportChangeLen = zclGetDataTypeLength(attrRec.attr.dataType);
+//  632 
+//  633 				// add padding if needed
+//  634 				if (PADDING_NEEDED(reportChangeLen))
+//  635 					reportChangeLen++;
+//  636 				dataLen += reportChangeLen;
+//  637 			}
+//  638 		}
+//  639 	}
+//  640 
+//  641 	hdrLen = sizeof(zclReadReportCfgRspCmd_t) + (readReportCfgCmd->numAttr * sizeof(zclReportCfgRspRec_t));
+//  642 
+//  643 	// Allocate space for the response command
+//  644 	readReportCfgRspCmd = (zclReadReportCfgRspCmd_t *)osal_mem_alloc(hdrLen + dataLen);
+//  645 	if (readReportCfgRspCmd == NULL)
+//  646 		return FALSE; // Out of memory
+//  647 
+//  648 	//Load cfg records from NV
+//  649 	status = bdb_RepLoadCfgRecords( );
+//  650 	if (status != BDBREPORTING_SUCCESS) {
+//  651 		osal_mem_free(readReportCfgRspCmd);
+//  652 		return FALSE; //Out of memory
+//  653 	}
+//  654 
+//  655 	readReportCfgRspCmd->numAttr = 0;
+//  656 	for (i = 0; i < readReportCfgCmd->numAttr; i++) {
+//  657 		reportRspRec = &(readReportCfgRspCmd->attrList[i]);
+//  658 		status = ZCL_STATUS_SUCCESS; // assume success for this rsp record
+//  659 
+//  660 		uint8 atrrCfgRecordIndex = bdb_repAttrCfgRecordsArraySearch(pInMsg->endPoint, pInMsg->clusterId, readReportCfgCmd->attrList[i].attrID);
+//  661 		uint8 status2 = zclFindAttrRec(pInMsg->endPoint, pInMsg->clusterId, readReportCfgCmd->attrList[i].attrID, &attrRec);
+//  662 		if (atrrCfgRecordIndex != BDBREPORTING_INVALIDINDEX && status2) {
+//  663 			if (attrRec.attr.accessControl & ACCESS_REPORTABLE) {
+//  664 				// Get the Reporting Configuration
+//  665 				reportRspRec->dataType = attrRec.attr.dataType;
+//  666 				reportRspRec->minReportInt = bdb_reportingAttrCfgRecordsArray[atrrCfgRecordIndex].minReportInt;
+//  667 				reportRspRec->maxReportInt = bdb_reportingAttrCfgRecordsArray[atrrCfgRecordIndex].maxReportInt;
+//  668 				reportRspRec->reportableChange = bdb_reportingAttrCfgRecordsArray[atrrCfgRecordIndex].reportableChange;
+//  669 			} else {
+//  670 				// Attribute not in the Mandatory Reportable Attribute list
+//  671 				status = ZCL_STATUS_UNREPORTABLE_ATTRIBUTE;
+//  672 			}
+//  673 		} else {
+//  674 			// Attribute not found
+//  675 			status = ZCL_STATUS_UNSUPPORTED_ATTRIBUTE;
+//  676 		}
+//  677 		reportRspRec->status = status;
+//  678 		reportRspRec->direction = readReportCfgCmd->attrList[i].direction;
+//  679 		reportRspRec->attrID = readReportCfgCmd->attrList[i].attrID;
+//  680 		readReportCfgRspCmd->numAttr++;
+//  681 	}
+//  682 
+//  683 	// Send the response back
+//  684 	zcl_SendReadReportCfgRspCmd(pInMsg->endPoint, &(pInMsg->srcAddr),
+//  685 				    pInMsg->clusterId, readReportCfgRspCmd, ZCL_FRAME_SERVER_CLIENT_DIR,
+//  686 				    true, pInMsg->zclHdr.transSeqNum);
+//  687 	osal_mem_free(readReportCfgRspCmd);
+//  688 
+//  689 	bdb_repAttrCfgRecordsArrayFreeAll( );//Free reporting cfg array from memory, its saved in NV
+//  690 
+//  691 	return TRUE;
+//  692 }
+//  693 
+//  694 
+//  695 void bdb_RepUpdateMarkBindings(void)
+//  696 {
+//  697 	uint8 numMarkedEntries = 0;
+//  698 	uint8 i;
+//  699 
+//  700 	for (i = 0; i < bdb_reportingClusterEndpointArrayCount; i++) {
+//  701 		BindingEntry_t *bEntry = bindFind(bdb_reportingClusterEndpointArray[i].endpoint, bdb_reportingClusterEndpointArray[i].cluster, 0);
+//  702 		if (bEntry != NULL) { //Found a binding with the given cluster and endpoint, mark the Endpoint-cluster entry (this activates reporting)
+//  703 			if (FLAGS_CHECKFLAG(bdb_reportingClusterEndpointArray[i].flags, BDBREPORTING_HASBINDING_FLAG_MASK) == BDBREPORTING_FALSE)
+//  704 				bdb_RepMarkHasBindingInEndpointClusterArray(bdb_reportingClusterEndpointArray[i].endpoint, bdb_reportingClusterEndpointArray[i].cluster, BDBREPORTING_FALSE, BDBREPORTING_IGNORE);
+//  705 			numMarkedEntries++;
+//  706 		} else {
+//  707 			if (FLAGS_CHECKFLAG(bdb_reportingClusterEndpointArray[i].flags, BDBREPORTING_HASBINDING_FLAG_MASK) == BDBREPORTING_TRUE)
+//  708 				bdb_RepMarkHasBindingInEndpointClusterArray(bdb_reportingClusterEndpointArray[i].endpoint, bdb_reportingClusterEndpointArray[i].cluster, BDBREPORTING_TRUE, BDBREPORTING_IGNORE);
+//  709 		}
+//  710 	}
+//  711 
+//  712 	//Checking is bdb_reporting timer is active
+//  713 	if (osal_get_timeoutEx(bdb_TaskID, BDB_REPORT_TIMEOUT) > 0) {
+//  714 		//If timer is active
+//  715 		if (numMarkedEntries == 0) //No entries
+//  716 
+//  717 			//Stop Timer
+//  718 			osal_stop_timerEx(bdb_TaskID, BDB_REPORT_TIMEOUT);
+//  719 	} else {
+//  720 		if (numMarkedEntries > 0)
+//  721 			//Start timer
+//  722 			bdb_RepStartReporting( );
+//  723 	}
+//  724 }
+//  725 
+//  726 /*********************************************************************
+//  727  * LOCAL FUNCTIONS DEFINITIONS
+//  728  */
+//  729 
+//  730 /*
+//  731  * Begin: Single linked list for attributes in a cluster-endpoint live entry methods
+//  732  */
+//  733 
+//  734 /*********************************************************************
+//  735  * @fn      bdb_InitReportAttrLiveValues
+//  736  *
+//  737  * @brief   Set the bdbReportAttrLive_t fields to initiation values
+//  738  *
+//  739  * @param   item - Data to initiate
+//  740  *
+//  741  * @return
+//  742  */
+//  743 static void bdb_InitReportAttrLiveValues(bdbReportAttrLive_t *item)
+//  744 {
+//  745 	uint8 i;
+//  746 
+//  747 	for (i = 0; i < BDBREPORTING_MAX_ANALOG_ATTR_SIZE; i++) {
+//  748 		item->lastValueReported[i] = 0x00;
+//  749 		item->reportableChange[i] = 0x00;
+//  750 	}
+//  751 	item->attrID = 0x0000;
+//  752 }
+//  753 
+//  754 /*********************************************************************
+//  755  * @fn      bdb_linkedListAttrInit
+//  756  *
+//  757  * @brief   Initates a linked list for the attrs in the cluster-endpoint entry
+//  758  *
+//  759  * @param   list - Pointer to linked list
+//  760  *
+//  761  * @return
+//  762  */
+//  763 static void bdb_linkedListAttrInit(bdbAttrLinkedListAttr_t *list)
+//  764 {
+//  765 	list->head = NULL;
+//  766 	list->numItems = 0;
+//  767 }
+//  768 
+//  769 /*********************************************************************
+//  770  * @fn      bdb_linkedListAttrAdd
+//  771  *
+//  772  * @brief   Initates a linked list for the attrs in the cluster-endpoint entry
+//  773  *
+//  774  * @param   list - Pointer to linked list
+//  775  *
+//  776  * @return  Status code (BDBREPORTING_SUCCESS or BDBREPORTING_ERROR)
+//  777  */
+//  778 static uint8 bdb_linkedListAttrAdd(bdbAttrLinkedListAttr_t *list, bdbReportAttrLive_t *data)
+//  779 {
+//  780 	bdbLinkedListAttrItem_t *newItem = (bdbLinkedListAttrItem_t *)osal_mem_alloc(sizeof(bdbLinkedListAttrItem_t));
+//  781 
+//  782 	if (newItem == NULL)
+//  783 		return BDBREPORTING_ERROR;
+//  784 	newItem->data = data;
+//  785 	newItem->next = list->head;
+//  786 	list->head = newItem;
+//  787 	list->numItems++;
+//  788 	return BDBREPORTING_SUCCESS;
+//  789 }
+//  790 
+//  791 /*********************************************************************
+//  792  * @fn      bdb_linkedListAttrSearch
+//  793  *
+//  794  * @brief   Travers the linked list and search for a node (bdbReportAttrLive_t
+//  795  *          data) with a specific attrID
+//  796  *
+//  797  * @param   list - Pointer to linked list
+//  798  * @param   searchdata - data to search the list (has a specific attrID)
+//  799  *
+//  800  * @return  A pointer to the node in the list has the searched data, NULL if
+//  801  *          not found
+//  802  */
+//  803 static bdbLinkedListAttrItem_t *bdb_linkedListAttrSearch(bdbAttrLinkedListAttr_t *list, bdbReportAttrLive_t *searchdata)
+//  804 {
+//  805 	bdbLinkedListAttrItem_t *cur = list->head;
+//  806 
+//  807 	while (cur != NULL) {
+//  808 		if (EQUAL_LLISTITEMDATA((*(cur->data)), (*searchdata)))
+//  809 			return cur;
+//  810 		cur = cur->next;
+//  811 	}
+//  812 	return NULL;
+//  813 }
+//  814 
+//  815 /*********************************************************************
+//  816  * @fn      bdb_linkedListAttrRemove
+//  817  *
+//  818  * @brief   Remove the head node from the list
+//  819  *
+//  820  * @param   list - Pointer to linked list
+//  821  *
+//  822  * @return  A pointer to the data part of the deleted node, NULL if no node was deleted
+//  823  */
+//  824 static bdbReportAttrLive_t *bdb_linkedListAttrRemove(bdbAttrLinkedListAttr_t *list)
+//  825 {
+//  826 	bdbReportAttrLive_t *resdata = NULL;
+//  827 	bdbLinkedListAttrItem_t *cur = list->head;
+//  828 
+//  829 	if (list->head == NULL)
+//  830 		return NULL;
+//  831 	list->head = cur->next;
+//  832 	resdata = cur->data;
+//  833 	osal_mem_free(cur);
+//  834 	list->numItems--;
+//  835 	return resdata;
+//  836 }
+//  837 
+//  838 /*********************************************************************
+//  839  * @fn      bdb_linkedListAttrFreeAll
+//  840  *
+//  841  * @brief   Deletes and deallocates all the memory from the linked list
+//  842  *
+//  843  * @param   list - Pointer to linked list
+//  844  *
+//  845  * @return  BDBREPORTING_SUCCESS if operation was successful
+//  846  */
+//  847 static uint8 bdb_linkedListAttrFreeAll(bdbAttrLinkedListAttr_t *list)
+//  848 {
+//  849 	bdbReportAttrLive_t *toremovedata;
+//  850 
+//  851 	while (list->head != NULL) {
+//  852 		toremovedata = bdb_linkedListAttrRemove(list);
+//  853 		osal_mem_free(toremovedata);
+//  854 	}
+//  855 	return BDBREPORTING_SUCCESS;
+//  856 }
+//  857 
+//  858 /*********************************************************************
+//  859  * @fn      bdb_linkedListAttrClearList
+//  860  *
+//  861  * @brief   Clears the list without freeing the nodes memory
+//  862  *
+//  863  * @param   list - Pointer to linked list
+//  864  *
+//  865  * @return
+//  866  */
+//  867 static void bdb_linkedListAttrClearList(bdbAttrLinkedListAttr_t *list)
+//  868 {
+//  869 	list->head = NULL;
+//  870 	list->numItems = 0;
+//  871 }
+//  872 
+//  873 /*********************************************************************
+//  874  * @fn      bdb_linkedListAttrGetAtIndex
+//  875  *
+//  876  * @brief   Returns the ith element of the list starting from the head
+//  877  *
+//  878  * @param   list - Pointer to linked list
+//  879  *
+//  880  * @return  A pointer to the ith node element
+//  881  */
+//  882 static bdbLinkedListAttrItem_t *bdb_linkedListAttrGetAtIndex(bdbAttrLinkedListAttr_t *list, uint8 index)
+//  883 {
+//  884 	if (index > list->numItems - 1)
+//  885 		return NULL;
+//  886 	bdbLinkedListAttrItem_t *cur = list->head;
+//  887 	uint8 i;
+//  888 	for (i = 0; i <= index; i++) {
+//  889 		if (cur == NULL)
+//  890 			return NULL;
+//  891 		if (i < index)
+//  892 			cur = cur->next;
+//  893 	}
+//  894 	return cur;
+//  895 }
+//  896 
+//  897 /*
+//  898  * End: Single linked list for attributes in a cluster-endpoint entry methods
+//  899  */
+//  900 
+//  901 
+//  902 /*
+//  903  * Begin: Cluster-endpoint array live methods
+//  904  */
+//  905 
+//  906 /*********************************************************************
+//  907  * @fn      bdb_clusterEndpointArrayInit
+//  908  *
+//  909  * @brief   Initiates the clusterEndpoint array variables
+//  910  *
+//  911  * @return
+//  912  */
+//  913 static void bdb_clusterEndpointArrayInit(void)
+//  914 {
+//  915 	bdb_reportingClusterEndpointArrayCount = 0;
+//  916 }
+//  917 
+//  918 /*********************************************************************
+//  919  * @fn      bdb_clusterEndpointArrayAdd
+//  920  *
+//  921  * @brief   Adds a new entry to the clusterEndpoint array
+//  922  *
+//  923  * @param   endpoint - Endpoint ID of the entry
+//  924  * @param   cluster - Cluster ID of the entry
+//  925  * @param   consolidatedMinReportInterval - Cluster ID of the entry
+//  926  *
+//  927  *
+//  928  * @return  A pointer to the ith node element
+//  929  */
+//  930 static uint8 bdb_clusterEndpointArrayAdd(uint8 endpoint, uint16 cluster, uint16 consolidatedMinReportInt, uint16 consolidatedMaxReportInt, uint16 timeSinceLastReport)
+//  931 {
+//  932 	if (bdb_reportingClusterEndpointArrayCount >= BDB_MAX_CLUSTERENDPOINTS_REPORTING)
+//  933 		return BDBREPORTING_ERROR;
+//  934 	bdb_reportingClusterEndpointArray[bdb_reportingClusterEndpointArrayCount].endpoint = endpoint;
+//  935 	bdb_reportingClusterEndpointArray[bdb_reportingClusterEndpointArrayCount].cluster = cluster;
+//  936 
+//  937 	bdb_reportingClusterEndpointArray[bdb_reportingClusterEndpointArrayCount].consolidatedMinReportInt = consolidatedMinReportInt;
+//  938 	bdb_reportingClusterEndpointArray[bdb_reportingClusterEndpointArrayCount].consolidatedMaxReportInt = consolidatedMaxReportInt;
+//  939 	bdb_reportingClusterEndpointArray[bdb_reportingClusterEndpointArrayCount].timeSinceLastReport = timeSinceLastReport;
+//  940 	bdb_linkedListAttrInit(&bdb_reportingClusterEndpointArray[bdb_reportingClusterEndpointArrayCount].attrLinkedList);
+//  941 	FLAGS_TURNOFFALLFLAGS(bdb_reportingClusterEndpointArray[bdb_reportingClusterEndpointArrayCount].flags);
+//  942 
+//  943 	bdb_reportingClusterEndpointArrayCount++;
+//  944 	return BDBREPORTING_SUCCESS;
+//  945 }
+//  946 
+//  947 static uint8 bdb_clusterEndpointArrayGetMin(void)
+//  948 {
+//  949 	uint8 indexMin = 0xFF;
+//  950 	uint16 ValueMin = 0xFFFF;
+//  951 	uint16 possibleMin;
+//  952 	uint8 i;
+//  953 
+//  954 	for (i = 0; i < bdb_reportingClusterEndpointArrayCount; i++) {
+//  955 		if (FLAGS_CHECKFLAG(bdb_reportingClusterEndpointArray[i].flags, BDBREPORTING_HASBINDING_FLAG_MASK) == BDBREPORTING_TRUE) { //Only do with valid entries (HasBinding==true)
+//  956 			if (bdb_reportingClusterEndpointArray[i].consolidatedMaxReportInt != BDBREPORTING_NOPERIODIC &&
+//  957 			    bdb_reportingClusterEndpointArray[i].consolidatedMaxReportInt != BDBREPORTING_REPORTOFF) {
+//  958 				//If maxInterval is BDBREPORTING_NOPERIODIC=0x0000 or BDBREPORTING_REPORTOFF=0xFFFF, ignore to calculate min
+//  959 				if (ValueMin == 0)
+//  960 					//stop if we find a minValue of zero because there no other Min less than that
+//  961 					break;
+//  962 				possibleMin = bdb_reportingClusterEndpointArray[i].consolidatedMaxReportInt - bdb_reportingClusterEndpointArray[i].timeSinceLastReport;
+//  963 				if (possibleMin < ValueMin) {
+//  964 					indexMin = i;
+//  965 					ValueMin = possibleMin;
+//  966 				}
+//  967 			}
+//  968 		}
+//  969 	}
+//  970 	return indexMin;
+//  971 }
+//  972 
+//  973 static uint8 bdb_clusterEndpointArrayRemoveAt(uint8 index)
+//  974 {
+//  975 	if (index >= bdb_reportingClusterEndpointArrayCount)
+//  976 		return BDBREPORTING_ERROR;
+//  977 	//Freeing list, all the other fields are not dynamic
+//  978 	bdb_linkedListAttrFreeAll(&bdb_reportingClusterEndpointArray[index].attrLinkedList);
+//  979 	//moving last element to free slot
+//  980 	bdb_clusterEndpointArrayMoveTo(index, bdb_reportingClusterEndpointArrayCount - 1);
+//  981 	bdb_reportingClusterEndpointArrayCount--;
+//  982 	return BDBREPORTING_SUCCESS;
+//  983 }
+//  984 
+//  985 static void bdb_clusterEndpointArrayMoveTo(uint8 indexSrc, uint8 indexDest)
+//  986 {
+//  987 	bdb_reportingClusterEndpointArray[indexSrc].cluster = bdb_reportingClusterEndpointArray[indexDest].cluster;
+//  988 	bdb_reportingClusterEndpointArray[indexSrc].endpoint = bdb_reportingClusterEndpointArray[indexDest].endpoint;
+//  989 	bdb_reportingClusterEndpointArray[indexSrc].consolidatedMaxReportInt = bdb_reportingClusterEndpointArray[indexDest].consolidatedMaxReportInt;
+//  990 	bdb_reportingClusterEndpointArray[indexSrc].consolidatedMinReportInt = bdb_reportingClusterEndpointArray[indexDest].consolidatedMinReportInt;
+//  991 	bdb_reportingClusterEndpointArray[indexSrc].timeSinceLastReport = bdb_reportingClusterEndpointArray[indexDest].timeSinceLastReport;
+//  992 	bdb_reportingClusterEndpointArray[indexSrc].attrLinkedList = bdb_reportingClusterEndpointArray[indexDest].attrLinkedList;
+//  993 	bdb_reportingClusterEndpointArray[indexSrc].flags = bdb_reportingClusterEndpointArray[indexDest].flags;
+//  994 	bdb_linkedListAttrClearList(&bdb_reportingClusterEndpointArray[indexDest].attrLinkedList);
+//  995 }
+//  996 
+//  997 static uint8 bdb_clusterEndpointArrayUpdateAt(uint8 index, uint16 newTimeSinceLastReport, uint8 markHasBinding, uint8 markNoNextIncrement)
+//  998 {
+//  999 	if (index >= bdb_reportingClusterEndpointArrayCount)
+// 1000 		return BDBREPORTING_ERROR;
+// 1001 	bdb_reportingClusterEndpointArray[index].timeSinceLastReport = newTimeSinceLastReport;
+// 1002 	if (markHasBinding != BDBREPORTING_IGNORE) {
+// 1003 		if (markHasBinding == BDBREPORTING_TRUE)
+// 1004 			FLAGS_TURNONFLAG(bdb_reportingClusterEndpointArray[index].flags, BDBREPORTING_HASBINDING_FLAG_MASK);
+// 1005 		else
+// 1006 			FLAGS_TURNOFFFLAG(bdb_reportingClusterEndpointArray[index].flags, BDBREPORTING_HASBINDING_FLAG_MASK);
+// 1007 	}
+// 1008 	if (markNoNextIncrement != BDBREPORTING_IGNORE) {
+// 1009 		if (markNoNextIncrement == BDBREPORTING_TRUE)
+// 1010 			FLAGS_TURNONFLAG(bdb_reportingClusterEndpointArray[index].flags, BDBREPORTING_NONEXTINCREMENT_FLAG_MASK);
+// 1011 		else
+// 1012 			FLAGS_TURNOFFFLAG(bdb_reportingClusterEndpointArray[index].flags, BDBREPORTING_NONEXTINCREMENT_FLAG_MASK);
+// 1013 	}
+// 1014 	return BDBREPORTING_SUCCESS;
+// 1015 }
+// 1016 
+// 1017 static void bdb_clusterEndpointArrayFreeAll( )
+// 1018 {
+// 1019 	uint8 i;
+// 1020 	uint8 numElements = bdb_reportingClusterEndpointArrayCount;
+// 1021 
+// 1022 	for (i = 0; i < numElements; i++)
+// 1023 		bdb_clusterEndpointArrayRemoveAt(0);
+// 1024 }
+// 1025 
+// 1026 static uint8 bdb_clusterEndpointArraySearch(uint8 endpoint, uint16 cluster)
+// 1027 {
+// 1028 	uint8 i;
+// 1029 	uint8 foundIndex = BDBREPORTING_INVALIDINDEX;
+// 1030 
+// 1031 	for (i = 0; i < bdb_reportingClusterEndpointArrayCount; i++) {
+// 1032 		if (bdb_reportingClusterEndpointArray[i].endpoint == endpoint && bdb_reportingClusterEndpointArray[i].cluster == cluster) {
+// 1033 			foundIndex = i;
+// 1034 			break;
+// 1035 		}
+// 1036 	}
+// 1037 	return foundIndex;
+// 1038 }
+// 1039 
+// 1040 static void bdb_clusterEndpointArrayIncrementAll(uint16 timeSinceLastReportIncrement, uint8 CheckNoIncrementFlag)
+// 1041 {
+// 1042 	uint8 i;
+// 1043 	uint8 doIncrement;
+// 1044 
+// 1045 	for (i = 0; i < bdb_reportingClusterEndpointArrayCount; i++) {
+// 1046 		doIncrement = BDBREPORTING_FALSE;
+// 1047 		if (FLAGS_CHECKFLAG(bdb_reportingClusterEndpointArray[i].flags, BDBREPORTING_HASBINDING_FLAG_MASK) == BDBREPORTING_TRUE) {
+// 1048 			//Only do with valid entries (HasBinding==true)
+// 1049 			if (CheckNoIncrementFlag == BDBREPORTING_FALSE) {
+// 1050 				doIncrement = BDBREPORTING_TRUE;
+// 1051 			} else {
+// 1052 				if (FLAGS_CHECKFLAG(bdb_reportingClusterEndpointArray[i].flags, BDBREPORTING_NONEXTINCREMENT_FLAG_MASK) == BDBREPORTING_FALSE)
+// 1053 					doIncrement = BDBREPORTING_TRUE;
+// 1054 			}
+// 1055 			if (doIncrement == BDBREPORTING_TRUE) {
+// 1056 				if (bdb_reportingClusterEndpointArray[i].consolidatedMaxReportInt != BDBREPORTING_NOPERIODIC && bdb_reportingClusterEndpointArray[i].consolidatedMaxReportInt != BDBREPORTING_REPORTOFF) {
+// 1057 					bdb_reportingClusterEndpointArray[i].timeSinceLastReport = (bdb_reportingClusterEndpointArray[i].timeSinceLastReport + timeSinceLastReportIncrement
+// 1058 												    > bdb_reportingClusterEndpointArray[i].consolidatedMaxReportInt) ?
+// 1059 												   bdb_reportingClusterEndpointArray[i].consolidatedMaxReportInt :
+// 1060 												   bdb_reportingClusterEndpointArray[i].timeSinceLastReport + timeSinceLastReportIncrement;
+// 1061 				}
+// 1062 			}
+// 1063 			FLAGS_TURNOFFFLAG(bdb_reportingClusterEndpointArray[i].flags, BDBREPORTING_NONEXTINCREMENT_FLAG_MASK); //Always turn off, one shot functionality
+// 1064 		}
+// 1065 	}
+// 1066 }
+// 1067 
+// 1068 /*
+// 1069  * End: Cluster-endpoint array live data methods
+// 1070  */
+// 1071 
+// 1072 
+// 1073 /*
+// 1074  * Begin: Single linked list default attr cfg records methods
+// 1075  */
+// 1076 static void bdb_repAttrDefaultCfgRecordInitValues(bdbReportAttrDefaultCfgData_t *item)
+// 1077 {
+// 1078 	uint8 i;
+// 1079 
+// 1080 	for (i = 0; i < BDBREPORTING_MAX_ANALOG_ATTR_SIZE; i++)
+// 1081 		item->reportableChange[i] = 0x00;
+// 1082 	item->attrID = 0x0000;
+// 1083 	item->endpoint = 0xFF;
+// 1084 	item->cluster = 0xFFFF;
+// 1085 	item->maxReportInt = 0x0000;
+// 1086 	item->minReportInt = 0x0000;
+// 1087 }
+// 1088 
+// 1089 static void bdb_repAttrDefaultCfgRecordsLinkedListInit(bdbRepAttrDefaultCfgRecordLinkedList_t *list)
+// 1090 {
+// 1091 	list->head = NULL;
+// 1092 	list->numItems = 0;
+// 1093 }
+// 1094 
+// 1095 static uint8 bdb_repAttrDefaultCfgRecordsLinkedListAdd(bdbRepAttrDefaultCfgRecordLinkedList_t *list, bdbReportAttrDefaultCfgData_t *data)
+// 1096 {
+// 1097 	bdbRepAttrDefaultCfgRecordLinkedListItem_t *newItem = (bdbRepAttrDefaultCfgRecordLinkedListItem_t *)osal_mem_alloc(sizeof(bdbRepAttrDefaultCfgRecordLinkedListItem_t));
+// 1098 
+// 1099 	if (newItem == NULL)
+// 1100 		return BDBREPORTING_ERROR;
+// 1101 	newItem->data = data;
+// 1102 	newItem->next = list->head;
+// 1103 	list->head = newItem;
+// 1104 	list->numItems++;
+// 1105 	return BDBREPORTING_SUCCESS;
+// 1106 }
+// 1107 
+// 1108 static bdbRepAttrDefaultCfgRecordLinkedListItem_t *bdb_repAttrDefaultCfgRecordsLinkedListSearch(bdbRepAttrDefaultCfgRecordLinkedList_t *list, bdbReportAttrDefaultCfgData_t searchdata)
+// 1109 {
+// 1110 	bdbRepAttrDefaultCfgRecordLinkedListItem_t *cur = list->head;
+// 1111 
+// 1112 	while (cur != NULL) {
+// 1113 		if (EQUAL_LLISTCFGATTRITEMDATA((*(cur->data)), searchdata))
+// 1114 			return cur;
+// 1115 		cur = cur->next;
+// 1116 	}
+// 1117 	return NULL;
+// 1118 }
+// 1119 
+// 1120 static bdbReportAttrDefaultCfgData_t *bdb_repAttrDefaultCfgRecordsLinkedListRemove(bdbRepAttrDefaultCfgRecordLinkedList_t *list)
+// 1121 {
+// 1122 	bdbReportAttrDefaultCfgData_t *resdata = NULL;
+// 1123 	bdbRepAttrDefaultCfgRecordLinkedListItem_t *cur = list->head;
+// 1124 
+// 1125 	if (list->head == NULL)
+// 1126 		return NULL;
+// 1127 	list->head = cur->next;
+// 1128 	resdata = cur->data;
+// 1129 	osal_mem_free(cur);
+// 1130 	list->numItems--;
+// 1131 	return resdata;
+// 1132 }
+// 1133 
+// 1134 static uint8 bdb_repAttrDefaultCfgRecordsLinkedListFreeAll(bdbRepAttrDefaultCfgRecordLinkedList_t *list)
+// 1135 {
+// 1136 	bdbReportAttrDefaultCfgData_t *toremovedata;
+// 1137 
+// 1138 	while (list->head != NULL) {
+// 1139 		toremovedata = bdb_repAttrDefaultCfgRecordsLinkedListRemove(list);
+// 1140 		osal_mem_free(toremovedata);
+// 1141 	}
+// 1142 	return BDBREPORTING_SUCCESS;
+// 1143 }
+// 1144 
+// 1145 /*
+// 1146  * End: Single linked list default attr cfg records methods
+// 1147  */
+// 1148 
+// 1149 
+// 1150 /*
+// 1151  * Begin: Reporting attr configuration array methods
+// 1152  */
+// 1153 static void bdb_repAttrCfgRecordsArrayInit(void)
+// 1154 {
+// 1155 	bdb_reportingAttrCfgRecordsArray = NULL;
+// 1156 	bdb_reportingAttrCfgRecordsArrayCount = 0;
+// 1157 }
+// 1158 
+// 1159 static uint8 bdb_repAttrCfgRecordsArrayCreate(uint8 maxNumRepAttrConfRecords)
+// 1160 {
+// 1161 	if (maxNumRepAttrConfRecords == 0)
+// 1162 		return BDBREPORTING_SUCCESS;
+// 1163 
+// 1164 	bdb_reportingAttrCfgRecordsArrayMaxSize = maxNumRepAttrConfRecords;
+// 1165 	bdb_reportingAttrCfgRecordsArray = (bdbReportAttrCfgData_t *)osal_mem_alloc(sizeof(bdbReportAttrCfgData_t) * bdb_reportingAttrCfgRecordsArrayMaxSize);
+// 1166 	bdb_reportingAttrCfgRecordsArrayCount = 0;
+// 1167 	if (bdb_reportingAttrCfgRecordsArray == NULL)
+// 1168 		return BDBREPORTING_ERROR;
+// 1169 	return BDBREPORTING_SUCCESS;
+// 1170 }
+// 1171 
+// 1172 static uint8 bdb_repAttrCfgRecordsArrayAdd(uint8 endpoint, uint16 cluster, uint16 attrID, uint16 minReportInt, uint16 maxReportInt, uint8 reportableChange[],
+// 1173 					   uint16 defMinReportInt, uint16 defMaxReportInt, uint8 defReportChange[])
+// 1174 {
+// 1175 	if (bdb_reportingAttrCfgRecordsArray == NULL)
+// 1176 		return BDBREPORTING_ERROR;
+// 1177 	if (bdb_reportingAttrCfgRecordsArrayCount >= bdb_reportingAttrCfgRecordsArrayMaxSize)
+// 1178 		return BDBREPORTING_ERROR;
+// 1179 
+// 1180 	bdb_reportingAttrCfgRecordsArray[bdb_reportingAttrCfgRecordsArrayCount].endpoint = endpoint;
+// 1181 	bdb_reportingAttrCfgRecordsArray[bdb_reportingAttrCfgRecordsArrayCount].cluster = cluster;
+// 1182 	bdb_reportingAttrCfgRecordsArray[bdb_reportingAttrCfgRecordsArrayCount].attrID = attrID;
+// 1183 	bdb_reportingAttrCfgRecordsArray[bdb_reportingAttrCfgRecordsArrayCount].minReportInt = minReportInt;
+// 1184 	bdb_reportingAttrCfgRecordsArray[bdb_reportingAttrCfgRecordsArrayCount].maxReportInt = maxReportInt;
+// 1185 	if (reportableChange != NULL)
+// 1186 		osal_memcpy(bdb_reportingAttrCfgRecordsArray[bdb_reportingAttrCfgRecordsArrayCount].reportableChange, reportableChange, BDBREPORTING_MAX_ANALOG_ATTR_SIZE);
+// 1187 	bdb_reportingAttrCfgRecordsArray[bdb_reportingAttrCfgRecordsArrayCount].defaultMinReportInt = defMinReportInt;
+// 1188 	bdb_reportingAttrCfgRecordsArray[bdb_reportingAttrCfgRecordsArrayCount].defaultMaxReportInt = defMaxReportInt;
+// 1189 	if (defReportChange != NULL)
+// 1190 		osal_memcpy(bdb_reportingAttrCfgRecordsArray[bdb_reportingAttrCfgRecordsArrayCount].defaultReportableChange, defReportChange, BDBREPORTING_MAX_ANALOG_ATTR_SIZE);
+// 1191 	bdb_reportingAttrCfgRecordsArrayCount++;
+// 1192 	return BDBREPORTING_SUCCESS;
+// 1193 }
+// 1194 
+// 1195 static void bdb_repAttrCfgRecordsArrayFreeAll(void)
+// 1196 {
+// 1197 	if (bdb_reportingAttrCfgRecordsArray == NULL)
+// 1198 		return;
+// 1199 	osal_mem_free(bdb_reportingAttrCfgRecordsArray);
+// 1200 	bdb_reportingAttrCfgRecordsArrayCount = 0;
+// 1201 	bdb_reportingAttrCfgRecordsArray = NULL;
+// 1202 }
+// 1203 
+// 1204 static uint8 bdb_repAttrCfgRecordsArraySearch(uint8 endpoint, uint16 cluster, uint16 attrID)
+// 1205 {
+// 1206 	uint8 i;
+// 1207 
+// 1208 	if (bdb_reportingAttrCfgRecordsArray == NULL)
+// 1209 		return BDBREPORTING_INVALIDINDEX;
+// 1210 	for (i = 0; i < bdb_reportingAttrCfgRecordsArrayCount; i++)
+// 1211 		if (bdb_reportingAttrCfgRecordsArray[i].endpoint == endpoint && bdb_reportingAttrCfgRecordsArray[i].cluster == cluster && bdb_reportingAttrCfgRecordsArray[i].attrID == attrID)
+// 1212 			return i;
+// 1213 	return BDBREPORTING_INVALIDINDEX;
+// 1214 }
+// 1215 
+// 1216 static uint8 bdb_repAttrCfgRecordsArrayConsolidateValues(uint8 endpoint, uint16 cluster, uint16 *consolidatedMinReportInt, uint16 *consolidatedMaxReportInt)
+// 1217 {
+// 1218 	uint8 i;
+// 1219 
+// 1220 	*consolidatedMinReportInt = 0xFFFF;
+// 1221 	*consolidatedMaxReportInt = 0xFFFF;
+// 1222 	uint8 foundAttr = 0;
+// 1223 	if (bdb_reportingAttrCfgRecordsArray == NULL)
+// 1224 		return BDBREPORTING_ERROR;
+// 1225 	for (i = 0; i < bdb_reportingAttrCfgRecordsArrayCount; i++) {
+// 1226 		if (bdb_reportingAttrCfgRecordsArray[i].endpoint == endpoint && bdb_reportingAttrCfgRecordsArray[i].cluster == cluster) {
+// 1227 			foundAttr++;
+// 1228 			//Consolidate min value
+// 1229 			if (bdb_reportingAttrCfgRecordsArray[i].minReportInt < *consolidatedMinReportInt)
+// 1230 				*consolidatedMinReportInt = bdb_reportingAttrCfgRecordsArray[i].minReportInt;
+// 1231 
+// 1232 			//Consolidate max value
+// 1233 			if (bdb_reportingAttrCfgRecordsArray[i].maxReportInt < *consolidatedMaxReportInt)
+// 1234 				*consolidatedMaxReportInt = bdb_reportingAttrCfgRecordsArray[i].maxReportInt;
+// 1235 		}
+// 1236 	}
+// 1237 	if (foundAttr == 0)
+// 1238 		return BDBREPORTING_ERROR;
+// 1239 	return BDBREPORTING_SUCCESS;
+// 1240 }
+// 1241 
+// 1242 /*
+// 1243  * End: Reporting attr configuration array methods
+// 1244  */
+// 1245 
+// 1246 
+// 1247 /*
+// 1248  * Begin: Helper methods
+// 1249  */
+// 1250 static uint8 bdb_repAttrBuildClusterEndPointArrayBasedOnConfRecordsArray(void)
+// 1251 {
+// 1252 	uint8 i;
+// 1253 	uint16 consolidatedMinReportInt = 0xFFFF;
+// 1254 	uint16 consolidatedMaxReportInt = 0xFFFF;
+// 1255 	uint8 status;
+// 1256 	uint8 returnStatus = BDBREPORTING_SUCCESS;
+// 1257 
+// 1258 	if (bdb_reportingAttrCfgRecordsArray == NULL)
+// 1259 		return BDBREPORTING_ERROR;
+// 1260 	for (i = 0; i < bdb_reportingAttrCfgRecordsArrayCount; i++) {
+// 1261 		uint16 curEndpoint = bdb_reportingAttrCfgRecordsArray[i].endpoint;
+// 1262 		uint16 curCluster = bdb_reportingAttrCfgRecordsArray[i].cluster;
+// 1263 		//See if there is already a cluster endpoint item
+// 1264 		uint8 searchedIndex = bdb_clusterEndpointArraySearch(curEndpoint, curCluster);
+// 1265 		if (searchedIndex == BDBREPORTING_INVALIDINDEX) {
+// 1266 			//Not found, add entry
+// 1267 			status = bdb_repAttrCfgRecordsArrayConsolidateValues(curEndpoint, curCluster, &consolidatedMinReportInt, &consolidatedMaxReportInt);
+// 1268 			if (status == BDBREPORTING_SUCCESS) {
+// 1269 				status = bdb_clusterEndpointArrayAdd(curEndpoint, curCluster, consolidatedMinReportInt, consolidatedMaxReportInt, 0);
+// 1270 				if (status == BDBREPORTING_SUCCESS) {
+// 1271 					zclAttribute_t zclAttribute;
+// 1272 					uint8 status;
+// 1273 					//Add attr value
+// 1274 					bdbReportAttrLive_t *newItemData;
+// 1275 					newItemData = (bdbReportAttrLive_t *)osal_mem_alloc(sizeof(bdbReportAttrLive_t));
+// 1276 					if (newItemData == NULL) {
+// 1277 						//Out of memory
+// 1278 						returnStatus = BDBREPORTING_OUTOFMEMORYERROR;
+// 1279 						break;
+// 1280 					}
+// 1281 					bdb_InitReportAttrLiveValues(newItemData);
+// 1282 					newItemData->attrID = bdb_reportingAttrCfgRecordsArray[i].attrID;
+// 1283 					osal_memcpy(newItemData->reportableChange, bdb_reportingAttrCfgRecordsArray[i].reportableChange, BDBREPORTING_MAX_ANALOG_ATTR_SIZE);
+// 1284 
+// 1285 					//Read the attribute to keep the table updated
+// 1286 					if (BDBREPORTING_TRUE == bdb_RepFindAttrEntry(curEndpoint, curCluster, newItemData->attrID, &zclAttribute))
+// 1287 						osal_memcpy(newItemData->lastValueReported, zclAttribute.dataPtr, BDBREPORTING_MAX_ANALOG_ATTR_SIZE);
+// 1288 
+// 1289 					status = bdb_linkedListAttrAdd(&(bdb_reportingClusterEndpointArray[bdb_reportingClusterEndpointArrayCount - 1].attrLinkedList), newItemData);
+// 1290 					if (status == BDBREPORTING_ERROR) {
+// 1291 						returnStatus = BDBREPORTING_OUTOFMEMORYERROR;
+// 1292 						break;
+// 1293 					}
+// 1294 				} else {
+// 1295 					//Out of memory,
+// 1296 					returnStatus = BDBREPORTING_OUTOFMEMORYERROR;
+// 1297 					break;
+// 1298 				}
+// 1299 			}
+// 1300 		} else {
+// 1301 			zclAttribute_t zclAttribute;
+// 1302 			uint8 status;
+// 1303 			//Entry found, just add attr data to linked list
+// 1304 			bdbReportAttrLive_t *newItemData;
+// 1305 			newItemData = (bdbReportAttrLive_t *)osal_mem_alloc(sizeof(bdbReportAttrLive_t));
+// 1306 			if (newItemData == NULL) {
+// 1307 				returnStatus = BDBREPORTING_OUTOFMEMORYERROR;
+// 1308 				break;
+// 1309 			}
+// 1310 			bdb_InitReportAttrLiveValues(newItemData);
+// 1311 			newItemData->attrID = bdb_reportingAttrCfgRecordsArray[i].attrID;
+// 1312 			osal_memcpy(newItemData->reportableChange, bdb_reportingAttrCfgRecordsArray[i].reportableChange, BDBREPORTING_MAX_ANALOG_ATTR_SIZE);
+// 1313 
+// 1314 			//Read the attribute to keep the table updated
+// 1315 			if (BDBREPORTING_TRUE == bdb_RepFindAttrEntry(curEndpoint, curCluster, newItemData->attrID, &zclAttribute))
+// 1316 				osal_memcpy(newItemData->lastValueReported, zclAttribute.dataPtr, BDBREPORTING_MAX_ANALOG_ATTR_SIZE);
+// 1317 
+// 1318 			status = bdb_linkedListAttrAdd(&(bdb_reportingClusterEndpointArray[searchedIndex].attrLinkedList), newItemData);
+// 1319 			if (status == BDBREPORTING_ERROR) {
+// 1320 				returnStatus = BDBREPORTING_OUTOFMEMORYERROR;
+// 1321 				break;
+// 1322 			}
+// 1323 		}
+// 1324 	}
+// 1325 	return returnStatus;
+// 1326 }
+// 1327 
+// 1328 static void bdb_RepInitAttrCfgRecords(void)
+// 1329 {
+// 1330 	bdb_RepConstructAttrCfgArray( ); //Here bdb_reportingAttrCfgRecordsArray is filled
+// 1331 
+// 1332 	uint8 status = osal_nv_item_init(ZCD_NV_BDBREPORTINGCONFIG, sizeof(bdbReportAttrCfgData_t) * bdb_reportingAttrCfgRecordsArrayCount, bdb_reportingAttrCfgRecordsArray);
+// 1333 	if (status == NV_OPER_FAILED) {
+// 1334 		return;
+// 1335 	} else {
+// 1336 		if (status == NV_ITEM_UNINIT) {
+// 1337 			//Do nothing because the reporting cf array data was written in the osal_nv_item method
+// 1338 		} else {
+// 1339 			//SUCCESS, There is NV data, read the data
+// 1340 			bdb_repAttrCfgRecordsArrayFreeAll(); //Clear previous cfg data
+// 1341 			uint16 sizeNVRecord = osal_nv_item_len(ZCD_NV_BDBREPORTINGCONFIG);
+// 1342 			uint8 attrCfgRecordsArrayCount = sizeNVRecord / sizeof(bdbReportAttrCfgData_t);
+// 1343 
+// 1344 			status = bdb_repAttrCfgRecordsArrayCreate(attrCfgRecordsArrayCount);
+// 1345 			if (status == BDBREPORTING_ERROR)
+// 1346 				return; // No memory
+// 1347 			osal_nv_read(ZCD_NV_BDBREPORTINGCONFIG, 0, sizeof(bdbReportAttrCfgData_t) * attrCfgRecordsArrayCount, bdb_reportingAttrCfgRecordsArray);
+// 1348 			bdb_reportingAttrCfgRecordsArrayCount = attrCfgRecordsArrayCount;
+// 1349 		}
+// 1350 	}
+// 1351 
+// 1352 	bdb_repAttrDefaultCfgRecordsLinkedListFreeAll(&attrDefaultCfgRecordLinkedList); //Free the attr default cfg list
+// 1353 }
+// 1354 
+// 1355 static uint8 bdb_RepConstructAttrCfgArray(void)
+// 1356 {
+// 1357 	epList_t *epCur = epList;
+// 1358 	uint8 status;
+// 1359 	uint8 i;
+// 1360 
+// 1361 	if (bdb_reportingAttrCfgRecordsArray != NULL)
+// 1362 		bdb_repAttrCfgRecordsArrayFreeAll( );
+// 1363 
+// 1364 	uint8 numRepAttr = 0;
+// 1365 	//First count the number of reportable attributes accross all endpoints
+// 1366 	for (epCur = epList; epCur != NULL; epCur = epCur->nextDesc) {
+// 1367 		zclAttrRecsList *attrItem = zclFindAttrRecsList(epCur->epDesc->endPoint);
+// 1368 		if (attrItem == NULL)
+// 1369 			continue;
+// 1370 		if (attrItem->numAttributes > 0) {
+// 1371 			for (i = 0; i < attrItem->numAttributes; i++)
+// 1372 				if (attrItem->attrs[i].attr.accessControl & ACCESS_REPORTABLE)
+// 1373 					numRepAttr++;
+// 1374 		}
+// 1375 	}
+// 1376 	status = bdb_repAttrCfgRecordsArrayCreate(numRepAttr);
+// 1377 	if (status != BDBREPORTING_SUCCESS)
+// 1378 		return status;
+// 1379 
+// 1380 
+// 1381 	for (epCur = epList; epCur != NULL; epCur = epCur->nextDesc) {
+// 1382 		zclAttrRecsList *attrItem = zclFindAttrRecsList(epCur->epDesc->endPoint);
+// 1383 		if (attrItem == NULL)
+// 1384 			continue;
+// 1385 		if (attrItem->numAttributes > 0) {
+// 1386 			for (i = 0; i < attrItem->numAttributes; i++) {
+// 1387 				if (attrItem->attrs[i].attr.accessControl & ACCESS_REPORTABLE) {
+// 1388 					bdbReportAttrDefaultCfgData_t toSearch;
+// 1389 					toSearch.endpoint = epCur->epDesc->endPoint;
+// 1390 					toSearch.cluster = attrItem->attrs[i].clusterID;
+// 1391 					toSearch.attrID = attrItem->attrs[i].attr.attrId;
+// 1392 					bdbRepAttrDefaultCfgRecordLinkedListItem_t *lLItemFound = bdb_repAttrDefaultCfgRecordsLinkedListSearch(&attrDefaultCfgRecordLinkedList, toSearch);
+// 1393 					if (lLItemFound == NULL) {
+// 1394 						//Add with default static values
+// 1395 						uint8 changeValue[] = BDBREPORTING_DEFAULTCHANGEVALUE;
+// 1396 						status = bdb_repAttrCfgRecordsArrayAdd(epCur->epDesc->endPoint, attrItem->attrs[i].clusterID,
+// 1397 										       attrItem->attrs[i].attr.attrId, BDBREPORTING_DEFAULTMININTERVAL, BDBREPORTING_DEFAULTMAXINTERVAL,
+// 1398 										       changeValue, BDBREPORTING_DEFAULTMININTERVAL, BDBREPORTING_DEFAULTMAXINTERVAL, changeValue);
+// 1399 					} else {
+// 1400 						//Add with user defined default values
+// 1401 						status = bdb_repAttrCfgRecordsArrayAdd(epCur->epDesc->endPoint, attrItem->attrs[i].clusterID,
+// 1402 										       attrItem->attrs[i].attr.attrId, lLItemFound->data->minReportInt, lLItemFound->data->maxReportInt,
+// 1403 										       lLItemFound->data->reportableChange, lLItemFound->data->minReportInt, lLItemFound->data->maxReportInt,
+// 1404 										       lLItemFound->data->reportableChange);
+// 1405 					}
+// 1406 				}
+// 1407 			}
+// 1408 		}
+// 1409 	}
+// 1410 	return BDBREPORTING_SUCCESS;
+// 1411 }
+// 1412 
+// 1413 static uint8 bdb_RepLoadCfgRecords(void)
+// 1414 {
+// 1415 	uint8 status;
+// 1416 
+// 1417 	if (bdb_reportingAttrCfgRecordsArrayCount > 0 && bdb_reportingAttrCfgRecordsArray == NULL)
+// 1418 		bdb_repAttrCfgRecordsArrayFreeAll( );
+// 1419 
+// 1420 	status = osal_nv_item_init(ZCD_NV_BDBREPORTINGCONFIG, sizeof(bdbReportAttrCfgData_t) * bdb_reportingAttrCfgRecordsArrayCount, bdb_reportingAttrCfgRecordsArray);
+// 1421 	if (status == NV_OPER_FAILED) {
+// 1422 		return BDBREPORTING_ERROR;
+// 1423 	} else {
+// 1424 		if (status == NV_ITEM_UNINIT) {
+// 1425 			//was written, this is an error
+// 1426 			return BDBREPORTING_ERROR;
+// 1427 		} else {
+// 1428 			//SUCCESS, There is NV data, read the data
+// 1429 			uint16 sizeNVRecord = osal_nv_item_len(ZCD_NV_BDBREPORTINGCONFIG);
+// 1430 			uint8 attrCfgRecordsArrayCount = sizeNVRecord / sizeof(bdbReportAttrCfgData_t);
+// 1431 
+// 1432 			status = bdb_repAttrCfgRecordsArrayCreate(attrCfgRecordsArrayCount);
+// 1433 			if (status == BDBREPORTING_ERROR)
+// 1434 				return BDBREPORTING_OUTOFMEMORYERROR;
+// 1435 			osal_nv_read(ZCD_NV_BDBREPORTINGCONFIG, 0, sizeof(bdbReportAttrCfgData_t) * attrCfgRecordsArrayCount, bdb_reportingAttrCfgRecordsArray);
+// 1436 			bdb_reportingAttrCfgRecordsArrayCount = attrCfgRecordsArrayCount;
+// 1437 			return BDBREPORTING_SUCCESS;
+// 1438 		}
+// 1439 	}
+// 1440 }
+// 1441 
+// 1442 static void bdb_RepReport(uint8 specificCLusterEndpointIndex)
+// 1443 {
+// 1444 	afAddrType_t dstAddr;
+// 1445 	zclReportCmd_t *pReportCmd;
+// 1446 	uint8 i;
+// 1447 
+// 1448 	bdbReportAttrClusterEndpoint_t *clusterEndpointItem = NULL;
+// 1449 
+// 1450 	if (specificCLusterEndpointIndex == BDBREPORTING_INVALIDINDEX) {
+// 1451 		if (bdb_reportingNextClusterEndpointIndex < bdb_reportingClusterEndpointArrayCount)
+// 1452 			clusterEndpointItem = &(bdb_reportingClusterEndpointArray[bdb_reportingNextClusterEndpointIndex]);
+// 1453 	} else {
+// 1454 		clusterEndpointItem = &(bdb_reportingClusterEndpointArray[specificCLusterEndpointIndex]);
+// 1455 	}
+// 1456 
+// 1457 	// actually send the report
+// 1458 	if (clusterEndpointItem->consolidatedMaxReportInt != ZCL_REPORTING_OFF && clusterEndpointItem->attrLinkedList.numItems) {
+// 1459 		dstAddr.addrMode = (afAddrMode_t)AddrNotPresent;
+// 1460 		dstAddr.addr.shortAddr = 0;
+// 1461 		dstAddr.endPoint = clusterEndpointItem->endpoint;
+// 1462 		dstAddr.panId = _NIB.nwkPanId;
+// 1463 
+// 1464 		pReportCmd = osal_mem_alloc(sizeof(zclReportCmd_t) + (clusterEndpointItem->attrLinkedList.numItems * sizeof(zclReport_t)));
+// 1465 		if (pReportCmd != NULL) {
+// 1466 			pReportCmd->numAttr = clusterEndpointItem->attrLinkedList.numItems;
+// 1467 			for (i = 0; i < clusterEndpointItem->attrLinkedList.numItems; ++i) {
+// 1468 				pReportCmd->attrList[i].attrID = 0xFFFF;
+// 1469 				pReportCmd->attrList[i].dataType = 0xFF;
+// 1470 				pReportCmd->attrList[i].attrData = NULL;
+// 1471 
+// 1472 				bdbLinkedListAttrItem_t *attrListItem = bdb_linkedListAttrGetAtIndex(&clusterEndpointItem->attrLinkedList, i);
+// 1473 				if (attrListItem != NULL) {
+// 1474 					pReportCmd->attrList[i].attrID = attrListItem->data->attrID;
+// 1475 					zclAttribute_t attrRec;
+// 1476 					uint8 attrRes = bdb_RepFindAttrEntry(clusterEndpointItem->endpoint, clusterEndpointItem->cluster, attrListItem->data->attrID, &attrRec);
+// 1477 					if (attrRes == BDBREPORTING_TRUE) {
+// 1478 						pReportCmd->attrList[i].dataType = attrRec.dataType;
+// 1479 						pReportCmd->attrList[i].attrData = attrRec.dataPtr;
+// 1480 						//Update last value reported
+// 1481 						if (zclAnalogDataType(attrRec.dataType)) {
+// 1482 							//Only if the datatype is analog
+// 1483 							osal_memset(attrListItem->data->lastValueReported, 0x00, BDBREPORTING_MAX_ANALOG_ATTR_SIZE);
+// 1484 							osal_memcpy(attrListItem->data->lastValueReported, attrRec.dataPtr, zclGetDataTypeLength(attrRec.dataType));
+// 1485 						}
+// 1486 					}
+// 1487 				}
+// 1488 			}
+// 1489 
+// 1490 			zcl_SendReportCmd(clusterEndpointItem->endpoint, &dstAddr,
+// 1491 					  clusterEndpointItem->cluster, pReportCmd,
+// 1492 					  ZCL_FRAME_SERVER_CLIENT_DIR, BDB_REPORTING_DISABLE_DEFAULT_RSP, bdb_getZCLFrameCounter( ));
+// 1493 
+// 1494 			osal_mem_free(pReportCmd);
+// 1495 		}
+// 1496 	}
+// 1497 }
+// 1498 
+// 1499 static uint8 bdb_isAttrValueChangedSurpassDelta(uint8 datatype, uint8 *delta, uint8 *curValue, uint8 *lastValue)
+// 1500 {
+// 1501 	uint8 res = BDBREPORTING_FALSE;
+// 1502 
+// 1503 	switch (datatype) {
+// 1504 	case ZCL_DATATYPE_UINT8:
+// 1505 	{
+// 1506 		uint8 L = *((uint8 *)lastValue);
+// 1507 		uint8 D = *((uint8 *)delta);
+// 1508 		uint8 C = *((uint8 *)curValue);
+// 1509 		if (L >= C)
+// 1510 			res = (L - C >= D) ? BDBREPORTING_TRUE : BDBREPORTING_FALSE;
+// 1511 		else
+// 1512 			res = (C - L >= D) ? BDBREPORTING_TRUE : BDBREPORTING_FALSE;
+// 1513 		break;
+// 1514 	}
+// 1515 	case ZCL_DATATYPE_UINT16:
+// 1516 	{
+// 1517 		uint16 L = *((uint16 *)lastValue);
+// 1518 		uint16 D = *((uint16 *)delta);
+// 1519 		uint16 C = *((uint16 *)curValue);
+// 1520 		if (L >= C)
+// 1521 			res = (L - C >= D) ? BDBREPORTING_TRUE : BDBREPORTING_FALSE;
+// 1522 		else
+// 1523 			res = (C - L >= D) ? BDBREPORTING_TRUE : BDBREPORTING_FALSE;
+// 1524 		break;
+// 1525 	}
+// 1526 	case ZCL_DATATYPE_UINT24:
+// 1527 	{
+// 1528 		uint24 L = *((uint24 *)lastValue);
+// 1529 		uint24 D = *((uint24 *)delta);
+// 1530 		uint24 C = *((uint24 *)curValue);
+// 1531 		if (L >= C)
+// 1532 			res = (L - C >= D) ? BDBREPORTING_TRUE : BDBREPORTING_FALSE;
+// 1533 		else
+// 1534 			res = (C - L >= D) ? BDBREPORTING_TRUE : BDBREPORTING_FALSE;
+// 1535 		break;
+// 1536 	}
+// 1537 	case ZCL_DATATYPE_UINT32:
+// 1538 	{
+// 1539 		uint32 L = *((uint32 *)lastValue);
+// 1540 		uint32 D = *((uint32 *)delta);
+// 1541 		uint32 C = *((uint32 *)curValue);
+// 1542 		if (L >= C)
+// 1543 			res = (L - C >= D) ? BDBREPORTING_TRUE : BDBREPORTING_FALSE;
+// 1544 		else
+// 1545 			res = (C - L >= D) ? BDBREPORTING_TRUE : BDBREPORTING_FALSE;
+// 1546 		break;
+// 1547 	}
+// 1548 	case ZCL_DATATYPE_INT8:
+// 1549 	{
+// 1550 		int8 L = *((int8 *)lastValue);
+// 1551 		int8 D = *((int8 *)delta);
+// 1552 		int8 C = *((int8 *)curValue);
+// 1553 		if (L >= C)
+// 1554 			res = (L - C >= D) ? BDBREPORTING_TRUE : BDBREPORTING_FALSE;
+// 1555 		else
+// 1556 			res = (C - L >= D) ? BDBREPORTING_TRUE : BDBREPORTING_FALSE;
+// 1557 		break;
+// 1558 	}
+// 1559 	case ZCL_DATATYPE_INT16:
+// 1560 	{
+// 1561 		int16 L = *((int16 *)lastValue);
+// 1562 		int16 D = *((int16 *)delta);
+// 1563 		int16 C = *((int16 *)curValue);
+// 1564 		if (L >= C)
+// 1565 			res = (L - C >= D) ? BDBREPORTING_TRUE : BDBREPORTING_FALSE;
+// 1566 		else
+// 1567 			res = (C - L >= D) ? BDBREPORTING_TRUE : BDBREPORTING_FALSE;
+// 1568 		break;
+// 1569 	}
+// 1570 	case ZCL_DATATYPE_INT24:
+// 1571 	{
+// 1572 		int24 L = *((int24 *)lastValue);
+// 1573 		int24 D = *((int24 *)delta);
+// 1574 		int24 C = *((int24 *)curValue);
+// 1575 		if (L >= C)
+// 1576 			res = (L - C >= D) ? BDBREPORTING_TRUE : BDBREPORTING_FALSE;
+// 1577 		else
+// 1578 			res = (C - L >= D) ? BDBREPORTING_TRUE : BDBREPORTING_FALSE;
+// 1579 		break;
+// 1580 	}
+// 1581 	case ZCL_DATATYPE_INT32:
+// 1582 	{
+// 1583 		int32 L = *((int32 *)lastValue);
+// 1584 		int32 D = *((int32 *)delta);
+// 1585 		int32 C = *((int32 *)curValue);
+// 1586 		if (L >= C)
+// 1587 			res = (L - C >= D) ? BDBREPORTING_TRUE : BDBREPORTING_FALSE;
+// 1588 		else
+// 1589 			res = (C - L >= D) ? BDBREPORTING_TRUE : BDBREPORTING_FALSE;
+// 1590 		break;
+// 1591 	}
+// 1592 	case ZCL_DATATYPE_SINGLE_PREC:
+// 1593 	{
+// 1594 		float L = *((float *)lastValue);
+// 1595 		float D = *((float *)delta);
+// 1596 		float C = *((float *)curValue);
+// 1597 		if (L >= C)
+// 1598 			res = (L - C >= D) ? BDBREPORTING_TRUE : BDBREPORTING_FALSE;
+// 1599 		else
+// 1600 			res = (C - L >= D) ? BDBREPORTING_TRUE : BDBREPORTING_FALSE;
+// 1601 		break;
+// 1602 	}
+// 1603 	case ZCL_DATATYPE_DOUBLE_PREC:
+// 1604 	{
+// 1605 		double L = *((double *)lastValue);
+// 1606 		double D = *((double *)delta);
+// 1607 		double C = *((double *)curValue);
+// 1608 		if (L >= C)
+// 1609 			res = (L - C >= D) ? BDBREPORTING_TRUE : BDBREPORTING_FALSE;
+// 1610 		else
+// 1611 			res = (C - L >= D) ? BDBREPORTING_TRUE : BDBREPORTING_FALSE;
+// 1612 		break;
+// 1613 	}
+// 1614 	case ZCL_DATATYPE_INT40:
+// 1615 	case ZCL_DATATYPE_INT48:
+// 1616 	case ZCL_DATATYPE_INT56:
+// 1617 	case ZCL_DATATYPE_UINT64:
+// 1618 	case ZCL_DATATYPE_INT64:
+// 1619 	case ZCL_DATATYPE_SEMI_PREC:
+// 1620 	case ZCL_DATATYPE_UINT40:
+// 1621 	case ZCL_DATATYPE_UINT48:
+// 1622 	case ZCL_DATATYPE_UINT56:
+// 1623 	case ZCL_DATATYPE_TOD:
+// 1624 	case ZCL_DATATYPE_DATE:
+// 1625 	case ZCL_DATATYPE_UTC:
+// 1626 	{
+// 1627 		// Not implemented
+// 1628 		res = BDBREPORTING_FALSE;
+// 1629 		break;
+// 1630 	}
+// 1631 	default:
+// 1632 	{
+// 1633 		res = BDBREPORTING_FALSE;
+// 1634 		break;
+// 1635 	}
+// 1636 	}
+// 1637 	return res;
+// 1638 }
+// 1639 
+// 1640 /*
+// 1641  * End: Helper methods
+// 1642  */
+// 1643 
+// 1644 
+// 1645 /*
+// 1646  * Begin: Reporting timer related methods
+// 1647  */
+// 1648 static void bdb_RepRestartNextEventTimer(void)
+// 1649 {
+// 1650 	uint32 timeMs;
+// 1651 
+// 1652 	// convert from seconds to milliseconds
+// 1653 	timeMs = 1000L * (bdb_reportingNextEventTimeout);
+// 1654 	osal_start_timerEx(bdb_TaskID, BDB_REPORT_TIMEOUT, timeMs);
+// 1655 }
+// 1656 
+// 1657 static void bdb_RepSetupReporting(void)
+// 1658 {
+// 1659 	uint8 numArrayFlags, i;
+// 1660 
+// 1661 	//Stop if reporting timer is active
+// 1662 	osal_stop_timerEx(bdb_TaskID, BDB_REPORT_TIMEOUT);
+// 1663 
+// 1664 	numArrayFlags = bdb_reportingClusterEndpointArrayCount;
+// 1665 	bdbReportFlagsHolder_t *arrayFlags = (bdbReportFlagsHolder_t *)osal_mem_alloc(sizeof(bdbReportFlagsHolder_t) * numArrayFlags);
+// 1666 	if (arrayFlags == NULL)
+// 1667 		return;
+// 1668 	for (i = 0; i < numArrayFlags; i++) {
+// 1669 		arrayFlags[i].endpoint = bdb_reportingClusterEndpointArray[i].endpoint;
+// 1670 		arrayFlags[i].cluster = bdb_reportingClusterEndpointArray[i].cluster;
+// 1671 		arrayFlags[i].flags = bdb_reportingClusterEndpointArray[i].flags;
+// 1672 	}
+// 1673 
+// 1674 	if (bdb_reportingClusterEndpointArrayCount > 0)
+// 1675 		bdb_clusterEndpointArrayFreeAll( );
+// 1676 
+// 1677 	//Built or rebuilt the clusterEndpoint array
+// 1678 	bdb_repAttrBuildClusterEndPointArrayBasedOnConfRecordsArray( );
+// 1679 
+// 1680 	for (i = 0; i < numArrayFlags; i++) {
+// 1681 		uint8 clusterEndpointIndex = bdb_clusterEndpointArraySearch(arrayFlags[i].endpoint, arrayFlags[i].cluster);
+// 1682 		if (clusterEndpointIndex != BDBREPORTING_INVALIDINDEX)
+// 1683 			bdb_reportingClusterEndpointArray[clusterEndpointIndex].flags = arrayFlags[i].flags;
+// 1684 	}
+// 1685 	osal_mem_free(arrayFlags);
+// 1686 }
+// 1687 
+// 1688 
+// 1689 static void bdb_RepStopEventTimer(void)
+// 1690 {
+// 1691 	osal_stop_timerEx(bdb_TaskID, BDB_REPORT_TIMEOUT);
+// 1692 }
+// 1693 
+// 1694 /*
+// 1695  * End: Reporting timer related methods
+// 1696  */
+// 1697 
+// 1698 /*
+// 1699  * Begin: Ztack zcl helper methods
+// 1700  */
+// 1701 
+// 1702 /*********************************************************************
+// 1703  * @fn      bdb_FindEpDesc
+// 1704  *
+// 1705  * @brief   Find the EndPoint descriptor pointer
+// 1706  *
+// 1707  * @param   endPoint - EndPoint Id
+// 1708  *
+// 1709  * @return  CurrEpDescriptor - Pointer to found Simple Descriptor, NULL otherwise
+// 1710  */
+// 1711 static endPointDesc_t *bdb_FindEpDesc(uint8 endPoint)
+// 1712 {
+// 1713 	endPointDesc_t *CurrEpDescriptor = NULL;
+// 1714 
+// 1715 	epList_t *bdb_CurrEpDescriptorNextInList;
+// 1716 
+// 1717 	bdb_CurrEpDescriptorNextInList = bdb_HeadEpDescriptorList;
+// 1718 	CurrEpDescriptor = bdb_CurrEpDescriptorNextInList->epDesc;
+// 1719 
+// 1720 	while (CurrEpDescriptor->endPoint != endPoint) {
+// 1721 		if (bdb_CurrEpDescriptorNextInList->nextDesc->nextDesc != NULL) {
+// 1722 			bdb_CurrEpDescriptorNextInList = bdb_CurrEpDescriptorNextInList->nextDesc;
+// 1723 			CurrEpDescriptor = bdb_CurrEpDescriptorNextInList->epDesc;
+// 1724 		} else {
+// 1725 			return NULL;
+// 1726 		}
+// 1727 	}
+// 1728 	return CurrEpDescriptor;
+// 1729 }
+// 1730 
+// 1731 static uint8 bdb_RepFindAttrEntry(uint8 endpoint, uint16 cluster, uint16 attrID, zclAttribute_t *attrRes)
+// 1732 {
+// 1733 	epList_t *epCur = epList;
+// 1734 	uint8 i;
+// 1735 
+// 1736 	zcl_memset(gAttrDataValue, 0, BDBREPORTING_MAX_ANALOG_ATTR_SIZE);
+// 1737 	for (epCur = epList; epCur != NULL; epCur = epCur->nextDesc) {
+// 1738 		if (epCur->epDesc->endPoint == endpoint) {
+// 1739 			zclAttrRecsList *attrItem = zclFindAttrRecsList(epCur->epDesc->endPoint);
+// 1740 
+// 1741 			if ((attrItem != NULL) && ((attrItem->numAttributes > 0) && (attrItem->attrs != NULL))) {
+// 1742 				for (i = 0; i < attrItem->numAttributes; i++) {
+// 1743 					if ((attrItem->attrs[i].clusterID == cluster) && (attrItem->attrs[i].attr.attrId == attrID)) {
+// 1744 						uint16 dataLen;
+// 1745 
+// 1746 						attrRes->attrId = attrItem->attrs[i].attr.attrId;
+// 1747 						attrRes->dataType = attrItem->attrs[i].attr.dataType;
+// 1748 						attrRes->accessControl = attrItem->attrs[i].attr.accessControl;
+// 1749 
+// 1750 						dataLen = zclGetDataTypeLength(attrRes->dataType);
+// 1751 						zcl_ReadAttrData(endpoint, cluster, attrRes->attrId, gAttrDataValue, &dataLen);
+// 1752 						attrRes->dataPtr = gAttrDataValue;
+// 1753 						return BDBREPORTING_TRUE;
+// 1754 					}
+// 1755 				}
+// 1756 			}
+// 1757 		}
+// 1758 	}
+// 1759 	return BDBREPORTING_FALSE;
+// 1760 }
+// 1761 
+// 1762 /*
+// 1763  * End: Ztack zcl helper methods
+// 1764  */
+// 1765 
+// 1766 
+// 1767 
+// 1768 
+// 1769 /*********************************************************************
+// 1770 *********************************************************************/
+// 1771 
+// 1772 /*
+// 1773  * Begin: Reporting attr app API methods
+// 1774  */
+// 1775 
+// 1776 
+// 1777 
+// 1778 /*********************************************************************
+// 1779  * @fn          bdb_RepAddAttrCfgRecordDefaultToList
+// 1780  *
+// 1781  * @brief       Adds default configuration values for a Reportable Attribute Record
+// 1782  *
+// 1783  * @param       endpoint
+// 1784  * @param       cluster
+// 1785  * @param       attrID - Reporable attribute ID
+// 1786  * @param       minReportInt - Default value for minimum reportable interval
+// 1787  * @param       maxReportInt - Default value for maximum reportable interval
+// 1788  * @param       reportableChange - buffer containing attribute value that is the
+// 1789  *              delta change to trigger a report
+// 1790  *
+// 1791  * @return      ZInvalidParameter - No endpoint, cluster, attribute ID found in simple desc
+// 1792  *              ZFailure - No memory to allocate entry
+// 1793  *              ZSuccess
+// 1794  *
+// 1795  */
+// 1796 ZStatus_t bdb_RepAddAttrCfgRecordDefaultToList(uint8 endpoint, uint16 cluster, uint16 attrID, uint16 minReportInt, uint16 maxReportInt, uint8 *reportableChange)
+// 1797 {
+// 1798 	uint8 status;
+// 1799 	epList_t *epCur;
+// 1800 	uint8 i;
+// 1801 
+// 1802 	if (bdb_reportingAcceptDefaultConfs == BDBREPORTING_FALSE)
+// 1803 		//Don't accept anymore default attribute configurations
+// 1804 		return ZFailure;
+// 1805 
+// 1806 	//Find if endpoint and cluster values are valid
+// 1807 	uint8 foundEndpCluster = BDBREPORTING_FALSE;
+// 1808 	for (epCur = epList; epCur != NULL; epCur = epCur->nextDesc) {
+// 1809 		if (epCur->epDesc->endPoint != endpoint)
+// 1810 			continue;
+// 1811 		zclAttrRecsList *attrItem = zclFindAttrRecsList(epCur->epDesc->endPoint);
+// 1812 		if (attrItem == NULL)
+// 1813 			continue;
+// 1814 		if (attrItem->numAttributes == 0 || attrItem->attrs == NULL)
+// 1815 			continue;
+// 1816 		for (i = 0; i < attrItem->numAttributes; i++) {
+// 1817 			if (attrItem->attrs[i].clusterID != cluster)
+// 1818 				continue;
+// 1819 			foundEndpCluster = BDBREPORTING_TRUE;
+// 1820 			break;
+// 1821 		}
+// 1822 		break;
+// 1823 	}
+// 1824 	if (foundEndpCluster == BDBREPORTING_FALSE)
+// 1825 		return ZInvalidParameter;
+// 1826 
+// 1827 	//Add default cfg values to list
+// 1828 	bdbReportAttrDefaultCfgData_t *record = (bdbReportAttrDefaultCfgData_t *)osal_mem_alloc(sizeof(bdbReportAttrDefaultCfgData_t));
+// 1829 	if (record == NULL)
+// 1830 		return ZFailure; //Out of memory
+// 1831 	bdb_repAttrDefaultCfgRecordInitValues(record);
+// 1832 
+// 1833 	record->endpoint = endpoint;
+// 1834 	record->cluster = cluster;
+// 1835 	record->attrID = attrID;
+// 1836 	record->minReportInt = minReportInt;
+// 1837 	record->maxReportInt = maxReportInt;
+// 1838 	osal_memcpy(record->reportableChange, reportableChange, BDBREPORTING_MAX_ANALOG_ATTR_SIZE);
+// 1839 
+// 1840 	status = bdb_repAttrDefaultCfgRecordsLinkedListAdd(&attrDefaultCfgRecordLinkedList, record);
+// 1841 	if (status != BDBREPORTING_SUCCESS) {
+// 1842 		osal_mem_free(record);
+// 1843 		return ZFailure; //Out of memory
+// 1844 	}
+// 1845 
+// 1846 	return ZSuccess;
+// 1847 }
+// 1848 
+// 1849 
+// 1850 
+// 1851 /*********************************************************************
+// 1852  * @fn          bdb_RepChangedAttrValue
+// 1853  *
+// 1854  * @brief       Notify BDB reporting attribute module about the change of an
+// 1855  *              attribute value to validate the triggering of a reporting attribute message.
+// 1856  *
+// 1857  * @param       endpoint
+// 1858  * @param       cluster
+// 1859  * @param       attrID - Reporable attribute ID
+// 1860  *
+// 1861  * @return      ZInvalidParameter - No endpoint, cluster, attribute ID found in simple desc
+// 1862  *              ZSuccess
+// 1863  */
+// 1864 ZStatus_t bdb_RepChangedAttrValue(uint8 endpoint, uint16 cluster, uint16 attrID)
+// 1865 {
+// 1866 	uint8 indexClusterEndpoint = bdb_clusterEndpointArraySearch(endpoint, cluster);
+// 1867 
+// 1868 	if (indexClusterEndpoint == BDBREPORTING_INVALIDINDEX)
+// 1869 		//cluter-endpoint not found
+// 1870 		return ZInvalidParameter;
+// 1871 	if (FLAGS_CHECKFLAG(bdb_reportingClusterEndpointArray[indexClusterEndpoint].flags, BDBREPORTING_HASBINDING_FLAG_MASK) == BDBREPORTING_FALSE)
+// 1872 		//record has no binding
+// 1873 		return ZSuccess;
+// 1874 	if (bdb_reportingClusterEndpointArray[indexClusterEndpoint].consolidatedMaxReportInt == BDBREPORTING_REPORTOFF)
+// 1875 		//reporting if off for this cluster
+// 1876 		return ZSuccess;
+// 1877 
+// 1878 	bdbReportAttrLive_t searchdata;
+// 1879 	searchdata.attrID = attrID;
+// 1880 	bdbLinkedListAttrItem_t *attrNodeFound = bdb_linkedListAttrSearch(&(bdb_reportingClusterEndpointArray[indexClusterEndpoint].attrLinkedList), &searchdata);
+// 1881 	if (attrNodeFound == NULL || attrNodeFound->data == NULL)
+// 1882 		return ZInvalidParameter; //Attr not found in cluster-endpoint array
+// 1883 
+// 1884 	zclAttribute_t attrRec;
+// 1885 	uint8 attrRes = bdb_RepFindAttrEntry(endpoint, cluster, attrID, &attrRec);
+// 1886 	if (attrRes != BDBREPORTING_TRUE)
+// 1887 		return ZInvalidParameter; //Attr not found in attributes app data
+// 1888 
+// 1889 	//Get time of timer if active
+// 1890 	uint32 remainingTimeOfEvent = osal_get_timeoutEx(bdb_TaskID, BDB_REPORT_TIMEOUT);
+// 1891 	uint16 elapsedTime = 0;
+// 1892 	uint8 isTimeRemaining = BDBREPORTING_FALSE;
+// 1893 	if (remainingTimeOfEvent > 0) {
+// 1894 		elapsedTime = bdb_RepCalculateEventElapsedTime(remainingTimeOfEvent, bdb_reportingNextEventTimeout);
+// 1895 		isTimeRemaining = BDBREPORTING_TRUE;
+// 1896 	}
+// 1897 
+// 1898 	if (bdb_reportingClusterEndpointArray[indexClusterEndpoint].consolidatedMinReportInt != BDBREPORTING_NOLIMIT &&
+// 1899 	    (bdb_reportingClusterEndpointArray[indexClusterEndpoint].timeSinceLastReport + elapsedTime) <= bdb_reportingClusterEndpointArray[indexClusterEndpoint].consolidatedMinReportInt)
+// 1900 		//Attr value has changed before minInterval, ommit reporting
+// 1901 		return ZSuccess;
+// 1902 
+// 1903 
+// 1904 	if (zclAnalogDataType(attrRec.dataType)) {
+// 1905 		//Checking if   | lastvaluereported - currentvalue | >=  | changevalue |
+// 1906 		if (bdb_isAttrValueChangedSurpassDelta(attrRec.dataType, attrNodeFound->data->reportableChange, attrRec.dataPtr, attrNodeFound->data->lastValueReported) == BDBREPORTING_FALSE)
+// 1907 			//current value does not excced the delta, dont report
+// 1908 			return ZSuccess;
+// 1909 	} else {
+// 1910 		//Attr is discrete, just report without checking the changeValue
+// 1911 	}
+// 1912 
+// 1913 	//Stop reporting
+// 1914 	bdb_RepStopEventTimer( );
+// 1915 	bdb_RepReport(indexClusterEndpoint);
+// 1916 	if (isTimeRemaining == BDBREPORTING_TRUE)
+// 1917 		bdb_clusterEndpointArrayIncrementAll(elapsedTime, BDBREPORTING_FALSE);
+// 1918 	bdb_clusterEndpointArrayUpdateAt(indexClusterEndpoint, 0, BDBREPORTING_IGNORE, BDBREPORTING_IGNORE); //return time since last report to zero
+// 1919 	//Restart reporting
+// 1920 	bdb_RepStartReporting( );
+// 1921 
+// 1922 	return ZSuccess;
+// 1923 }
+// 1924 
+// 1925 #endif //BDB_REPORTING
+// 1926 
+// 1927 /*
+// 1928  * End: Reporting attr app API methods
+// 1929  */
+// 
+//
+// 
+//
+//
+//Errors: none
+//Warnings: none

@@ -1,0 +1,627 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V10.30.1.6000 for 8051               23/Nov/2021  10:55:04
+# Copyright 2004-2018 IAR Systems AB.
+# PC-locked license - IAR Embedded Workbench for 8051
+#
+#    Core               =  plain
+#    Code model         =  banked
+#    Data model         =  large
+#    Calling convention =  xdata reentrant
+#    Constant location  =  data_rom
+#    Dptr setup         =  1,16
+#                          
+#    Source file        =  
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\Source\ZCL\zcl_doorlock.c
+#    Command line       =  
+#        -f C:\Users\ADMINI~1\AppData\Local\Temp\EWCE6F.tmp
+#        (F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\Source\ZCL\zcl_doorlock.c
+#        -D ZIGBEEPRO -D INTER_PAN -D DISABLE_GREENPOWER_BASIC_PROXY -D
+#        HAL_UART=TRUE -D HAL_UART_ISR=1 -D HAL_UART_DMA=0 -D
+#        HAL_UART_ISR_RX_MAX=100 -D SECURE=1 -D TC_LINKKEY_JOIN -D NV_INIT -D
+#        NV_RESTORE -D xZTOOL_P1 -D xMT_TASK -D xMT_APP_FUNC -D xMT_SYS_FUNC -D
+#        xMT_ZDO_FUNC -D xMT_ZDO_MGMT -D xMT_APP_CNF_FUNC -D LEGACY_LCD_DEBUG
+#        -D LCD_SUPPORTED=DEBUG -D MULTICAST_ENABLED=FALSE -D ZCL_READ -D
+#        ZCL_WRITE -D ZCL_DISCOVER -D ZCL_BASIC -D ZCL_IDENTIFY -D ZCL_SCENES
+#        -D ZCL_GROUPS -D ZCL_REPORT_CONFIGURING_DEVICE -D
+#        ZCL_REPORT_DESTINATION_DEVICE -lC
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\CoordinatorEB\List
+#        -lA
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\CoordinatorEB\List
+#        --diag_suppress Pe001,Pa010 -o
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\CoordinatorEB\Obj
+#        -e --debug --core=plain --dptr=16,1 --data_model=large
+#        --code_model=banked --calling_convention=xdata_reentrant
+#        --place_constants=data_rom --nr_virtual_regs 16 -f
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\Tools\CC2530DB\f8wCoord.cfg
+#        (-DCPU32MHZ -DROOT=__near_func -DMAC_CFG_APP_PENDING_QUEUE=TRUE
+#        -DMAC_CFG_TX_DATA_MAX=5 -DMAC_CFG_TX_MAX=8 -DMAC_CFG_RX_MAX=5
+#        -DZDO_COORDINATOR -DRTR_NWK) -f
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg
+#        (-DZIGBEEPRO -DSECURE=1 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+#        -DDEFAULT_CHANLIST=0x00000800 -DZDAPP_CONFIG_PAN_ID=0xFFFF
+#        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
+#        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
+#        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
+#        -DAPSC_ACK_WAIT_DURATION_POLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7
+#        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
+#        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
+#        -DAPS_MAX_GROUPS=10 -DMAX_RTG_ENTRIES=15 -DNWK_MAX_BINDING_ENTRIES=4
+#        -DMAX_BINDING_CLUSTER_IDS=4 -DDEFAULT_KEY={0} -DMAC_MAX_FRAME_SIZE=116
+#        -DZDNWKMGR_MIN_TRANSMISSIONS=20 "-DCONST=const __code"
+#        -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE -DPOLL_RATE=300
+#        -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100 -DREJOIN_POLL_RATE=440
+#        -DREJOIN_BACKOFF=900000 -DREJOIN_SCAN=900000) -f
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL.cfg
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\Source\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\Source\ZCL\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\Source\UserAPI\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\Source\Controller\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\ZMain\TI2530DB\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\hal\include\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\hal\target\CC2530EB\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\mac\include\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\mac\high_level\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\single_chip\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\mt\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\osal\include\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\services\saddr\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\services\sdata\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\af\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\bdb\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\gp\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\nwk\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\sapi\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\sec\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\sys\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\zcl\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\zdo\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\zmac\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\zmac\f8w\
+#        -Ohz --require_prototypes)
+#    Locale             =  Chinese (Simplified)_CHN.936
+#    List file          =  
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\CoordinatorEB\List\zcl_doorlock.lst
+#    Object file        =  
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\CoordinatorEB\Obj\zcl_doorlock.r51
+#
+###############################################################################
+
+F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\Source\ZCL\zcl_doorlock.c
+      1          /*****************************************************************************
+      2            Filename:       zcl_doorlock.c
+      3            Author:         Yang Wang
+      4          
+      5            Description:    Zigbee Cluster Library - sample device application.
+      6          ******************************************************************************/
+      7          /*********************************************************************
+      8           * INCLUDES
+      9           */
+     10          #include "ZComDef.h"
+     11          #include "OSAL.h"
+     12          #include "AF.h"
+     13          #include "ZDApp.h"
+     14          #include "bdb.h"
+     15          #include "bdb_interface.h"
+     16          
+     17          #include "zcl.h"
+     18          #include "zcl_general.h"
+     19          #include "zcl_closures.h"
+     20          #include "zcl_ha.h"
+     21          
+     22          #include "AT_controller.h"
+     23          #include "AT_printf.h"
+     24          #include "zcl_doorlock.h"
+     25          
+     26          #include "onboard.h"
+     27          
+     28          /* HAL */
+     29          #include "hal_led.h"
+     30          
+     31          /* Device */
+     32          #include "AT_doorlock.h"
+
+  ZStatus_t AT_DoorLock_Unlock( zclDoorLock_t *pInCmd );
+                                ^
+"F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\Source\Controller\AT_doorlock.h",97  Error[Pe020]: 
+          identifier "zclDoorLock_t" is undefined
+
+  ZStatus_t AT_DoorLock_Lock( zclDoorLock_t *pInCmd );
+                              ^
+"F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\Source\Controller\AT_doorlock.h",98  Error[Pe020]: 
+          identifier "zclDoorLock_t" is undefined
+
+  ZStatus_t AT_DoorLock_SetTemporaryPin_Req( zclDoorLockSetTemporaryPin_t *pCmd );
+                                             ^
+"F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\Source\Controller\AT_doorlock.h",99  Error[Pe020]: 
+          identifier "zclDoorLockSetTemporaryPin_t" is undefined
+     33          #include "AT_single_bus.h"
+     34          
+     35          /*********************************************************************
+     36           * MACROS
+     37           */
+     38          
+     39          /*********************************************************************
+     40           * CONSTANTS
+     41           */
+     42          
+     43          /*********************************************************************
+     44           * TYPEDEFS
+     45           */
+     46          
+     47          /*********************************************************************
+     48           * GLOBAL VARIABLES
+     49           */
+     50          byte zclDoorLock_TaskID;
+     51          
+     52          /*********************************************************************
+     53           * GLOBAL FUNCTIONS
+     54           */
+     55          
+     56          /*********************************************************************
+     57           * LOCAL VARIABLES
+     58           */
+     59          
+     60          /*********************************************************************
+     61           * LOCAL FUNCTIONS
+     62           */
+     63          static ZStatus_t zclDoorLock_Report(uint8 endpoint, uint16 clusterId, uint16 attrId, uint8 dataType, void *dataPtr);
+     64          static void zclDoorLock_BasicResetCB( void );
+     65          
+     66          // Functions to process ZCL Foundation incoming Command/Response messages
+     67          static ZStatus_t zclDoorLock_DoorLockCB ( zclIncoming_t *pInMsg, zclDoorLock_t *pInCmd );
+                                                                                  ^
+Error[Pe020]: identifier "zclDoorLock_t" is undefined
+     68          static ZStatus_t zclDoorLock_DoorLockSetTemporaryPinCB ( zclIncoming_t *pInMsg, zclDoorLockSetTemporaryPin_t *pCmd );
+                                                                                                 ^
+Error[Pe020]: identifier "zclDoorLockSetTemporaryPin_t" is undefined
+     69          
+     70          /*********************************************************************
+     71           * ZCL General Profile Callback table
+     72           */
+     73          static zclGeneral_AppCallbacks_t zclDoorLock_CmdCallbacks =
+     74          {
+     75            zclDoorLock_BasicResetCB,               // Basic Cluster Reset command
+     76            NULL,                                   // Identify Trigger Effect command
+     77            NULL,                                   // On/Off cluster commands
+     78            NULL,                                   // On/Off cluster enhanced command Off with Effect
+     79            NULL,                                   // On/Off cluster enhanced command On with Recall Global Scene
+     80            NULL,                                   // On/Off cluster enhanced command On with Timed Off
+     81          #ifdef ZCL_LEVEL_CTRL
+     82            NULL,                                   // Level Control Move to Level command
+     83            NULL,                                   // Level Control Move command
+     84            NULL,                                   // Level Control Step command
+     85            NULL,                                   // Level Control Stop command
+     86          #endif
+     87          #ifdef ZCL_GROUPS
+     88            NULL,                                   // Group Response commands
+     89          #endif
+     90          #ifdef ZCL_SCENES
+     91            NULL,                                  // Scene Store Request command
+     92            NULL,                                  // Scene Recall Request command
+     93            NULL,                                  // Scene Response command
+     94          #endif
+     95          #ifdef ZCL_ALARMS
+     96            NULL,                                  // Alarm (Response) commands
+     97          #endif
+     98          #ifdef SE_UK_EXT
+     99            NULL,                                  // Get Event Log command
+    100            NULL,                                  // Publish Event Log command
+    101          #endif
+    102            NULL,                                  // RSSI Location command
+    103            NULL                                   // RSSI Location Response command
+    104          };
+    105          
+    106          /*********************************************************************
+    107           * ZCL Closure cluster Callback table
+    108           */
+    109          static zclClosures_DoorLockAppCallbacks_t zclDoorLock_DoorLockCmdCallbacks =
+                        ^
+Error[Pe020]: identifier "zclClosures_DoorLockAppCallbacks_t" is undefined
+    110          {
+    111            zclDoorLock_DoorLockCB,                 // Lock/Unlock/Toggle command
+    112            NULL,
+    113            NULL,                                   // Unlock With Timeout command
+    114            NULL,                                   // Get Log Record command
+    115            NULL,
+    116            NULL,
+    117            NULL,
+    118            NULL,
+    119            NULL,
+    120            NULL,
+    121            NULL,
+    122            NULL,
+    123            NULL,
+    124            NULL,
+    125            NULL,
+    126            NULL,
+    127            NULL,
+    128            NULL,
+    129            NULL,
+    130            NULL,
+    131            NULL,
+    132            NULL,
+    133            NULL,
+    134            NULL,
+    135            NULL,
+    136            zclDoorLock_DoorLockSetTemporaryPinCB,
+    137            NULL,
+    138            NULL,
+    139            NULL,
+    140            NULL,
+    141            NULL,
+    142            NULL,
+    143            NULL,
+    144            NULL,
+    145            NULL,
+    146            NULL,
+    147            NULL,
+    148            NULL,
+    149            NULL,
+    150            NULL,
+    151            NULL,
+    152            NULL,
+    153            NULL,
+    154            NULL,
+    155            NULL,
+    156            NULL,
+    157            NULL,
+    158            NULL,
+    159            NULL,
+    160            NULL,
+    161            NULL,
+    162            NULL
+    163          };
+    164          
+    165          static ZStatus_t zclDoorLock_Report(uint8 endpoint, uint16 clusterId, uint16 attrId, uint8 dataType, void *dataPtr)
+    166          {
+    167            ZStatus_t result = ZFailure;
+    168          
+    169            afAddrType_t dstAddr;
+    170            dstAddr.addr.shortAddr = NWK_PAN_COORD_ADDR;
+    171            dstAddr.addrMode = (afAddrMode_t)Addr16Bit;
+    172            dstAddr.endPoint = 0x64;
+    173          
+    174            zclReportCmd_t *pReportCmd;
+    175            pReportCmd = osal_mem_alloc(sizeof(zclReportCmd_t) + (1 * sizeof(zclReport_t)));
+    176            if(pReportCmd != NULL)
+    177            {
+    178              pReportCmd->numAttr = 1;
+    179          
+    180              pReportCmd->attrList[0].attrID = attrId;
+    181              pReportCmd->attrList[0].dataType = dataType;
+    182              pReportCmd->attrList[0].attrData = dataPtr;
+    183          
+    184              result = zcl_SendReportCmd( endpoint,
+                              ^
+Error[Pe223]: function "zcl_SendReportCmd" declared implicitly
+    185                                          &dstAddr,
+    186                                          clusterId,
+    187                                          pReportCmd,
+    188                                          ZCL_FRAME_SERVER_CLIENT_DIR,
+    189                                          BDB_REPORTING_DISABLE_DEFAULT_RSP,
+                                                 ^
+Error[Pe020]: identifier "BDB_REPORTING_DISABLE_DEFAULT_RSP" is undefined
+    190                                          bdb_getZCLFrameCounter());
+    191          
+    192              osal_mem_free(pReportCmd);
+    193            }
+    194            else
+    195            {
+    196              result = ZMemError;
+    197            }
+    198          
+    199            return result;
+    200          }
+    201          /*********************************************************************
+    202           * @fn          zclDoorLock_Init
+    203           *
+    204           * @brief       Initialization function for the zclGeneral layer.
+    205           *
+    206           * @param       none
+    207           *
+    208           * @return      none
+    209           */
+    210          void zclDoorLock_Init( byte task_id )
+    211          {
+    212            zclDoorLock_TaskID = task_id;
+    213          
+    214            // This app is part of the Home Automation Profile
+    215            bdb_RegisterSimpleDescriptor( &DoorLock_SimpleDesc );
+    216          
+    217          //  // Register the ZCL endpoint control function
+    218          //  AT_Endpoint_Register(DOORLOCK_ENDPOINT, &zclDoorLock_OnOff, zclDoorLock_Enable);
+    219          
+    220            // Register the ZCL General Cluster Library callback functions
+    221            zclGeneral_RegisterCmdCallbacks( DOORLOCK_ENDPOINT, &zclDoorLock_CmdCallbacks );
+    222          
+    223            // Register the application's attribute list
+    224            zclDoorLock_ResetAttributesToDefaultValues();
+    225            zcl_registerAttrList( DOORLOCK_ENDPOINT, zclDoorLock_NumAttributes, zclDoorLock_Attrs );
+    226          
+    227            //Register the ZCL DoorLock Cluster Library callback function
+    228            zclClosures_RegisterDoorLockCmdCallbacks( DOORLOCK_ENDPOINT, &zclDoorLock_DoorLockCmdCallbacks );
+                   ^
+Error[Pe223]: function "zclClosures_RegisterDoorLockCmdCallbacks" declared
+          implicitly
+    229          
+    230            #ifdef ZCL_DISCOVER
+    231              // Register the application's command list
+    232              zcl_registerCmdList( DOORLOCK_ENDPOINT, zclCmdsArraySize, zclDoorLock_Cmds );
+    233            #endif
+    234          
+    235            #ifdef ZCL_DIAGNOSTIC
+    236              // Register the application's callback function to read/write attribute data.
+    237              // This is only required when the attribute data format is unknown to ZCL.
+    238              zcl_registerReadWriteCB( DOORLOCK_ENDPOINT, zclDiagnostic_ReadWriteAttrCB, NULL );
+    239          
+    240              if ( zclDiagnostic_InitStats() == ZSuccess )
+    241              {
+    242                // Here the user could start the timer to save Diagnostics to NV
+    243              }
+    244            #endif
+    245          
+    246            AT_DoorLock_Init();
+    247          }
+    248          
+    249          /*********************************************************************
+    250           * @fn          zclDoorLock_event_loop
+    251           *
+    252           * @brief       Event Loop Processor for zclGeneral.
+    253           *
+    254           * @param       none
+    255           *
+    256           * @return      none
+    257           */
+    258          uint16 zclDoorLock_event_loop( uint8 task_id, uint16 events )
+    259          {
+    260            afIncomingMSGPacket_t *MSGpkt;
+    261          
+    262            (void)task_id;  // Intentionally unreferenced parameter
+    263          
+    264            if ( events & SYS_EVENT_MSG )
+    265            {
+    266              while ( (MSGpkt = (afIncomingMSGPacket_t *)osal_msg_receive( zclDoorLock_TaskID )) )
+    267              {
+    268                switch ( MSGpkt->hdr.event )
+    269                {
+    270                  default:
+    271                    break;
+    272                }
+    273          
+    274                // Release the memory
+    275                osal_msg_deallocate( (uint8 *)MSGpkt );
+    276              }
+    277          
+    278              // return unprocessed events
+    279              return (events ^ SYS_EVENT_MSG);
+    280            }
+    281          
+    282            if ( events & DOORLOCK_IDENTIFY_TIMEOUT_EVT )
+    283            {
+    284              if ( zclDoorLock_IdentifyTime > 0 )
+    285                zclDoorLock_IdentifyTime--;
+    286              // zclDoorLock_ProcessIdentifyTimeChange(DOORLOCK_ENDPOINT);
+    287          
+    288              return ( events ^ DOORLOCK_IDENTIFY_TIMEOUT_EVT );
+    289            }
+    290          
+    291            if ( events & DOORLOCK_REPORT_LOCK_EVT )
+    292            {
+    293              zclDoorLock_LockState = CLOSURES_LOCK_STATE_LOCKED;
+                                             ^
+Error[Pe020]: identifier "CLOSURES_LOCK_STATE_LOCKED" is undefined
+    294          
+    295            #ifdef BDB_REPORTING
+    296              ZStatus_t result = zclDoorLock_Report( DOORLOCK_ENDPOINT,
+    297                                                     ZCL_CLUSTER_ID_CLOSURES_DOOR_LOCK,
+    298                                                     ATTRID_CLOSURES_LOCK_STATE,
+    299                                                     ZCL_DATATYPE_ENUM8,
+    300                                                     (void *)&zclDoorLock_LockState);
+    301          
+    302              printf("AF, DOORLOCK_REPORT_LOCK_EVT: 0x%02X\r\n", result);
+    303            #endif
+    304          
+    305              return ( events ^ DOORLOCK_REPORT_LOCK_EVT );
+    306            }
+    307          
+    308            if ( events & DOORLOCK_REPORT_UNLOCK_EVT )
+    309            {
+    310              zclDoorLock_LockState = CLOSURES_LOCK_STATE_UNLOCKED;
+                                             ^
+Error[Pe020]: identifier "CLOSURES_LOCK_STATE_UNLOCKED" is undefined
+    311          
+    312            #ifdef BDB_REPORTING
+    313              ZStatus_t result = zclDoorLock_Report( DOORLOCK_ENDPOINT,
+    314                                                     ZCL_CLUSTER_ID_CLOSURES_DOOR_LOCK,
+    315                                                     ATTRID_CLOSURES_LOCK_STATE,
+    316                                                     ZCL_DATATYPE_ENUM8,
+    317                                                     (void *)&zclDoorLock_LockState);
+    318          
+    319              printf("AF, DOORLOCK_REPORT_UNLOCK_EVT: 0x%02X\r\n", result);
+    320            #endif
+    321          
+    322              // report the doorlock is relocked after DOORLOCK_RELOCK_TIMEOUT (s)
+    323              osal_start_timerEx(zclDoorLock_TaskID, DOORLOCK_REPORT_LOCK_EVT, DOORLOCK_RELOCK_TIMEOUT);
+    324          
+    325              return ( events ^ DOORLOCK_REPORT_UNLOCK_EVT );
+    326            }
+    327          
+    328            if ( events & DOORLOCK_SET_DORMANT_EVT )
+    329            {
+    330              NLME_SetPollRate(DOORLOCK_POLL_RATE_DORMANT);
+    331          
+    332              return ( events ^ DOORLOCK_SET_DORMANT_EVT );
+    333            }
+    334          
+    335            if ( events & DOORLOCK_KEEP_ALIVE_EVT )
+    336            {
+    337            #ifdef BDB_REPORTING
+    338              ZStatus_t result = zclDoorLock_Report( DOORLOCK_ENDPOINT,
+    339                                                     ZCL_CLUSTER_ID_CLOSURES_DOOR_LOCK,
+    340                                                     ATTRID_CLOSURES_LOCK_STATE,
+    341                                                     ZCL_DATATYPE_ENUM8,
+    342                                                     (void *)&zclDoorLock_LockState);
+    343          
+    344              printf("AF, DOORLOCK_KEEP_ALIVE_EVT: 0x%02X\r\n", result);
+    345            #endif
+    346          
+    347              return ( events ^ DOORLOCK_KEEP_ALIVE_EVT );
+    348            }
+    349          
+    350            if ( events & DOORLOCK_HANDLE_RSP_EVT )
+    351            {
+    352              AT_DoorLock_Handle_Rsp(single_bus_rcv_buf, single_bus_rcv_len);
+    353          
+    354              return ( events ^ DOORLOCK_HANDLE_RSP_EVT );
+    355            }
+    356          
+    357            // Discard unknown events
+    358            return 0;
+    359          }
+    360          
+    361          /*********************************************************************
+    362           * @fn      zclDoorLock_BasicResetCB
+    363           *
+    364           * @brief   Callback from the ZCL General Cluster Library
+    365           *          to set all the Basic Cluster attributes to default values.
+    366           *
+    367           * @param   none
+    368           *
+    369           * @return  none
+    370           */
+    371          static void zclDoorLock_BasicResetCB( void )
+    372          {
+    373            /* DoorLock_TODO: remember to update this function with any
+    374               application-specific cluster attribute variables */
+    375          
+    376            zclDoorLock_ResetAttributesToDefaultValues();
+    377          }
+    378          
+    379          /*********************************************************************
+    380           * @fn      zclDoorLock_Enable
+    381           *
+    382           * @brief   Enable/disale the endpoint
+    383           *
+    384           * @param   none
+    385           *
+    386           * @return  none
+    387           */
+    388          void zclDoorLock_Enable( bool isEnable)
+    389          {
+    390            if (isEnable) {
+    391          //    zclDoorLock_OnOffCB(COMMAND_ON);
+    392            } else {
+    393              zclDoorLock_BasicResetCB();
+    394            }
+    395          }
+    396          
+    397          /*********************************************************************
+    398           * @fn      zclDoorLock_DoorLockCB
+    399           *
+    400           * @brief   Callback from the ZCL General Cluster Library when
+    401           *          it received an Door Lock cluster Command for this application.
+    402           *
+    403           * @param   pInMsg - process incoming message
+    404           * @param   pInCmd - PIN/RFID code of command
+    405           *
+    406           * @return  ZStatus_t
+    407           */
+    408          static ZStatus_t zclDoorLock_DoorLockCB ( zclIncoming_t *pInMsg, zclDoorLock_t *pInCmd )
+                                                                                  ^
+Error[Pe020]: identifier "zclDoorLock_t" is undefined
+    409          {
+    410            uint8 newDoorLockState;
+    411          
+    412            // judge what kind of action should be taken
+    413            if ( pInMsg->hdr.commandID == COMMAND_CLOSURES_LOCK_DOOR ) // Lock the door
+                                                 ^
+Error[Pe020]: identifier "COMMAND_CLOSURES_LOCK_DOOR" is undefined
+    414            {
+    415              newDoorLockState = CLOSURES_LOCK_STATE_LOCKED;
+                                        ^
+Error[Pe020]: identifier "CLOSURES_LOCK_STATE_LOCKED" is undefined
+    416            }
+    417            else if ( pInMsg->hdr.commandID == COMMAND_CLOSURES_UNLOCK_DOOR ) // Unock the door
+                                                      ^
+Error[Pe020]: identifier "COMMAND_CLOSURES_UNLOCK_DOOR" is undefined
+    418            {
+    419              newDoorLockState = CLOSURES_LOCK_STATE_UNLOCKED;
+                                        ^
+Error[Pe020]: identifier "CLOSURES_LOCK_STATE_UNLOCKED" is undefined
+    420            }
+    421            else // Toggle the door
+    422            {
+    423              if (zclDoorLock_LockState == CLOSURES_LOCK_STATE_LOCKED)
+                                                  ^
+Error[Pe020]: identifier "CLOSURES_LOCK_STATE_LOCKED" is undefined
+    424                newDoorLockState = CLOSURES_LOCK_STATE_UNLOCKED;
+                                          ^
+Error[Pe020]: identifier "CLOSURES_LOCK_STATE_UNLOCKED" is undefined
+    425              else if (zclDoorLock_LockState == CLOSURES_LOCK_STATE_UNLOCKED)
+                                                       ^
+Error[Pe020]: identifier "CLOSURES_LOCK_STATE_UNLOCKED" is undefined
+    426                newDoorLockState = CLOSURES_LOCK_STATE_LOCKED;
+    427            }
+    428          
+    429            if( newDoorLockState != zclDoorLock_LockState )
+    430            {
+    431              // take action
+    432              if( newDoorLockState == CLOSURES_LOCK_STATE_LOCKED )
+                                             ^
+Error[Pe020]: identifier "CLOSURES_LOCK_STATE_LOCKED" is undefined
+    433                AT_DoorLock_Lock( pInCmd ); // Lock the door
+    434              else if( newDoorLockState == CLOSURES_LOCK_STATE_UNLOCKED )
+                                                  ^
+Error[Pe020]: identifier "CLOSURES_LOCK_STATE_UNLOCKED" is undefined
+    435                AT_DoorLock_Unlock( pInCmd ); // Unlock the door
+    436            }
+    437          
+    438            return ( ZCL_STATUS_CMD_HAS_RSP );
+    439          }
+    440          
+    441          static ZStatus_t zclDoorLock_DoorLockSetTemporaryPinCB ( zclIncoming_t *pInMsg, zclDoorLockSetTemporaryPin_t *pCmd )
+                                                                                                 ^
+Error[Pe020]: identifier "zclDoorLockSetTemporaryPin_t" is undefined
+
+  static ZStatus_t zclDoorLock_Report(uint8 endpoint, uint16 clusterId, uint16 attrId, uint8 dataType, void *dataPtr)
+                   ^
+"F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\Source\ZCL\zcl_doorlock.c",165  Warning[Pe177]: 
+          function "zclDoorLock_Report" was declared but never referenced
+    442          {
+    443            AT_DoorLock_SetTemporaryPin_Req ( pCmd );
+    444          
+    445            return ( ZCL_STATUS_CMD_HAS_RSP );
+    446          }
+
+Errors: 22
+Warnings: 1

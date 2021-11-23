@@ -1,0 +1,1964 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V10.30.1.6000 for 8051               23/Nov/2021  10:55:02
+# Copyright 2004-2018 IAR Systems AB.
+# PC-locked license - IAR Embedded Workbench for 8051
+#
+#    Core               =  plain
+#    Code model         =  banked
+#    Data model         =  large
+#    Calling convention =  xdata reentrant
+#    Constant location  =  data_rom
+#    Dptr setup         =  1,16
+#                          
+#    Source file        =  
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Components\osal\common\OSAL.c
+#    Command line       =  
+#        -f C:\Users\ADMINI~1\AppData\Local\Temp\EWC933.tmp
+#        (F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Components\osal\common\OSAL.c
+#        -D ZIGBEEPRO -D INTER_PAN -D DISABLE_GREENPOWER_BASIC_PROXY -D
+#        HAL_UART=TRUE -D HAL_UART_ISR=1 -D HAL_UART_DMA=0 -D
+#        HAL_UART_ISR_RX_MAX=100 -D SECURE=1 -D TC_LINKKEY_JOIN -D NV_INIT -D
+#        NV_RESTORE -D xZTOOL_P1 -D xMT_TASK -D xMT_APP_FUNC -D xMT_SYS_FUNC -D
+#        xMT_ZDO_FUNC -D xMT_ZDO_MGMT -D xMT_APP_CNF_FUNC -D LEGACY_LCD_DEBUG
+#        -D LCD_SUPPORTED=DEBUG -D MULTICAST_ENABLED=FALSE -D ZCL_READ -D
+#        ZCL_WRITE -D ZCL_DISCOVER -D ZCL_BASIC -D ZCL_IDENTIFY -D ZCL_SCENES
+#        -D ZCL_GROUPS -D ZCL_REPORT_CONFIGURING_DEVICE -D
+#        ZCL_REPORT_DESTINATION_DEVICE -lC
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\CoordinatorEB\List
+#        -lA
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\CoordinatorEB\List
+#        --diag_suppress Pe001,Pa010 -o
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\CoordinatorEB\Obj
+#        -e --debug --core=plain --dptr=16,1 --data_model=large
+#        --code_model=banked --calling_convention=xdata_reentrant
+#        --place_constants=data_rom --nr_virtual_regs 16 -f
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\Tools\CC2530DB\f8wCoord.cfg
+#        (-DCPU32MHZ -DROOT=__near_func -DMAC_CFG_APP_PENDING_QUEUE=TRUE
+#        -DMAC_CFG_TX_DATA_MAX=5 -DMAC_CFG_TX_MAX=8 -DMAC_CFG_RX_MAX=5
+#        -DZDO_COORDINATOR -DRTR_NWK) -f
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg
+#        (-DZIGBEEPRO -DSECURE=1 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+#        -DDEFAULT_CHANLIST=0x00000800 -DZDAPP_CONFIG_PAN_ID=0xFFFF
+#        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
+#        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
+#        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
+#        -DAPSC_ACK_WAIT_DURATION_POLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7
+#        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
+#        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
+#        -DAPS_MAX_GROUPS=10 -DMAX_RTG_ENTRIES=15 -DNWK_MAX_BINDING_ENTRIES=4
+#        -DMAX_BINDING_CLUSTER_IDS=4 -DDEFAULT_KEY={0} -DMAC_MAX_FRAME_SIZE=116
+#        -DZDNWKMGR_MIN_TRANSMISSIONS=20 "-DCONST=const __code"
+#        -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE -DPOLL_RATE=300
+#        -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100 -DREJOIN_POLL_RATE=440
+#        -DREJOIN_BACKOFF=900000 -DREJOIN_SCAN=900000) -f
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL.cfg
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\Source\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\Source\ZCL\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\Source\UserAPI\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\Source\Controller\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\ZMain\TI2530DB\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\hal\include\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\hal\target\CC2530EB\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\mac\include\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\mac\high_level\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\single_chip\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\mt\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\osal\include\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\services\saddr\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\services\sdata\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\af\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\bdb\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\gp\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\nwk\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\sapi\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\sec\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\sys\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\zcl\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\zdo\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\zmac\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\zmac\f8w\
+#        -Ohz --require_prototypes)
+#    Locale             =  Chinese (Simplified)_CHN.936
+#    List file          =  
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\CoordinatorEB\List\OSAL.lst
+#    Object file        =  
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\CoordinatorEB\Obj\OSAL.r51
+#
+###############################################################################
+
+F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Components\osal\common\OSAL.c
+      1          /**************************************************************************************************
+      2            Filename:       OSAL.c
+      3            Revised:        $Date: 2014-11-04 15:36:27 -0800 (Tue, 04 Nov 2014) $
+      4            Revision:       $Revision: 40989 $
+      5          
+      6            Description:    This API allows the software components in the Z-stack to be written
+      7                            independently of the specifics of the operating system, kernel or tasking
+      8                            environment (including control loops or connect-to-interrupt systems).
+      9          
+     10          
+     11            Copyright 2004-2014 Texas Instruments Incorporated. All rights reserved.
+     12          
+     13            IMPORTANT: Your use of this Software is limited to those specific rights
+     14            granted under the terms of a software license agreement between the user
+     15            who downloaded the software, his/her employer (which must be your employer)
+     16            and Texas Instruments Incorporated (the "License"). You may not use this
+     17            Software unless you agree to abide by the terms of the License. The License
+     18            limits your use, and you acknowledge, that the Software may not be modified,
+     19            copied or distributed unless embedded on a Texas Instruments microcontroller
+     20            or used solely and exclusively in conjunction with a Texas Instruments radio
+     21            frequency transceiver, which is integrated into your product. Other than for
+     22            the foregoing purpose, you may not use, reproduce, copy, prepare derivative
+     23            works of, modify, distribute, perform, display or sell this Software and/or
+     24            its documentation for any purpose.
+     25          
+     26            YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
+     27            PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+     28            INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE,
+     29            NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
+     30            TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
+     31            NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER
+     32            LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+     33            INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE
+     34            OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT
+     35            OF SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+     36            (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+     37          
+     38            Should you have any questions regarding your right to use this Software,
+     39            contact Texas Instruments Incorporated at www.TI.com.
+     40          **************************************************************************************************/
+     41          
+     42          /*********************************************************************
+     43           * INCLUDES
+     44           */
+     45          
+     46          #include <string.h>
+     47          
+     48          #include "comdef.h"
+     49          #include "hal_board.h"
+     50          #include "OSAL.h"
+     51          #include "OSAL_Tasks.h"
+     52          #include "OSAL_Memory.h"
+     53          #include "OSAL_PwrMgr.h"
+     54          #include "OSAL_Clock.h"
+     55          
+     56          #include "OnBoard.h"
+     57          
+     58          /* HAL */
+     59          #include "hal_drivers.h"
+     60          
+     61          #ifdef IAR_ARMCM3_LM
+     62            #include "FreeRTOSConfig.h"
+     63            #include "osal_task.h"
+     64          #endif
+     65          
+     66          #ifdef USE_ICALL
+     67            #include <ICall.h>
+     68          #endif /* USE_ICALL */
+     69          
+     70          #include "AT_doorlock.h"
+
+  ZStatus_t AT_DoorLock_Unlock( zclDoorLock_t *pInCmd );
+                                ^
+"F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\Source\Controller\AT_doorlock.h",97  Error[Pe020]: 
+          identifier "zclDoorLock_t" is undefined
+
+  ZStatus_t AT_DoorLock_Lock( zclDoorLock_t *pInCmd );
+                              ^
+"F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\Source\Controller\AT_doorlock.h",98  Error[Pe020]: 
+          identifier "zclDoorLock_t" is undefined
+
+  ZStatus_t AT_DoorLock_SetTemporaryPin_Req( zclDoorLockSetTemporaryPin_t *pCmd );
+                                             ^
+"F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\Source\Controller\AT_doorlock.h",99  Error[Pe020]: 
+          identifier "zclDoorLockSetTemporaryPin_t" is undefined
+     71          
+     72          /*********************************************************************
+     73           * MACROS
+     74           */
+     75          
+     76          /*********************************************************************
+     77           * CONSTANTS
+     78           */
+     79          #ifdef USE_ICALL
+     80          // A bit mask to use to indicate a proxy OSAL task ID.
+     81          #define OSAL_PROXY_ID_FLAG       0x80
+     82          #endif // USE_ICALL
+     83          
+     84          /*********************************************************************
+     85           * TYPEDEFS
+     86           */
+     87          
+     88          /*********************************************************************
+     89           * GLOBAL VARIABLES
+     90           */
+     91          
+     92          // Message Pool Definitions
+     93          osal_msg_q_t osal_qHead;
+     94          
+     95          #ifdef USE_ICALL
+     96          // OSAL event loop hook function pointer 
+     97          void (*osal_eventloop_hook)(void) = NULL;
+     98          #endif /* USE_ICALL */
+     99          
+    100          /*********************************************************************
+    101           * EXTERNAL VARIABLES
+    102           */
+    103          
+    104          /*********************************************************************
+    105           * EXTERNAL FUNCTIONS
+    106           */
+    107          
+    108          /*********************************************************************
+    109           * LOCAL VARIABLES
+    110           */
+    111          
+    112          // Index of active task
+    113          static uint8 activeTaskID = TASK_NO_TASK;
+    114          
+    115          #ifdef USE_ICALL
+    116          // Maximum number of proxy tasks
+    117          #ifndef OSAL_MAX_NUM_PROXY_TASKS
+    118          #define OSAL_MAX_NUM_PROXY_TASKS 2
+    119          #endif // OSAL_MAX_NUM_PROXY_TASKS
+    120          
+    121          // ICall entity ID value used to indicate invalid value
+    122          #define OSAL_INVALID_DISPATCH_ID 0xffu
+    123          
+    124          // Semaphore associated with OSAL RTOS thread receive queue
+    125          ICall_Semaphore osal_semaphore;
+    126          
+    127          // Entity ID that OSAL RTOS thread has registered with
+    128          ICall_EntityID osal_entity;
+    129          
+    130          // Last read tick count value reflected into the OSAL timer
+    131          uint_least32_t osal_last_timestamp;
+    132          
+    133          // RTOS tick period in microseconds
+    134          uint_least32_t osal_tickperiod;
+    135          
+    136          // Maximum timeout value in milliseconds that can be used with an RTOS timer
+    137          uint_least32_t osal_max_msecs;
+    138          
+    139          // Timer ID for RTOS timer as backend engine for OSAL timer
+    140          static ICall_TimerID osal_timerid_msec_timer;
+    141          
+    142          // Timer callback sequence tracking counter to handle race condition
+    143          static unsigned osal_msec_timer_seq = 0;
+    144          
+    145          // proxy task ID map
+    146          static uint8 osal_proxy_tasks[OSAL_MAX_NUM_PROXY_TASKS];
+    147          
+    148          // service dispatcher entity IDs corresponding to OSAL tasks
+    149          static uint8 *osal_dispatch_entities;
+    150          
+    151          static uint8 osal_notask_entity;
+    152          
+    153          #endif // USE_ICALL
+    154          
+    155          /*********************************************************************
+    156           * LOCAL FUNCTION PROTOTYPES
+    157           */
+    158          
+    159          static uint8 osal_msg_enqueue_push( uint8 destination_task, uint8 *msg_ptr, uint8 urgent );
+    160          
+    161          #ifdef USE_ICALL
+    162          static uint8 osal_alien2proxy(ICall_EntityID entity);
+    163          static ICall_EntityID osal_proxy2alien(uint8 proxyid);
+    164          static uint8 osal_dispatch2id(ICall_EntityID entity);
+    165          static void osal_msec_timer_cback(void *arg);
+    166          #endif // USE_ICALL
+    167          
+    168          /*********************************************************************
+    169           * HELPER FUNCTIONS
+    170           */
+    171          /* very ugly stub so Keil can compile */
+    172          #ifdef __KEIL__
+    173          char *  itoa ( int value, char * buffer, int radix )
+    174          {
+    175            return(buffer);
+    176          }
+    177          #endif
+    178          
+    179          /*********************************************************************
+    180           * @fn      osal_strlen
+    181           *
+    182           * @brief
+    183           *
+    184           *   Calculates the length of a string.  The string must be null
+    185           *   terminated.
+    186           *
+    187           * @param   char *pString - pointer to text string
+    188           *
+    189           * @return  int - number of characters
+    190           */
+    191          int osal_strlen( char *pString )
+    192          {
+    193            return (int)( strlen( pString ) );
+    194          }
+    195          
+    196          /*********************************************************************
+    197           * @fn      osal_memcpy
+    198           *
+    199           * @brief
+    200           *
+    201           *   Generic memory copy.
+    202           *
+    203           *   Note: This function differs from the standard memcpy(), since
+    204           *         it returns the pointer to the next destination uint8. The
+    205           *         standard memcpy() returns the original destination address.
+    206           *
+    207           * @param   dst - destination address
+    208           * @param   src - source address
+    209           * @param   len - number of bytes to copy
+    210           *
+    211           * @return  pointer to end of destination buffer
+    212           */
+    213          void *osal_memcpy( void *dst, const void GENERIC *src, unsigned int len )
+    214          {
+    215            uint8 *pDst;
+    216            const uint8 GENERIC *pSrc;
+    217          
+    218            pSrc = src;
+    219            pDst = dst;
+    220          
+    221            while ( len-- )
+    222              *pDst++ = *pSrc++;
+    223          
+    224            return ( pDst );
+    225          }
+    226          
+    227          /*********************************************************************
+    228           * @fn      osal_revmemcpy
+    229           *
+    230           * @brief   Generic reverse memory copy.  Starts at the end of the
+    231           *   source buffer, by taking the source address pointer and moving
+    232           *   pointer ahead "len" bytes, then decrementing the pointer.
+    233           *
+    234           *   Note: This function differs from the standard memcpy(), since
+    235           *         it returns the pointer to the next destination uint8. The
+    236           *         standard memcpy() returns the original destination address.
+    237           *
+    238           * @param   dst - destination address
+    239           * @param   src - source address
+    240           * @param   len - number of bytes to copy
+    241           *
+    242           * @return  pointer to end of destination buffer
+    243           */
+    244          void *osal_revmemcpy( void *dst, const void GENERIC *src, unsigned int len )
+    245          {
+    246            uint8 *pDst;
+    247            const uint8 GENERIC *pSrc;
+    248          
+    249            pSrc = src;
+    250            pSrc += (len-1);
+    251            pDst = dst;
+    252          
+    253            while ( len-- )
+    254              *pDst++ = *pSrc--;
+    255          
+    256            return ( pDst );
+    257          }
+    258          
+    259          /*********************************************************************
+    260           * @fn      osal_memdup
+    261           *
+    262           * @brief   Allocates a buffer [with osal_mem_alloc()] and copies
+    263           *          the src buffer into the newly allocated space.
+    264           *
+    265           * @param   src - source address
+    266           * @param   len - number of bytes to copy
+    267           *
+    268           * @return  pointer to the new allocated buffer, or NULL if
+    269           *          allocation problem.
+    270           */
+    271          void *osal_memdup( const void GENERIC *src, unsigned int len )
+    272          {
+    273            uint8 *pDst;
+    274          
+    275            pDst = osal_mem_alloc( len );
+    276            if ( pDst )
+    277            {
+    278              VOID osal_memcpy( pDst, src, len );
+    279            }
+    280          
+    281            return ( (void *)pDst );
+    282          }
+    283          
+    284          /*********************************************************************
+    285           * @fn      osal_memcmp
+    286           *
+    287           * @brief
+    288           *
+    289           *   Generic memory compare.
+    290           *
+    291           * @param   src1 - source 1 addrexx
+    292           * @param   src2 - source 2 address
+    293           * @param   len - number of bytes to compare
+    294           *
+    295           * @return  TRUE - same, FALSE - different
+    296           */
+    297          uint8 osal_memcmp( const void GENERIC *src1, const void GENERIC *src2, unsigned int len )
+    298          {
+    299            const uint8 GENERIC *pSrc1;
+    300            const uint8 GENERIC *pSrc2;
+    301          
+    302            pSrc1 = src1;
+    303            pSrc2 = src2;
+    304          
+    305            while ( len-- )
+    306            {
+    307              if( *pSrc1++ != *pSrc2++ )
+    308                return FALSE;
+    309            }
+    310            return TRUE;
+    311          }
+    312          
+    313          
+    314          /*********************************************************************
+    315           * @fn      osal_memset
+    316           *
+    317           * @brief
+    318           *
+    319           *   Set memory buffer to value.
+    320           *
+    321           * @param   dest - pointer to buffer
+    322           * @param   value - what to set each uint8 of the message
+    323           * @param   size - how big
+    324           *
+    325           * @return  pointer to destination buffer
+    326           */
+    327          void *osal_memset( void *dest, uint8 value, int len )
+    328          {
+    329            return memset( dest, value, len );
+    330          }
+    331          
+    332          /*********************************************************************
+    333           * @fn      osal_build_uint16
+    334           *
+    335           * @brief
+    336           *
+    337           *   Build a uint16 out of 2 bytes (0 then 1).
+    338           *
+    339           * @param   swapped - 0 then 1
+    340           *
+    341           * @return  uint16
+    342           */
+    343          uint16 osal_build_uint16( uint8 *swapped )
+    344          {
+    345            return ( BUILD_UINT16( swapped[0], swapped[1] ) );
+    346          }
+    347          
+    348          /*********************************************************************
+    349           * @fn      osal_build_uint32
+    350           *
+    351           * @brief
+    352           *
+    353           *   Build a uint32 out of sequential bytes.
+    354           *
+    355           * @param   swapped - sequential bytes
+    356           * @param   len - number of bytes in the uint8 array
+    357           *
+    358           * @return  uint32
+    359           */
+    360          uint32 osal_build_uint32( uint8 *swapped, uint8 len )
+    361          {
+    362            if ( len == 2 )
+    363              return ( BUILD_UINT32( swapped[0], swapped[1], 0L, 0L ) );
+    364            else if ( len == 3 )
+    365              return ( BUILD_UINT32( swapped[0], swapped[1], swapped[2], 0L ) );
+    366            else if ( len == 4 )
+    367              return ( BUILD_UINT32( swapped[0], swapped[1], swapped[2], swapped[3] ) );
+    368            else
+    369              return ( (uint32)swapped[0] );
+    370          }
+    371          
+    372          #if !defined ( ZBIT ) && !defined ( ZBIT2 ) && !defined (UBIT)
+    373          /*********************************************************************
+    374           * @fn      _ltoa
+    375           *
+    376           * @brief
+    377           *
+    378           *   convert a long unsigned int to a string.
+    379           *
+    380           * @param  l - long to convert
+    381           * @param  buf - buffer to convert to
+    382           * @param  radix - 10 dec, 16 hex
+    383           *
+    384           * @return  pointer to buffer
+    385           */
+    386          unsigned char * _ltoa(unsigned long l, unsigned char *buf, unsigned char radix)
+    387          {
+    388          #if defined (__TI_COMPILER_VERSION)
+    389            return ( (unsigned char*)ltoa( l, (char *)buf ) );
+    390          #elif defined( __GNUC__ )
+    391            return ( (char*)ltoa( l, buf, radix ) );
+    392          #else
+    393            unsigned char tmp1[10] = "", tmp2[10] = "", tmp3[10] = "";
+    394            unsigned short num1, num2, num3;
+    395            unsigned char i;
+    396          
+    397            buf[0] = '\0';
+    398          
+    399            if ( radix == 10 )
+    400            {
+    401              num1 = l % 10000;
+    402              num2 = (l / 10000) % 10000;
+    403              num3 = (unsigned short)(l / 100000000);
+    404          
+    405              if (num3) _itoa(num3, tmp3, 10);
+    406              if (num2) _itoa(num2, tmp2, 10);
+    407              if (num1) _itoa(num1, tmp1, 10);
+    408          
+    409              if (num3)
+    410              {
+    411                strcpy((char*)buf, (char const*)tmp3);
+    412                for (i = 0; i < 4 - strlen((char const*)tmp2); i++)
+    413                  strcat((char*)buf, "0");
+    414              }
+    415              strcat((char*)buf, (char const*)tmp2);
+    416              if (num3 || num2)
+    417              {
+    418                for (i = 0; i < 4 - strlen((char const*)tmp1); i++)
+    419                  strcat((char*)buf, "0");
+    420              }
+    421              strcat((char*)buf, (char const*)tmp1);
+    422              if (!num3 && !num2 && !num1)
+    423                strcpy((char*)buf, "0");
+    424            }
+    425            else if ( radix == 16 )
+    426            {
+    427              num1 = l & 0x0000FFFF;
+    428              num2 = l >> 16;
+    429          
+    430              if (num2) _itoa(num2, tmp2, 16);
+    431              if (num1) _itoa(num1, tmp1, 16);
+    432          
+    433              if (num2)
+    434              {
+    435                strcpy((char*)buf,(char const*)tmp2);
+    436                for (i = 0; i < 4 - strlen((char const*)tmp1); i++)
+    437                  strcat((char*)buf, "0");
+    438              }
+    439              strcat((char*)buf, (char const*)tmp1);
+    440              if (!num2 && !num1)
+    441                strcpy((char*)buf, "0");
+    442            }
+    443            else
+    444              return NULL;
+    445          
+    446            return buf;
+    447          #endif
+    448          }
+    449          #endif // !defined(ZBIT) && !defined(ZBIT2)
+    450          
+    451          /*********************************************************************
+    452           * @fn        osal_rand
+    453           *
+    454           * @brief    Random number generator
+    455           *
+    456           * @param   none
+    457           *
+    458           * @return  uint16 - new random number
+    459           */
+    460          uint16 osal_rand( void )
+    461          {
+    462            return ( Onboard_rand() );
+    463          }
+    464          
+    465          /*********************************************************************
+    466           * API FUNCTIONS
+    467           *********************************************************************/
+    468          
+    469          #ifdef USE_ICALL
+    470          /*********************************************************************
+    471           * @fn      osal_prepare_svc_enroll
+    472           *
+    473           * @brief   Initialize data structures that map OSAL task ids to
+    474           *          ICall entity ids.
+    475           *
+    476           * @param   none
+    477           *
+    478           * @return  none
+    479           */
+    480          static void osal_prepare_svc_enroll(void)
+    481          {
+    482            osal_dispatch_entities = (uint8 *) osal_mem_alloc(tasksCnt * 2);
+    483            osal_memset(osal_dispatch_entities, OSAL_INVALID_DISPATCH_ID, tasksCnt * 2);
+    484            osal_memset(osal_proxy_tasks, OSAL_INVALID_DISPATCH_ID,
+    485                        OSAL_MAX_NUM_PROXY_TASKS);
+    486          }
+    487          
+    488          /*********************************************************************
+    489           * @fn      osal_enroll_dispatchid
+    490           *
+    491           * @brief   Map a task id to an ICall entity id for messaging in
+    492           *          both directions (sending and receiving).
+    493           *
+    494           * @param   taskid       OSAL task id
+    495           * @param   dispatchid   ICall entity id
+    496           *
+    497           * @return  none
+    498           */
+    499          void osal_enroll_dispatchid(uint8 taskid, ICall_EntityID dispatchid)
+    500          {
+    501            osal_dispatch_entities[taskid] = dispatchid;
+    502            osal_dispatch_entities[tasksCnt + taskid] = dispatchid;
+    503          }
+    504          
+    505          /*********************************************************************
+    506           * @fn      osal_enroll_senderid
+    507           *
+    508           * @brief   Map a task id to an ICall entity id, which shall be used
+    509           *          just for sending a message from an OSAL task.
+    510           *          Note that osal_enroll_dispatchid() must never be called
+    511           *          with the same OSAL task id used in this function call.
+    512           *          However, it is OK to call osal_enroll_dispatchid()
+    513           *          with the same ICall entity id and a different OSAL task id.
+    514           *
+    515           * @param   taskid       OSAL task id
+    516           * @param   dispatchid   ICall entity id
+    517           *
+    518           * @return  none
+    519           */
+    520          void osal_enroll_senderid(uint8 taskid, ICall_EntityID dispatchid)
+    521          {
+    522            osal_dispatch_entities[tasksCnt + taskid] = dispatchid;
+    523          }
+    524          
+    525          /*********************************************************************
+    526           * @fn      osal_enroll_notasksender
+    527           *
+    528           * @brief   Map no task id to an ICall entity id, which shall be used
+    529           *          just for sending a message from non-OSAL task.
+    530           *
+    531           * @param   dispatchid   ICall entity id
+    532           *
+    533           * @return  none
+    534           */
+    535          void osal_enroll_notasksender(ICall_EntityID dispatchid)
+    536          {
+    537            osal_notask_entity = dispatchid;
+    538          }
+    539          #endif /* USE_ICALL */
+    540          
+    541          /*********************************************************************
+    542           * @fn      osal_msg_allocate
+    543           *
+    544           * @brief
+    545           *
+    546           *    This function is called by a task to allocate a message buffer
+    547           *    into which the task will encode the particular message it wishes
+    548           *    to send.  This common buffer scheme is used to strictly limit the
+    549           *    creation of message buffers within the system due to RAM size
+    550           *    limitations on the microprocessor.   Note that all message buffers
+    551           *    are a fixed size (at least initially).  The parameter len is kept
+    552           *    in case a message pool with varying fixed message sizes is later
+    553           *    created (for example, a pool of message buffers of size LARGE,
+    554           *    MEDIUM and SMALL could be maintained and allocated based on request
+    555           *    from the tasks).
+    556           *
+    557           *
+    558           * @param   uint8 len  - wanted buffer length
+    559           *
+    560           *
+    561           * @return  pointer to allocated buffer or NULL if allocation failed.
+    562           */
+    563          uint8 * osal_msg_allocate( uint16 len )
+    564          {
+    565            osal_msg_hdr_t *hdr;
+    566          
+    567            if ( len == 0 )
+    568              return ( NULL );
+    569          
+    570            hdr = (osal_msg_hdr_t *) osal_mem_alloc( (short)(len + sizeof( osal_msg_hdr_t )) );
+    571            if ( hdr )
+    572            {
+    573              hdr->next = NULL;
+    574              hdr->len = len;
+    575              hdr->dest_id = TASK_NO_TASK;
+    576              return ( (uint8 *) (hdr + 1) );
+    577            }
+    578            else
+    579              return ( NULL );
+    580          }
+    581          
+    582          /*********************************************************************
+    583           * @fn      osal_msg_deallocate
+    584           *
+    585           * @brief
+    586           *
+    587           *    This function is used to deallocate a message buffer. This function
+    588           *    is called by a task (or processing element) after it has finished
+    589           *    processing a received message.
+    590           *
+    591           *
+    592           * @param   uint8 *msg_ptr - pointer to new message buffer
+    593           *
+    594           * @return  SUCCESS, INVALID_MSG_POINTER
+    595           */
+    596          uint8 osal_msg_deallocate( uint8 *msg_ptr )
+    597          {
+    598            uint8 *x;
+    599          
+    600            if ( msg_ptr == NULL )
+    601              return ( INVALID_MSG_POINTER );
+    602          
+    603            // don't deallocate queued buffer
+    604            if ( OSAL_MSG_ID( msg_ptr ) != TASK_NO_TASK )
+    605              return ( MSG_BUFFER_NOT_AVAIL );
+    606          
+    607            x = (uint8 *)((uint8 *)msg_ptr - sizeof( osal_msg_hdr_t ));
+    608          
+    609            osal_mem_free( (void *)x );
+    610          
+    611            return ( SUCCESS );
+    612          }
+    613          
+    614          /*********************************************************************
+    615           * @fn      osal_msg_send
+    616           *
+    617           * @brief
+    618           *
+    619           *    This function is called by a task to send a command message to
+    620           *    another task or processing element.  The sending_task field must
+    621           *    refer to a valid task, since the task ID will be used
+    622           *    for the response message.  This function will also set a message
+    623           *    ready event in the destination tasks event list.
+    624           *
+    625           *
+    626           * @param   uint8 destination_task - Send msg to Task ID
+    627           * @param   uint8 *msg_ptr - pointer to new message buffer
+    628           *
+    629           * @return  SUCCESS, INVALID_TASK, INVALID_MSG_POINTER
+    630           */
+    631          uint8 osal_msg_send( uint8 destination_task, uint8 *msg_ptr )
+    632          {
+    633          #ifdef USE_ICALL
+    634            if (destination_task & OSAL_PROXY_ID_FLAG)
+    635            {
+    636              /* Destination is a proxy task */
+    637              osal_msg_hdr_t *hdr = (osal_msg_hdr_t *)msg_ptr - 1;
+    638              ICall_EntityID src, dst;
+    639          
+    640              uint8 taskid = osal_self();
+    641              if (taskid == TASK_NO_TASK)
+    642              {
+    643                /* Call must have been made from either an ISR or a user-thread */
+    644                src = osal_notask_entity;
+    645              }
+    646              else
+    647              {
+    648                src = (ICall_EntityID) osal_dispatch_entities[taskid + tasksCnt];
+    649              }
+    650              if (src == OSAL_INVALID_DISPATCH_ID)
+    651              {
+    652                /* The source entity is not registered */
+    653                /* abort */
+    654                ICall_abort();
+    655                return FAILURE;
+    656              }
+    657              dst = osal_proxy2alien(destination_task);
+    658              hdr->dest_id = TASK_NO_TASK;
+    659              if (ICall_send(src, dst, ICALL_MSG_FORMAT_KEEP, msg_ptr) ==
+    660                  ICALL_ERRNO_SUCCESS)
+    661              {
+    662                return SUCCESS;
+    663              }
+    664              osal_msg_deallocate(msg_ptr);
+    665              return FAILURE;
+    666            }
+    667          #endif /* USE_ICALL */
+    668            return ( osal_msg_enqueue_push( destination_task, msg_ptr, FALSE ) );
+    669          }
+    670          
+    671          /*********************************************************************
+    672           * @fn      osal_msg_push_front
+    673           *
+    674           * @brief
+    675           *
+    676           *    This function is called by a task to push a command message
+    677           *    to the head of the OSAL queue. The destination_task field
+    678           *    must refer to a valid task, since the task ID will be used to
+    679           *    send the message to. This function will also set a message
+    680           *    ready event in the destination task's event list.
+    681           *
+    682           * @param   uint8 destination_task - Send msg to Task ID
+    683           * @param   uint8 *msg_ptr - pointer to message buffer
+    684           *
+    685           * @return  SUCCESS, INVALID_TASK, INVALID_MSG_POINTER
+    686           */
+    687          uint8 osal_msg_push_front( uint8 destination_task, uint8 *msg_ptr )
+    688          {
+    689            return ( osal_msg_enqueue_push( destination_task, msg_ptr, TRUE ) );
+    690          }
+    691          
+    692          /*********************************************************************
+    693           * @fn      osal_msg_enqueue_push
+    694           *
+    695           * @brief
+    696           *
+    697           *    This function is called by a task to either enqueue (append to
+    698           *    queue) or push (prepend to queue) a command message to the OSAL
+    699           *    queue. The destination_task field must refer to a valid task,
+    700           *    since the task ID will be used to send the message to. This 
+    701           *    function will also set a message ready event in the destination
+    702           *    task's event list.
+    703           *
+    704           * @param   uint8 destination_task - Send msg to Task ID
+    705           * @param   uint8 *msg_ptr - pointer to message buffer
+    706           * @param   uint8 push - TRUE to push, otherwise enqueue
+    707           *
+    708           * @return  SUCCESS, INVALID_TASK, INVALID_MSG_POINTER
+    709           */
+    710          static uint8 osal_msg_enqueue_push( uint8 destination_task, uint8 *msg_ptr, uint8 push )
+    711          {
+    712            if ( msg_ptr == NULL )
+    713            {
+    714              return ( INVALID_MSG_POINTER );
+    715            }
+    716          
+    717          #ifdef USE_ICALL
+    718            if (destination_task & OSAL_PROXY_ID_FLAG)
+    719            {
+    720              ICall_abort();
+    721            }
+    722          #endif /* USE_ICALL */
+    723          
+    724            if ( destination_task >= tasksCnt )
+    725            {
+    726              osal_msg_deallocate( msg_ptr );
+    727              return ( INVALID_TASK );
+    728            }
+    729          
+    730            // Check the message header
+    731            if ( OSAL_MSG_NEXT( msg_ptr ) != NULL ||
+    732                 OSAL_MSG_ID( msg_ptr ) != TASK_NO_TASK )
+    733            {
+    734              osal_msg_deallocate( msg_ptr );
+    735              return ( INVALID_MSG_POINTER );
+    736            }
+    737          
+    738            OSAL_MSG_ID( msg_ptr ) = destination_task;
+    739          
+    740            if ( push == TRUE )
+    741            {
+    742              // prepend the message
+    743              osal_msg_push( &osal_qHead, msg_ptr );
+    744            }
+    745            else
+    746            {
+    747              // append the message
+    748              osal_msg_enqueue( &osal_qHead, msg_ptr );
+    749            }
+    750          
+    751            // Signal the task that a message is waiting
+    752            osal_set_event( destination_task, SYS_EVENT_MSG );
+    753          
+    754            return ( SUCCESS );
+    755          }
+    756          
+    757          /*********************************************************************
+    758           * @fn      osal_msg_receive
+    759           *
+    760           * @brief
+    761           *
+    762           *    This function is called by a task to retrieve a received command
+    763           *    message. The calling task must deallocate the message buffer after
+    764           *    processing the message using the osal_msg_deallocate() call.
+    765           *
+    766           * @param   uint8 task_id - receiving tasks ID
+    767           *
+    768           * @return  *uint8 - message information or NULL if no message
+    769           */
+    770          uint8 *osal_msg_receive( uint8 task_id )
+    771          {
+    772            osal_msg_hdr_t *listHdr;
+    773            osal_msg_hdr_t *prevHdr = NULL;
+    774            osal_msg_hdr_t *foundHdr = NULL;
+    775            halIntState_t   intState;
+    776          
+    777            // Hold off interrupts
+    778            HAL_ENTER_CRITICAL_SECTION(intState);
+    779          
+    780            // Point to the top of the queue
+    781            listHdr = osal_qHead;
+    782          
+    783            // Look through the queue for a message that belongs to the asking task
+    784            while ( listHdr != NULL )
+    785            {
+    786              if ( (listHdr - 1)->dest_id == task_id )
+    787              {
+    788                if ( foundHdr == NULL )
+    789                {
+    790                  // Save the first one
+    791                  foundHdr = listHdr;
+    792                }
+    793                else
+    794                {
+    795                  // Second msg found, stop looking
+    796                  break;
+    797                }
+    798              }
+    799              if ( foundHdr == NULL )
+    800              {
+    801                prevHdr = listHdr;
+    802              }
+    803              listHdr = OSAL_MSG_NEXT( listHdr );
+    804            }
+    805          
+    806            // Is there more than one?
+    807            if ( listHdr != NULL )
+    808            {
+    809              // Yes, Signal the task that a message is waiting
+    810              osal_set_event( task_id, SYS_EVENT_MSG );
+    811            }
+    812            else
+    813            {
+    814              // No more
+    815              osal_clear_event( task_id, SYS_EVENT_MSG );
+    816            }
+    817          
+    818            // Did we find a message?
+    819            if ( foundHdr != NULL )
+    820            {
+    821              // Take out of the link list
+    822              osal_msg_extract( &osal_qHead, foundHdr, prevHdr );
+    823            }
+    824          
+    825            // Release interrupts
+    826            HAL_EXIT_CRITICAL_SECTION(intState);
+    827          
+    828            return ( (uint8*) foundHdr );
+    829          }
+    830          
+    831          /**************************************************************************************************
+    832           * @fn          osal_msg_find
+    833           *
+    834           * @brief       This function finds in place an OSAL message matching the task_id and event
+    835           *              parameters.
+    836           *
+    837           * input parameters
+    838           *
+    839           * @param       task_id - The OSAL task id that the enqueued OSAL message must match.
+    840           * @param       event - The OSAL event id that the enqueued OSAL message must match.
+    841           *
+    842           * output parameters
+    843           *
+    844           * None.
+    845           *
+    846           * @return      NULL if no match, otherwise an in place pointer to the matching OSAL message.
+    847           **************************************************************************************************
+    848           */
+    849          osal_event_hdr_t *osal_msg_find(uint8 task_id, uint8 event)
+    850          {
+    851            osal_msg_hdr_t *pHdr;
+    852            halIntState_t intState;
+    853          
+    854            HAL_ENTER_CRITICAL_SECTION(intState);  // Hold off interrupts.
+    855          
+    856            pHdr = osal_qHead;  // Point to the top of the queue.
+    857          
+    858            // Look through the queue for a message that matches the task_id and event parameters.
+    859            while (pHdr != NULL)
+    860            {
+    861              if (((pHdr-1)->dest_id == task_id) && (((osal_event_hdr_t *)pHdr)->event == event))
+    862              {
+    863                break;
+    864              }
+    865          
+    866              pHdr = OSAL_MSG_NEXT(pHdr);
+    867            }
+    868          
+    869            HAL_EXIT_CRITICAL_SECTION(intState);  // Release interrupts.
+    870          
+    871            return (osal_event_hdr_t *)pHdr;
+    872          }
+    873          
+    874          /**************************************************************************************************
+    875           * @fn          osal_msg_count
+    876           *
+    877           * @brief       This function counts the number of messages, in the OSAL message queue with a
+    878           *              a given task ID and message event type.
+    879           *
+    880           * input parameters
+    881           *
+    882           * @param       task_id - The OSAL task id that the enqueued OSAL message must match.
+    883           * @param       event - The OSAL event id that the enqueued OSAL message must match. 0xFF for 
+    884           *              all events.
+    885           *
+    886           * output parameters
+    887           *
+    888           * None.
+    889           *
+    890           * @return      The number of OSAL messages that match the task ID and Event.
+    891           **************************************************************************************************
+    892           */
+    893          uint8 osal_msg_count( uint8 task_id, uint8 event )
+    894          {
+    895            uint8 count = 0;
+    896            osal_msg_hdr_t *pHdr;
+    897            halIntState_t intState;
+    898          
+    899            HAL_ENTER_CRITICAL_SECTION(intState);  // Hold off interrupts.
+    900          
+    901            pHdr = osal_qHead;  // Point to the top of the queue.
+    902          
+    903            // Look through the queue for a message that matches the task_id and event parameters.
+    904            while (pHdr != NULL)
+    905            {
+    906              if ( ((pHdr-1)->dest_id == task_id) 
+    907                  && ((event == 0xFF) || (((osal_event_hdr_t *)pHdr)->event == event)) )
+    908              {
+    909                count++;
+    910              }
+    911          
+    912              pHdr = OSAL_MSG_NEXT(pHdr);
+    913            }
+    914          
+    915            HAL_EXIT_CRITICAL_SECTION(intState);  // Release interrupts.
+    916          
+    917            return ( count );
+    918          }
+    919          
+    920          /*********************************************************************
+    921           * @fn      osal_msg_enqueue
+    922           *
+    923           * @brief
+    924           *
+    925           *    This function enqueues an OSAL message into an OSAL queue.
+    926           *
+    927           * @param   osal_msg_q_t *q_ptr - OSAL queue
+    928           * @param   void *msg_ptr  - OSAL message
+    929           *
+    930           * @return  none
+    931           */
+    932          void osal_msg_enqueue( osal_msg_q_t *q_ptr, void *msg_ptr )
+    933          {
+    934            void *list;
+    935            halIntState_t intState;
+    936          
+    937            // Hold off interrupts
+    938            HAL_ENTER_CRITICAL_SECTION(intState);
+    939          
+    940            OSAL_MSG_NEXT( msg_ptr ) = NULL;
+    941            // If first message in queue
+    942            if ( *q_ptr == NULL )
+    943            {
+    944              *q_ptr = msg_ptr;
+    945            }
+    946            else
+    947            {
+    948              // Find end of queue
+    949              for ( list = *q_ptr; OSAL_MSG_NEXT( list ) != NULL; list = OSAL_MSG_NEXT( list ) );
+    950          
+    951              // Add message to end of queue
+    952              OSAL_MSG_NEXT( list ) = msg_ptr;
+    953            }
+    954          
+    955            // Re-enable interrupts
+    956            HAL_EXIT_CRITICAL_SECTION(intState);
+    957          }
+    958          
+    959          /*********************************************************************
+    960           * @fn      osal_msg_dequeue
+    961           *
+    962           * @brief
+    963           *
+    964           *    This function dequeues an OSAL message from an OSAL queue.
+    965           *
+    966           * @param   osal_msg_q_t *q_ptr - OSAL queue
+    967           *
+    968           * @return  void * - pointer to OSAL message or NULL of queue is empty.
+    969           */
+    970          void *osal_msg_dequeue( osal_msg_q_t *q_ptr )
+    971          {
+    972            void *msg_ptr = NULL;
+    973            halIntState_t intState;
+    974          
+    975            // Hold off interrupts
+    976            HAL_ENTER_CRITICAL_SECTION(intState);
+    977          
+    978            if ( *q_ptr != NULL )
+    979            {
+    980              // Dequeue message
+    981              msg_ptr = *q_ptr;
+    982              *q_ptr = OSAL_MSG_NEXT( msg_ptr );
+    983              OSAL_MSG_NEXT( msg_ptr ) = NULL;
+    984              OSAL_MSG_ID( msg_ptr ) = TASK_NO_TASK;
+    985            }
+    986          
+    987            // Re-enable interrupts
+    988            HAL_EXIT_CRITICAL_SECTION(intState);
+    989          
+    990            return msg_ptr;
+    991          }
+    992          
+    993          /*********************************************************************
+    994           * @fn      osal_msg_push
+    995           *
+    996           * @brief
+    997           *
+    998           *    This function pushes an OSAL message to the head of an OSAL
+    999           *    queue.
+   1000           *
+   1001           * @param   osal_msg_q_t *q_ptr - OSAL queue
+   1002           * @param   void *msg_ptr  - OSAL message
+   1003           *
+   1004           * @return  none
+   1005           */
+   1006          void osal_msg_push( osal_msg_q_t *q_ptr, void *msg_ptr )
+   1007          {
+   1008            halIntState_t intState;
+   1009          
+   1010            // Hold off interrupts
+   1011            HAL_ENTER_CRITICAL_SECTION(intState);
+   1012          
+   1013            // Push message to head of queue
+   1014            OSAL_MSG_NEXT( msg_ptr ) = *q_ptr;
+   1015            *q_ptr = msg_ptr;
+   1016          
+   1017            // Re-enable interrupts
+   1018            HAL_EXIT_CRITICAL_SECTION(intState);
+   1019          }
+   1020          
+   1021          /*********************************************************************
+   1022           * @fn      osal_msg_extract
+   1023           *
+   1024           * @brief
+   1025           *
+   1026           *    This function extracts and removes an OSAL message from the
+   1027           *    middle of an OSAL queue.
+   1028           *
+   1029           * @param   osal_msg_q_t *q_ptr - OSAL queue
+   1030           * @param   void *msg_ptr  - OSAL message to be extracted
+   1031           * @param   void *prev_ptr  - OSAL message before msg_ptr in queue
+   1032           *
+   1033           * @return  none
+   1034           */
+   1035          void osal_msg_extract( osal_msg_q_t *q_ptr, void *msg_ptr, void *prev_ptr )
+   1036          {
+   1037            halIntState_t intState;
+   1038          
+   1039            // Hold off interrupts
+   1040            HAL_ENTER_CRITICAL_SECTION(intState);
+   1041          
+   1042            if ( msg_ptr == *q_ptr )
+   1043            {
+   1044              // remove from first
+   1045              *q_ptr = OSAL_MSG_NEXT( msg_ptr );
+   1046            }
+   1047            else
+   1048            {
+   1049              // remove from middle
+   1050              OSAL_MSG_NEXT( prev_ptr ) = OSAL_MSG_NEXT( msg_ptr );
+   1051            }
+   1052            OSAL_MSG_NEXT( msg_ptr ) = NULL;
+   1053            OSAL_MSG_ID( msg_ptr ) = TASK_NO_TASK;
+   1054          
+   1055            // Re-enable interrupts
+   1056            HAL_EXIT_CRITICAL_SECTION(intState);
+   1057          }
+   1058          
+   1059          /*********************************************************************
+   1060           * @fn      osal_msg_enqueue_max
+   1061           *
+   1062           * @brief
+   1063           *
+   1064           *    This function enqueues an OSAL message into an OSAL queue if
+   1065           *    the length of the queue is less than max.
+   1066           *
+   1067           * @param   osal_msg_q_t *q_ptr - OSAL queue
+   1068           * @param   void *msg_ptr  - OSAL message
+   1069           * @param   uint8 max - maximum length of queue
+   1070           *
+   1071           * @return  TRUE if message was enqueued, FALSE otherwise
+   1072           */
+   1073          uint8 osal_msg_enqueue_max( osal_msg_q_t *q_ptr, void *msg_ptr, uint8 max )
+   1074          {
+   1075            void *list;
+   1076            uint8 ret = FALSE;
+   1077            halIntState_t intState;
+   1078          
+   1079            // Hold off interrupts
+   1080            HAL_ENTER_CRITICAL_SECTION(intState);
+   1081          
+   1082            // If first message in queue
+   1083            if ( *q_ptr == NULL )
+   1084            {
+   1085              *q_ptr = msg_ptr;
+   1086              ret = TRUE;
+   1087            }
+   1088            else
+   1089            {
+   1090              // Find end of queue or max
+   1091              list = *q_ptr;
+   1092              max--;
+   1093              while ( (OSAL_MSG_NEXT( list ) != NULL) && (max > 0) )
+   1094              {
+   1095                list = OSAL_MSG_NEXT( list );
+   1096                max--;
+   1097              }
+   1098          
+   1099              // Add message to end of queue if max not reached
+   1100              if ( max != 0 )
+   1101              {
+   1102                OSAL_MSG_NEXT( list ) = msg_ptr;
+   1103                ret = TRUE;
+   1104              }
+   1105            }
+   1106          
+   1107            // Re-enable interrupts
+   1108            HAL_EXIT_CRITICAL_SECTION(intState);
+   1109          
+   1110            return ret;
+   1111          }
+   1112          
+   1113          /*********************************************************************
+   1114           * @fn      osal_set_event
+   1115           *
+   1116           * @brief
+   1117           *
+   1118           *    This function is called to set the event flags for a task. The
+   1119           *    event passed in is OR'd into the task's event variable.
+   1120           *
+   1121           * @param   uint8 task_id - receiving tasks ID
+   1122           * @param   uint8 event_flag - what event to set
+   1123           *
+   1124           * @return  SUCCESS, MSG_BUFFER_NOT_AVAIL, FAILURE, INVALID_TASK
+   1125           */
+   1126          #ifdef OSAL_PORT2TIRTOS
+   1127          uint8 osal_set_event_raw( uint8 task_id, uint16 event_flag )
+   1128          #else /* OSAL_PORT2TIRTOS */
+   1129          uint8 osal_set_event( uint8 task_id, uint16 event_flag )
+   1130          #endif /* OSAL_PORT2TIRTOS */
+   1131          {
+   1132          #ifdef USE_ICALL
+   1133            if (task_id & OSAL_PROXY_ID_FLAG)
+   1134            {
+   1135              /* Destination is a proxy task */
+   1136              osal_msg_hdr_t *hdr;
+   1137              ICall_EntityID src, dst;
+   1138              uint8 taskid;
+   1139          
+   1140              struct _osal_event_msg_t
+   1141              {
+   1142                uint16 signature;
+   1143                uint16 event_flag;
+   1144              } *msg_ptr = (struct _osal_event_msg_t *)
+   1145                osal_msg_allocate(sizeof(*msg_ptr));
+   1146          
+   1147              if (!msg_ptr)
+   1148              {
+   1149                return MSG_BUFFER_NOT_AVAIL;
+   1150              }
+   1151              msg_ptr->signature = 0xffffu;
+   1152              msg_ptr->event_flag = event_flag;
+   1153              hdr = (osal_msg_hdr_t *)msg_ptr - 1;
+   1154          
+   1155              taskid = osal_self();
+   1156              if (taskid == TASK_NO_TASK)
+   1157              {
+   1158                /* Call must have been made from either an ISR or a user-thread */
+   1159                src = osal_notask_entity;
+   1160              }
+   1161              else
+   1162              {
+   1163                src = (ICall_EntityID) osal_dispatch_entities[taskid + tasksCnt];
+   1164              }
+   1165          
+   1166              if (src == OSAL_INVALID_DISPATCH_ID)
+   1167              {
+   1168                /* The source entity is not registered */
+   1169                osal_msg_deallocate((uint8 *) msg_ptr);
+   1170                ICall_abort();
+   1171                return FAILURE;
+   1172              }
+   1173              dst = osal_proxy2alien(task_id);
+   1174              hdr->dest_id = TASK_NO_TASK;
+   1175              if (ICall_send(src, dst,
+   1176                             ICALL_MSG_FORMAT_KEEP, msg_ptr) ==
+   1177                  ICALL_ERRNO_SUCCESS)
+   1178              {
+   1179                return SUCCESS;
+   1180              }
+   1181              osal_msg_deallocate((uint8 *) msg_ptr);
+   1182              return FAILURE;
+   1183            }
+   1184          #endif /* USE_ICALL */
+   1185          
+   1186            if ( task_id < tasksCnt )
+   1187            {
+   1188              halIntState_t   intState;
+   1189              HAL_ENTER_CRITICAL_SECTION(intState);    // Hold off interrupts
+   1190              tasksEvents[task_id] |= event_flag;  // Stuff the event bit(s)
+   1191              HAL_EXIT_CRITICAL_SECTION(intState);     // Release interrupts
+   1192          #ifdef USE_ICALL
+   1193              ICall_signal(osal_semaphore);
+   1194          #endif /* USE_ICALL */
+   1195              return ( SUCCESS );
+   1196            }
+   1197             else
+   1198            {
+   1199              return ( INVALID_TASK );
+   1200            }
+   1201          }
+   1202          
+   1203          /*********************************************************************
+   1204           * @fn      osal_clear_event
+   1205           *
+   1206           * @brief
+   1207           *
+   1208           *    This function is called to clear the event flags for a task. The
+   1209           *    event passed in is masked out of the task's event variable.
+   1210           *
+   1211           * @param   uint8 task_id - receiving tasks ID
+   1212           * @param   uint8 event_flag - what event to clear
+   1213           *
+   1214           * @return  SUCCESS, INVALID_TASK
+   1215           */
+   1216          uint8 osal_clear_event( uint8 task_id, uint16 event_flag )
+   1217          {
+   1218            if ( task_id < tasksCnt )
+   1219            {
+   1220              halIntState_t   intState;
+   1221              HAL_ENTER_CRITICAL_SECTION(intState);    // Hold off interrupts
+   1222              tasksEvents[task_id] &= ~(event_flag);   // Clear the event bit(s)
+   1223              HAL_EXIT_CRITICAL_SECTION(intState);     // Release interrupts
+   1224              return ( SUCCESS );
+   1225            }
+   1226             else
+   1227            {
+   1228              return ( INVALID_TASK );
+   1229            }
+   1230          }
+   1231          
+   1232          /*********************************************************************
+   1233           * @fn      osal_isr_register
+   1234           *
+   1235           * @brief
+   1236           *
+   1237           *   This function is called to register a service routine with an
+   1238           *   interrupt. When the interrupt occurs, this service routine is called.
+   1239           *
+   1240           * @param   uint8 interrupt_id - Interrupt number
+   1241           * @param   void (*isr_ptr)( uint8* ) - function pointer to ISR
+   1242           *
+   1243           * @return  SUCCESS, INVALID_INTERRUPT_ID,
+   1244           */
+   1245          uint8 osal_isr_register( uint8 interrupt_id, void (*isr_ptr)( uint8* ) )
+   1246          {
+   1247            // Remove these statements when functionality is complete
+   1248            (void)interrupt_id;
+   1249            (void)isr_ptr;
+   1250            return ( SUCCESS );
+   1251          }
+   1252          
+   1253          /*********************************************************************
+   1254           * @fn      osal_int_enable
+   1255           *
+   1256           * @brief
+   1257           *
+   1258           *   This function is called to enable an interrupt. Once enabled,
+   1259           *   occurrence of the interrupt causes the service routine associated
+   1260           *   with that interrupt to be called.
+   1261           *
+   1262           *   If INTS_ALL is the interrupt_id, interrupts (in general) are enabled.
+   1263           *   If a single interrupt is passed in, then interrupts still have
+   1264           *   to be enabled with another call to INTS_ALL.
+   1265           *
+   1266           * @param   uint8 interrupt_id - Interrupt number
+   1267           *
+   1268           * @return  SUCCESS or INVALID_INTERRUPT_ID
+   1269           */
+   1270          uint8 osal_int_enable( uint8 interrupt_id )
+   1271          {
+   1272          
+   1273            if ( interrupt_id == INTS_ALL )
+   1274            {
+   1275              HAL_ENABLE_INTERRUPTS();
+   1276              return ( SUCCESS );
+   1277            }
+   1278            else
+   1279            {
+   1280              return ( INVALID_INTERRUPT_ID );
+   1281            }
+   1282          }
+   1283          
+   1284          /*********************************************************************
+   1285           * @fn      osal_int_disable
+   1286           *
+   1287           * @brief
+   1288           *
+   1289           *   This function is called to disable an interrupt. When a disabled
+   1290           *   interrupt occurs, the service routine associated with that
+   1291           *   interrupt is not called.
+   1292           *
+   1293           *   If INTS_ALL is the interrupt_id, interrupts (in general) are disabled.
+   1294           *   If a single interrupt is passed in, then just that interrupt is disabled.
+   1295           *
+   1296           * @param   uint8 interrupt_id - Interrupt number
+   1297           *
+   1298           * @return  SUCCESS or INVALID_INTERRUPT_ID
+   1299           */
+   1300          uint8 osal_int_disable( uint8 interrupt_id )
+   1301          {
+   1302          
+   1303            if ( interrupt_id == INTS_ALL )
+   1304            {
+   1305              HAL_DISABLE_INTERRUPTS();
+   1306              return ( SUCCESS );
+   1307            }
+   1308            else
+   1309            {
+   1310              return ( INVALID_INTERRUPT_ID );
+   1311            }
+   1312          }
+   1313          
+   1314          /*********************************************************************
+   1315           * @fn      osal_init_system
+   1316           *
+   1317           * @brief
+   1318           *
+   1319           *   This function initializes the "task" system by creating the
+   1320           *   tasks defined in the task table (OSAL_Tasks.h).
+   1321           *
+   1322           * @param   void
+   1323           *
+   1324           * @return  SUCCESS
+   1325           */
+   1326          uint8 osal_init_system( void )
+   1327          {
+   1328          #if !defined USE_ICALL && !defined OSAL_PORT2TIRTOS
+   1329            // Initialize the Memory Allocation System
+   1330            osal_mem_init();
+   1331          #endif /* !defined USE_ICALL && !defined OSAL_PORT2TIRTOS */
+   1332          
+   1333            // Initialize the message queue
+   1334            osal_qHead = NULL;
+   1335          
+   1336            // Initialize the timers
+   1337            osalTimerInit();
+   1338          
+   1339            // Initialize the Power Management System
+   1340            osal_pwrmgr_init();
+   1341          
+   1342          #ifdef USE_ICALL
+   1343            /* Prepare memory space for service enrollment */
+   1344            osal_prepare_svc_enroll();
+   1345          #endif /* USE_ICALL */
+   1346          
+   1347            // Initialize the system tasks.
+   1348            osalInitTasks();
+   1349          
+   1350          #if !defined USE_ICALL && !defined OSAL_PORT2TIRTOS
+   1351            // Setup efficient search for the first free block of heap.
+   1352            osal_mem_kick();
+   1353          #endif /* !defined USE_ICALL && !defined OSAL_PORT2TIRTOS */
+   1354          
+   1355          #ifdef USE_ICALL
+   1356            // Initialize variables used to track timing and provide OSAL timer service
+   1357            osal_last_timestamp = (uint_least32_t) ICall_getTicks();
+   1358            osal_tickperiod = (uint_least32_t) ICall_getTickPeriod();
+   1359            osal_max_msecs = (uint_least32_t) ICall_getMaxMSecs();
+   1360            /* Reduce ceiling considering potential latency */
+   1361            osal_max_msecs -= 2;
+   1362          #endif /* USE_ICALL */
+   1363          
+   1364            return ( SUCCESS );
+   1365          }
+   1366          
+   1367          /*********************************************************************
+   1368           * @fn      osal_start_system
+   1369           *
+   1370           * @brief
+   1371           *
+   1372           *   This function is the main loop function of the task system (if
+   1373           *   ZBIT and UBIT are not defined). This Function doesn't return.
+   1374           *
+   1375           * @param   void
+   1376           *
+   1377           * @return  none
+   1378           */
+   1379          void osal_start_system( void )
+   1380          {
+   1381          #ifdef USE_ICALL
+   1382            /* Kick off timer service in order to allocate resources upfront.
+   1383             * The first timeout is required to schedule next OSAL timer event
+   1384             * as well. */
+   1385            ICall_Errno errno = ICall_setTimer(1, osal_msec_timer_cback,
+   1386                                               (void *) osal_msec_timer_seq,
+   1387                                               &osal_timerid_msec_timer);
+   1388            if (errno != ICALL_ERRNO_SUCCESS)
+   1389            {
+   1390              ICall_abort();
+   1391            }
+   1392          #endif /* USE_ICALL */
+   1393          
+   1394          #if !defined ( ZBIT ) && !defined ( UBIT )
+   1395            for(;;)  // Forever Loop
+   1396          #endif
+   1397            {
+   1398              osal_run_system();
+   1399          
+   1400          #ifdef WDT_IN_PM1
+   1401              WatchDogClear();
+   1402          #endif
+   1403          
+   1404          #ifdef USE_ICALL
+   1405              ICall_wait(ICALL_TIMEOUT_FOREVER);
+   1406          #endif /* USE_ICALL */
+   1407            }
+   1408          }
+   1409          
+   1410          #ifdef USE_ICALL
+   1411          /*********************************************************************
+   1412           * @fn      osal_alien2proxy
+   1413           *
+   1414           * @brief
+   1415           *
+   1416           *   Assign or retrieve a proxy OSAL task id for an external ICall entity.
+   1417           *
+   1418           * @param   origid  ICall entity id
+   1419           *
+   1420           * @return  proxy OSAL task id
+   1421           */
+   1422          static uint8 osal_alien2proxy(ICall_EntityID origid)
+   1423          {
+   1424            size_t i;
+   1425          
+   1426            for (i = 0; i < OSAL_MAX_NUM_PROXY_TASKS; i++)
+   1427            {
+   1428              if (osal_proxy_tasks[i] == OSAL_INVALID_DISPATCH_ID)
+   1429              {
+   1430                /* proxy not found. Create a new one */
+   1431                osal_proxy_tasks[i] = (uint8) origid;
+   1432                return (OSAL_PROXY_ID_FLAG | i);
+   1433              }
+   1434              else if ((ICall_EntityID) osal_proxy_tasks[i] == origid)
+   1435              {
+   1436                return (OSAL_PROXY_ID_FLAG | i);
+   1437              }
+   1438            }
+   1439            /* abort */
+   1440            ICall_abort();
+   1441            return TASK_NO_TASK;
+   1442          }
+   1443          
+   1444          /*********************************************************************
+   1445           * @fn      osal_proxy2alien
+   1446           *
+   1447           * @brief
+   1448           *
+   1449           *   Retrieve the ICall entity id for a proxy OSAL task id
+   1450           *
+   1451           * @param   proxyid  Proxy OSAL task id
+   1452           *
+   1453           * @return  ICall entity id
+   1454           */
+   1455          static ICall_EntityID osal_proxy2alien(uint8 proxyid)
+   1456          {
+   1457            proxyid ^= OSAL_PROXY_ID_FLAG;
+   1458            if (proxyid >= OSAL_MAX_NUM_PROXY_TASKS)
+   1459            {
+   1460              /* abort */
+   1461              ICall_abort();
+   1462            }
+   1463            return (ICall_EntityID) osal_proxy_tasks[proxyid];
+   1464          }
+   1465          
+   1466          /*********************************************************************
+   1467           * @fn      osal_dispatch2id
+   1468           *
+   1469           * @brief
+   1470           *
+   1471           *   Retrieve OSAL task id mapped to a designated ICall entity id
+   1472           *
+   1473           * @param   entity  ICall entity id
+   1474           *
+   1475           * @return  OSAL task id
+   1476           */
+   1477          static uint8 osal_dispatch2id(ICall_EntityID entity)
+   1478          {
+   1479            size_t i;
+   1480          
+   1481            for (i = 0; i < tasksCnt; i++)
+   1482            {
+   1483              if ((ICall_EntityID) osal_dispatch_entities[i] == entity)
+   1484              {
+   1485                return i;
+   1486              }
+   1487            }
+   1488            return TASK_NO_TASK;
+   1489          }
+   1490          
+   1491          /*********************************************************************
+   1492           * @fn      osal_msec_timer_cback
+   1493           *
+   1494           * @brief
+   1495           *
+   1496           *   This function is a callback function for ICall_setTimer() service
+   1497           *   used to implement OSAL timer
+   1498           *
+   1499           * @param   arg  In this case, the timer sequence number is passed.
+   1500           *
+   1501           * @return  None
+   1502           */
+   1503          static void osal_msec_timer_cback(void *arg)
+   1504          {
+   1505            unsigned seq = (unsigned) arg;
+   1506            halIntState_t intState;
+   1507          
+   1508            HAL_ENTER_CRITICAL_SECTION(intState);
+   1509            if (seq == osal_msec_timer_seq)
+   1510            {
+   1511              ICall_signal(osal_semaphore);
+   1512            }
+   1513            HAL_EXIT_CRITICAL_SECTION(intState);
+   1514          }
+   1515          
+   1516          /*********************************************************************
+   1517           * @fn      osal_service_entry
+   1518           *
+   1519           * @brief
+   1520           *
+   1521           *   This function is service function for messaging service
+   1522           *
+   1523           * @param   args  arguments.
+   1524           *
+   1525           * @return  ICall error code
+   1526           */
+   1527          ICall_Errno osal_service_entry(ICall_FuncArgsHdr *args)
+   1528          {
+   1529            if (args->func == ICALL_MSG_FUNC_GET_LOCAL_MSG_ENTITY_ID)
+   1530            {
+   1531              /* Get proxy ID */
+   1532              ((ICall_GetLocalMsgEntityIdArgs *)args)->localId =
+   1533                osal_alien2proxy(((ICall_GetLocalMsgEntityIdArgs *)args)->entity);
+   1534              if (((ICall_GetLocalMsgEntityIdArgs *)args)->localId == TASK_NO_TASK)
+   1535              {
+   1536                return ICALL_ERRNO_NO_RESOURCE;
+   1537              }
+   1538            }
+   1539            else
+   1540            {
+   1541              return ICALL_ERRNO_INVALID_FUNCTION;
+   1542            }
+   1543            return ICALL_ERRNO_SUCCESS;
+   1544          }
+   1545          #endif /* USE_ICALL */
+   1546          
+   1547          /*********************************************************************
+   1548           * @fn      osal_run_system
+   1549           *
+   1550           * @brief
+   1551           *
+   1552           *   This function will make one pass through the OSAL taskEvents table
+   1553           *   and call the task_event_processor() function for the first task that
+   1554           *   is found with at least one event pending. If there are no pending
+   1555           *   events (all tasks), this function puts the processor into Sleep.
+   1556           *
+   1557           * @param   void
+   1558           *
+   1559           * @return  none
+   1560           */
+   1561          void osal_run_system( void )
+   1562          {
+   1563            uint8 idx = 0;
+   1564          
+   1565          #ifdef USE_ICALL
+   1566            uint32 next_timeout_prior = osal_next_timeout();
+   1567          #else /* USE_ICALL */
+   1568          #ifndef HAL_BOARD_CC2538
+   1569            osalTimeUpdate();
+   1570          #endif
+   1571          
+   1572            Hal_ProcessPoll();
+   1573          #endif /* USE_ICALL */
+   1574          
+   1575          #ifdef USE_ICALL
+   1576            {
+   1577              /* Update osal timers to the latest before running any OSAL processes
+   1578               * regardless of wakeup callback from ICall because OSAL timers are added
+   1579               * relative to the current time. */
+   1580              unsigned long newtimestamp = ICall_getTicks();
+   1581              uint32 milliseconds;
+   1582          
+   1583              if (osal_tickperiod == 1000)
+   1584              {
+   1585                milliseconds = newtimestamp - osal_last_timestamp;
+   1586                osal_last_timestamp = newtimestamp;
+   1587              }
+   1588              else
+   1589              {
+   1590                unsigned long long delta = (unsigned long long)
+   1591                  ((newtimestamp - osal_last_timestamp) & 0xfffffffful);
+   1592                delta *= osal_tickperiod;
+   1593                delta /= 1000;
+   1594                milliseconds = (uint32) delta;
+   1595                osal_last_timestamp += (uint32) (delta * 1000 / osal_tickperiod);
+   1596              }
+   1597              osalAdjustTimer(milliseconds);
+   1598              /* Set a value that will never match osal_next_timeout()
+   1599               * return value so that the next time can be scheduled.
+   1600               */
+   1601              next_timeout_prior = 0xfffffffful;
+   1602            }
+   1603            if (osal_eventloop_hook)
+   1604            {
+   1605              osal_eventloop_hook();
+   1606            }
+   1607          
+   1608            for (;;)
+   1609            {
+   1610              void *msg;
+   1611              ICall_EntityID src, dst;
+   1612              osal_msg_hdr_t *hdr;
+   1613              uint8 dest_id;
+   1614          
+   1615              if (ICall_fetchMsg(&src, &dst, &msg) != ICALL_ERRNO_SUCCESS)
+   1616              {
+   1617                break;
+   1618              }
+   1619              hdr = (osal_msg_hdr_t *) msg - 1;
+   1620              dest_id = osal_dispatch2id(dst);
+   1621              if (dest_id == TASK_NO_TASK)
+   1622              {
+   1623                /* Something wrong */
+   1624                ICall_abort();
+   1625              }
+   1626              else
+   1627              {
+   1628                /* Message towards one of the tasks */
+   1629                /* Create a proxy task ID if necessary and
+   1630                 * queue the message to the OSAL internal queue.
+   1631                 */
+   1632                uint8 proxyid = osal_alien2proxy(hdr->srcentity);
+   1633          
+   1634                if (hdr->format == ICALL_MSG_FORMAT_1ST_CHAR_TASK_ID)
+   1635                {
+   1636                  uint8 *bytes = msg;
+   1637                  *bytes = proxyid;
+   1638                }
+   1639                else if (hdr->format == ICALL_MSG_FORMAT_3RD_CHAR_TASK_ID)
+   1640                {
+   1641                  uint8 *bytes = msg;
+   1642                  bytes[2] = proxyid;
+   1643                }
+   1644                /* now queue the message to the OSAL queue */
+   1645                osal_msg_send(dest_id, msg);
+   1646              }
+   1647            }
+   1648          #endif /* USE_ICALL */
+   1649          
+   1650            do {
+   1651              if (tasksEvents[idx])  // Task is highest priority that is ready.
+   1652              {
+   1653                break;
+   1654              }
+   1655            } while (++idx < tasksCnt);
+   1656          
+   1657            if (idx < tasksCnt)
+   1658            {
+   1659              uint16 events;
+   1660              halIntState_t intState;
+   1661          
+   1662              HAL_ENTER_CRITICAL_SECTION(intState);
+   1663              events = tasksEvents[idx];
+   1664              tasksEvents[idx] = 0;  // Clear the Events for this task.
+   1665              HAL_EXIT_CRITICAL_SECTION(intState);
+   1666          
+   1667              activeTaskID = idx;
+   1668              events = (tasksArr[idx])( idx, events );
+   1669              activeTaskID = TASK_NO_TASK;
+   1670          
+   1671              HAL_ENTER_CRITICAL_SECTION(intState);
+   1672              tasksEvents[idx] |= events;  // Add back unprocessed events to the current task.
+   1673              HAL_EXIT_CRITICAL_SECTION(intState);
+   1674            }
+   1675          #if defined( POWER_SAVING ) && !defined(USE_ICALL)
+   1676            else  // Complete pass through all task events with no activity?
+   1677            {
+   1678              osal_pwrmgr_powerconserve();  // Put the processor/system into sleep
+   1679            }
+   1680          #endif
+   1681          
+   1682            /* Yield in case cooperative scheduling is being used. */
+   1683          #if defined (configUSE_PREEMPTION) && (configUSE_PREEMPTION == 0)
+   1684            {
+   1685              osal_task_yield();
+   1686            }
+   1687          #endif
+   1688          
+   1689          #if defined USE_ICALL
+   1690            /* Note that scheduling wakeup at this point instead of
+   1691             * scheduling it upon ever OSAL start timer request,
+   1692             * would only work if OSAL start timer call is made
+   1693             * from OSAL tasks, but not from either ISR or
+   1694             * non-OSAL application thread.
+   1695             * In case, OSAL start timer is called from non-OSAL
+   1696             * task, the scheduling should be part of OSAL_Timers
+   1697             * module.
+   1698             * Such a change to OSAL_Timers module was not made
+   1699             * in order not to diverge the OSAL implementations
+   1700             * too drastically between pure OSAL solution vs.
+   1701             * OSAL upon service dispatcher (RTOS).
+   1702             * TODO: reconsider the above statement.
+   1703             */
+   1704            {
+   1705              halIntState_t intState;
+   1706          
+   1707              uint32 next_timeout_post = osal_next_timeout();
+   1708              if (next_timeout_post != next_timeout_prior)
+   1709              {
+   1710                /* Next wakeup time has to be scheduled */
+   1711                if (next_timeout_post == 0)
+   1712                {
+   1713                  /* No timer. Set time to the max */
+   1714                  next_timeout_post = OSAL_TIMERS_MAX_TIMEOUT;
+   1715                }
+   1716                if (next_timeout_post > osal_max_msecs)
+   1717                {
+   1718                  next_timeout_post = osal_max_msecs;
+   1719                }
+   1720                /* Restart timer */
+   1721                HAL_ENTER_CRITICAL_SECTION(intState);
+   1722                ICall_stopTimer(osal_timerid_msec_timer);
+   1723                ICall_setTimerMSecs(next_timeout_post, osal_msec_timer_cback,
+   1724                                    (void *) (++osal_msec_timer_seq),
+   1725                                    &osal_timerid_msec_timer);
+   1726                HAL_EXIT_CRITICAL_SECTION(intState);
+   1727              }
+   1728            }
+   1729          #endif /* USE_ICALL */
+   1730          }
+   1731          
+   1732          /*********************************************************************
+   1733           * @fn      osal_buffer_uint32
+   1734           *
+   1735           * @brief
+   1736           *
+   1737           *   Buffer an uint32 value - LSB first.
+   1738           *
+   1739           * @param   buf - buffer
+   1740           * @param   val - uint32 value
+   1741           *
+   1742           * @return  pointer to end of destination buffer
+   1743           */
+   1744          uint8* osal_buffer_uint32( uint8 *buf, uint32 val )
+   1745          {
+   1746            *buf++ = BREAK_UINT32( val, 0 );
+   1747            *buf++ = BREAK_UINT32( val, 1 );
+   1748            *buf++ = BREAK_UINT32( val, 2 );
+   1749            *buf++ = BREAK_UINT32( val, 3 );
+   1750          
+   1751            return buf;
+   1752          }
+   1753          
+   1754          /*********************************************************************
+   1755           * @fn      osal_buffer_uint24
+   1756           *
+   1757           * @brief
+   1758           *
+   1759           *   Buffer an uint24 value - LSB first. Note that type uint24 is
+   1760           *   typedef to uint32 in comdef.h
+   1761           *
+   1762           * @param   buf - buffer
+   1763           * @param   val - uint24 value
+   1764           *
+   1765           * @return  pointer to end of destination buffer
+   1766           */
+   1767          uint8* osal_buffer_uint24( uint8 *buf, uint24 val )
+   1768          {
+   1769            *buf++ = BREAK_UINT32( val, 0 );
+   1770            *buf++ = BREAK_UINT32( val, 1 );
+   1771            *buf++ = BREAK_UINT32( val, 2 );
+   1772          
+   1773            return buf;
+   1774          }
+   1775          
+   1776          /*********************************************************************
+   1777           * @fn      osal_isbufset
+   1778           *
+   1779           * @brief
+   1780           *
+   1781           *   Is all of the array elements set to a value?
+   1782           *
+   1783           * @param   buf - buffer to check
+   1784           * @param   val - value to check each array element for
+   1785           * @param   len - length to check
+   1786           *
+   1787           * @return  TRUE if all "val"
+   1788           *          FALSE otherwise
+   1789           */
+   1790          uint8 osal_isbufset( uint8 *buf, uint8 val, uint8 len )
+   1791          {
+   1792            uint8 x;
+   1793          
+   1794            if ( buf == NULL )
+   1795            {
+   1796              return ( FALSE );
+   1797            }
+   1798          
+   1799            for ( x = 0; x < len; x++ )
+   1800            {
+   1801              // Check for non-initialized value
+   1802              if ( buf[x] != val )
+   1803              {
+   1804                return ( FALSE );
+   1805              }
+   1806            }
+   1807            return ( TRUE );
+   1808          }
+   1809          
+   1810          /*********************************************************************
+   1811           * @fn      osal_self
+   1812           *
+   1813           * @brief
+   1814           *
+   1815           *   This function returns the task ID of the current (active) task.
+   1816           *
+   1817           * @param   void
+   1818           *
+   1819           * @return   active task ID or TASK_NO_TASK if no task is active
+   1820           */
+   1821          uint8 osal_self( void )
+   1822          {
+   1823            return ( activeTaskID );
+   1824          }
+   1825          
+   1826          /*********************************************************************
+   1827           */
+
+Errors: 3
+Warnings: none

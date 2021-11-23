@@ -1,0 +1,347 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V10.30.1.6000 for 8051               23/Nov/2021  10:54:56
+# Copyright 2004-2018 IAR Systems AB.
+# PC-locked license - IAR Embedded Workbench for 8051
+#
+#    Core               =  plain
+#    Code model         =  banked
+#    Data model         =  large
+#    Calling convention =  xdata reentrant
+#    Constant location  =  data_rom
+#    Dptr setup         =  1,16
+#                          
+#    Source file        =  
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\Source\Controller\AT_single_bus.c
+#    Command line       =  
+#        -f C:\Users\ADMINI~1\AppData\Local\Temp\EWB157.tmp
+#        (F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\Source\Controller\AT_single_bus.c
+#        -D ZIGBEEPRO -D INTER_PAN -D DISABLE_GREENPOWER_BASIC_PROXY -D
+#        HAL_UART=TRUE -D HAL_UART_ISR=1 -D HAL_UART_DMA=0 -D
+#        HAL_UART_ISR_RX_MAX=100 -D SECURE=1 -D TC_LINKKEY_JOIN -D NV_INIT -D
+#        NV_RESTORE -D xZTOOL_P1 -D xMT_TASK -D xMT_APP_FUNC -D xMT_SYS_FUNC -D
+#        xMT_ZDO_FUNC -D xMT_ZDO_MGMT -D xMT_APP_CNF_FUNC -D LEGACY_LCD_DEBUG
+#        -D LCD_SUPPORTED=DEBUG -D MULTICAST_ENABLED=FALSE -D ZCL_READ -D
+#        ZCL_WRITE -D ZCL_DISCOVER -D ZCL_BASIC -D ZCL_IDENTIFY -D ZCL_SCENES
+#        -D ZCL_GROUPS -D ZCL_REPORT_CONFIGURING_DEVICE -D
+#        ZCL_REPORT_DESTINATION_DEVICE -lC
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\CoordinatorEB\List
+#        -lA
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\CoordinatorEB\List
+#        --diag_suppress Pe001,Pa010 -o
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\CoordinatorEB\Obj
+#        -e --debug --core=plain --dptr=16,1 --data_model=large
+#        --code_model=banked --calling_convention=xdata_reentrant
+#        --place_constants=data_rom --nr_virtual_regs 16 -f
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\Tools\CC2530DB\f8wCoord.cfg
+#        (-DCPU32MHZ -DROOT=__near_func -DMAC_CFG_APP_PENDING_QUEUE=TRUE
+#        -DMAC_CFG_TX_DATA_MAX=5 -DMAC_CFG_TX_MAX=8 -DMAC_CFG_RX_MAX=5
+#        -DZDO_COORDINATOR -DRTR_NWK) -f
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg
+#        (-DZIGBEEPRO -DSECURE=1 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+#        -DDEFAULT_CHANLIST=0x00000800 -DZDAPP_CONFIG_PAN_ID=0xFFFF
+#        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
+#        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
+#        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
+#        -DAPSC_ACK_WAIT_DURATION_POLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7
+#        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
+#        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
+#        -DAPS_MAX_GROUPS=10 -DMAX_RTG_ENTRIES=15 -DNWK_MAX_BINDING_ENTRIES=4
+#        -DMAX_BINDING_CLUSTER_IDS=4 -DDEFAULT_KEY={0} -DMAC_MAX_FRAME_SIZE=116
+#        -DZDNWKMGR_MIN_TRANSMISSIONS=20 "-DCONST=const __code"
+#        -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE -DPOLL_RATE=300
+#        -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100 -DREJOIN_POLL_RATE=440
+#        -DREJOIN_BACKOFF=900000 -DREJOIN_SCAN=900000) -f
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL.cfg
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\Source\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\Source\ZCL\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\Source\UserAPI\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\Source\Controller\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\ZMain\TI2530DB\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\hal\include\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\hal\target\CC2530EB\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\mac\include\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\mac\high_level\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\single_chip\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\mt\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\osal\include\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\services\saddr\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\services\sdata\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\af\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\bdb\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\gp\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\nwk\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\sapi\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\sec\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\sys\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\zcl\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\stack\zdo\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\zmac\
+#        -I
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\..\..\..\..\..\Components\zmac\f8w\
+#        -Ohz --require_prototypes)
+#    Locale             =  Chinese (Simplified)_CHN.936
+#    List file          =  
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\CoordinatorEB\List\AT_single_bus.lst
+#    Object file        =  
+#        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\CC2530DB\CoordinatorEB\Obj\AT_single_bus.r51
+#
+###############################################################################
+
+F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\Source\Controller\AT_single_bus.c
+      1          /******************************************************************************
+      2            Filename:       AT_single_bus.c
+      3            Author:         Yang Wang
+      4          ******************************************************************************/
+      5          #include "AT_single_bus.h"
+      6          #include "AT_doorlock.h"
+
+  ZStatus_t AT_DoorLock_Unlock( zclDoorLock_t *pInCmd );
+                                ^
+"F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\Source\Controller\AT_doorlock.h",97  Error[Pe020]: 
+          identifier "zclDoorLock_t" is undefined
+
+  ZStatus_t AT_DoorLock_Lock( zclDoorLock_t *pInCmd );
+                              ^
+"F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\Source\Controller\AT_doorlock.h",98  Error[Pe020]: 
+          identifier "zclDoorLock_t" is undefined
+
+  ZStatus_t AT_DoorLock_SetTemporaryPin_Req( zclDoorLockSetTemporaryPin_t *pCmd );
+                                             ^
+"F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\Source\Controller\AT_doorlock.h",99  Error[Pe020]: 
+          identifier "zclDoorLockSetTemporaryPin_t" is undefined
+      7          #include "AT_timer1.h"
+      8          #include "zcl_doorlock.h"
+      9          #include "OnBoard.h"
+     10          #include "AT_printf.h"
+     11          
+     12          uint8 single_bus_rcv_buf[SINGLE_BUS_RCV_MAX] = {0x00};
+     13          uint8 single_bus_rcv_len = 0;
+     14          uint8 single_bus_rcv_bit = 0;
+     15          
+     16          uint16 single_bus_rcv_total = 0;
+     17          uint16 single_bus_rcv_high = 0;
+     18          uint16 single_bus_rcv_low = 0;
+     19          
+     20          static void AT_single_bus_input(void);
+     21          static void AT_single_bus_output(void);
+     22          static void AT_single_bus_send_byte(uint8 dataByte);
+     23          
+     24          static void AT_single_bus_input(void)
+     25          {
+     26            SINGLE_BUS_SEL &= ~SINGLE_BUS_BV;
+     27            SINGLE_BUS_DIR &= ~SINGLE_BUS_BV;
+     28            SINGLE_BUS_INP &= ~SINGLE_BUS_BV;
+     29          
+     30            P1IFG = 0x00;
+     31            P1IF  = 0x00;
+     32          
+     33            IEN2  |= BV(4); // enable port interrupt
+     34            P1IEN |= SINGLE_BUS_BV; // enable pin interrupt
+     35          
+     36            P2INP &= ~BV(6); // pull up
+     37            PICTL |=  SINGLE_BUS_EDGE_BV; // falling edge
+     38          }
+     39          static void AT_single_bus_output(void)
+     40          {
+     41            SINGLE_BUS_SEL &= ~SINGLE_BUS_BV;
+     42            SINGLE_BUS_DIR |=  SINGLE_BUS_BV;
+     43          
+     44            IEN2  &= ~BV(4); // disable port interrupt
+     45            P1IEN &= ~SINGLE_BUS_BV; // disable pin interrupt
+     46          }
+     47          void AT_single_bus_init(void)
+     48          {
+     49            AT_single_bus_input();
+     50          
+     51            // set IPG4(ENC/T4/P1INT) to the highest priority
+     52            IP0 |= BV(4);
+     53            IP1 |= BV(4);
+     54          }
+     55          static void AT_single_bus_send_byte(uint8 dataByte)
+     56          {
+     57            uint8 i;
+     58          
+     59            for(i=0; i<8; i++)
+     60            {
+     61              if(dataByte & 0x01)
+     62              {
+     63                SINGLE_BUS_PIN = SINGLE_BUS_HIGH;
+     64                MicroWait(191); // more close to 160 us
+     65          
+     66                SINGLE_BUS_PIN = SINGLE_BUS_LOW;
+     67                MicroWait(92); // more close to 80 us
+     68              }
+     69              else
+     70              {
+     71                SINGLE_BUS_PIN = SINGLE_BUS_HIGH;
+     72                MicroWait(92); // more close to 80 us
+     73          
+     74                SINGLE_BUS_PIN = SINGLE_BUS_LOW;
+     75                MicroWait(191); // more close to 160 us
+     76              }
+     77          
+     78              dataByte >>= 1;
+     79            }
+     80          }
+     81          void AT_single_bus_send_buf(uint8 *buf, uint8 len)
+     82          {
+     83            uint8 i;
+     84          
+     85            printf("|down|-----|%02d bytes|: ", len);
+     86            for(i=0; i<len; i++)
+     87            {
+     88              printf("%02X ", buf[i]);
+     89            }
+     90            printf("\r\n");
+     91          
+     92            AT_single_bus_output();
+     93          
+     94            SINGLE_BUS_PIN = SINGLE_BUS_LOW;
+     95            MicroWait(4900); // more close to 4 ms
+     96          
+     97            for(i=0; i<len; i++)
+     98            {
+     99              AT_single_bus_send_byte(buf[i]);
+    100            }
+    101          
+    102            SINGLE_BUS_PIN = SINGLE_BUS_HIGH;
+    103          
+    104            AT_single_bus_input();
+    105          }
+    106          
+    107          HAL_ISR_FUNCTION( single_bus_Isr, P1INT_VECTOR )
+    108          {
+    109            HAL_ENTER_ISR();
+    110          
+    111            IEN2  &= ~BV(4); // disable port interrupt
+    112            P1IEN &= ~SINGLE_BUS_BV; // disable pin interrupt
+    113          
+    114            if(SINGLE_BUS_PIN)
+    115            {
+    116              goto isr_exit;
+    117            }
+    118          
+    119            // start to capture the head (4 ms)
+    120            AT_Timer1_Set_Clear_Start_US(7000);
+    121            while(1)
+    122            {
+    123          #ifdef WDT_IN_PM1
+    124              WatchDogClear();
+    125          #endif
+    126              if(T1IF)
+    127              {
+    128                T1IF = 0;
+    129                goto isr_exit;
+    130              }
+    131              if(SINGLE_BUS_PIN)
+    132                break;
+    133            }
+    134            single_bus_rcv_low = AT_Timer1_Stop_Get();
+    135            if(single_bus_rcv_low < 2000)
+    136            {
+    137              goto isr_exit;
+    138            }
+    139          
+    140            single_bus_rcv_len = 0;
+    141            single_bus_rcv_bit = 0;
+    142          
+    143            // start to capture data
+    144            while(1)
+    145            {
+    146          #ifdef WDT_IN_PM1
+    147              WatchDogClear();
+    148          #endif
+    149          
+    150              // get high level time
+    151              AT_Timer1_Set_Clear_Start_US(400);
+    152              while(SINGLE_BUS_PIN)
+    153              {
+    154                if(T1IF)
+    155                {
+    156                  T1IF = 0;
+    157          
+    158                  if((single_bus_rcv_len > 0) && (single_bus_rcv_bit == 0))
+    159                  {
+    160                    osal_set_event(zclDoorLock_TaskID, DOORLOCK_HANDLE_RSP_EVT);
+    161                    goto isr_exit;
+    162                  }
+    163          
+    164                  goto isr_exit;
+    165                }
+    166              }
+    167              single_bus_rcv_high = AT_Timer1_Stop_Get();
+    168          
+    169              // get low level time
+    170              AT_Timer1_Set_Clear_Start_US(400);
+    171              while(!SINGLE_BUS_PIN)
+    172              {
+    173                if(T1IF)
+    174                {
+    175                  T1IF = 0;
+    176                  goto isr_exit;
+    177                }
+    178              }
+    179              single_bus_rcv_low = AT_Timer1_Stop_Get();
+    180          
+    181              // check the total time
+    182              single_bus_rcv_total = single_bus_rcv_high + single_bus_rcv_low;
+    183              if ((single_bus_rcv_total < 120) || (single_bus_rcv_total > 350))
+    184                goto isr_exit; // tolerance of 30%
+    185          
+    186              // save the data bit
+    187              if(single_bus_rcv_high > single_bus_rcv_low)
+    188                single_bus_rcv_buf[single_bus_rcv_len] |= BV(single_bus_rcv_bit++);
+    189              else
+    190                single_bus_rcv_buf[single_bus_rcv_len] &= ~BV(single_bus_rcv_bit++);
+    191          
+    192              // increase the index
+    193              if(single_bus_rcv_bit == 8) // get a whole byte (8 bits)
+    194              {
+    195                single_bus_rcv_bit = 0;
+    196                single_bus_rcv_len++;
+    197              }
+    198            }
+    199          
+    200          isr_exit:
+    201          
+    202            IEN2  |= BV(4); // enable port interrupt
+    203            P1IEN |= SINGLE_BUS_BV; // enable pin interrupt
+    204          
+    205            P1IFG = 0x00;
+    206            P1IF = 0x00;
+    207          
+    208            CLEAR_SLEEP_MODE();
+    209            HAL_EXIT_ISR();
+    210          }
+
+Errors: 3
+Warnings: none

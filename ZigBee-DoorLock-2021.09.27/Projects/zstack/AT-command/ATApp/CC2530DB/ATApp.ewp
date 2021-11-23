@@ -2622,7 +2622,7 @@
                 </option>
                 <option>
                     <name>OGChipConfigPath</name>
-                    <state>D:\Program Files (x86)\IAR Systems\Embedded Workbench 8.1\8051\bin\..\config\devices\Texas Instruments\CC25xx\3x\CC2530F256.i51</state>
+                    <state>F:\IAR_for_8051\8051\bin\..\config\devices\Texas Instruments\CC25xx\3x\CC2530F256.i51</state>
                 </option>
             </data>
         </settings>
@@ -3537,6 +3537,12 @@
                 <name>$PROJ_DIR$\..\Source\Controller\AT_doorlock.h</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\Source\Controller\AT_pwr_single_bus.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Source\Controller\AT_pwr_single_bus.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\Source\Controller\AT_single_bus.c</name>
             </file>
             <file>
@@ -3547,6 +3553,12 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Source\Controller\AT_timer1.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Source\Controller\AT_timer3.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Source\Controller\AT_timer3.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Source\Controller\AT_uart0.c</name>
@@ -4149,7 +4161,7 @@
             <name>$PROJ_DIR$\..\..\..\..\..\Components\osal\common\OSAL_Clock.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\..\..\Components\osal\include\osal_Clock.h</name>
+            <name>$PROJ_DIR$\..\..\..\..\..\Components\osal\include\OSAL_Clock.h</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\..\..\..\Components\osal\mcu\cc2530\OSAL_Math.s51</name>

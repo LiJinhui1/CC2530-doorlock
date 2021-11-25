@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V10.30.1.6000 for 8051               23/Nov/2021  10:55:12
+# IAR C/C++ Compiler V10.30.1.6000 for 8051               24/Nov/2021  20:34:53
 # Copyright 2004-2018 IAR Systems AB.
 # PC-locked license - IAR Embedded Workbench for 8051
 #
@@ -14,7 +14,7 @@
 #    Source file        =  
 #        F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\Source\Controller\AT_doorlock.c
 #    Command line       =  
-#        -f C:\Users\ADMINI~1\AppData\Local\Temp\EWECB5.tmp
+#        -f C:\Users\ADMINI~1\AppData\Local\Temp\EW8745.tmp
 #        (F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-command\ATApp\Source\Controller\AT_doorlock.c
 #        -D WDT_IN_PM1 -D ZIGBEEPRO -D INTER_PAN -D ZIGBEE_FREQ_AGILITY -D
 #        DISABLE_GREENPOWER_BASIC_PROXY -D REFLECTOR -D HAL_UART=FALSE -D
@@ -125,64 +125,65 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
       6          *******************************************************************************/
       7          #include "AT_doorlock.h"
       8          #include "AT_single_bus.h"
-      9          #include "hal_uart.h"
-     10          #include "OSAL.h"
-     11          #include "bdb_interface.h"
-     12          #include "zcl_doorlock.h"
-     13          #include "OSAL_Clock.h"
-     14          #include "AT_uart0.h"
-     15          #include "AT_printf.h"
-     16          #include "ATApp.h"
-     17          
-     18          /******************************************************************************
-     19                                            utilities
-     20          ******************************************************************************/
-     21          static uint8 sum_check(uint8 *buf, uint8 len);
-     22          static uint32 UTCTime_To_SEC(uint8 *buf);
-     23          static uint8 AT_DoorLock_GetOperationEventSource( uint8 type );
-     24          static uint8 AT_DoorLock_GetProgramEventCode_Add_User( uint8 type );
-     25          static uint8 AT_DoorLock_GetProgramEventCode_Delete_User( uint8 type );
-     26          static ZStatus_t AT_DoorLock_SendOperationEventNotification( uint16 userID,
-     27                                                                       uint32 zigBeeLocalTime,
-     28                                                                       uint8 batteryLevel,
-     29                                                                       uint8 operationEventSource,
-     30                                                                       uint8 operationEventCode );
-     31          static ZStatus_t AT_DoorLock_SendProgrammingEventNotification( uint16 userID,
-     32                                                                         uint32 zigBeeLocalTime,
-     33                                                                         uint8 batteryLevel,
-     34                                                                         uint8 programEventSource,
-     35                                                                         uint8 programEventCode );
-     36          
-     37          /******************************************************************************
-     38                                             uplink
-     39          ******************************************************************************/
-     40          static ZStatus_t AT_DoorLock_Rsp(uint8 *buf, uint8 len);
-     41          static ZStatus_t AT_DoorLock_Upload(uint8 *buf, uint8 len);
-     42          static ZStatus_t AT_DoorLock_Ack(uint8 *buf, uint8 len);
-     43          
-     44          /******************************************************************************
-     45                                            utilities
-     46          ******************************************************************************/
+      9          #include "AT_pwr_single_bus.h"
+     10          #include "hal_uart.h"
+     11          #include "OSAL.h"
+     12          #include "bdb_interface.h"
+     13          #include "zcl_doorlock.h"
+     14          #include "OSAL_Clock.h"
+     15          #include "AT_uart0.h"
+     16          #include "AT_printf.h"
+     17          #include "ATApp.h"
+     18          
+     19          /******************************************************************************
+     20                                            utilities
+     21          ******************************************************************************/
+     22          static uint8 sum_check(uint8 *buf, uint8 len);
+     23          static uint32 UTCTime_To_SEC(uint8 *buf);
+     24          static uint8 AT_DoorLock_GetOperationEventSource( uint8 type );
+     25          static uint8 AT_DoorLock_GetProgramEventCode_Add_User( uint8 type );
+     26          static uint8 AT_DoorLock_GetProgramEventCode_Delete_User( uint8 type );
+     27          static ZStatus_t AT_DoorLock_SendOperationEventNotification( uint16 userID,
+     28                                                                       uint32 zigBeeLocalTime,
+     29                                                                       uint8 batteryLevel,
+     30                                                                       uint8 operationEventSource,
+     31                                                                       uint8 operationEventCode );
+     32          static ZStatus_t AT_DoorLock_SendProgrammingEventNotification( uint16 userID,
+     33                                                                         uint32 zigBeeLocalTime,
+     34                                                                         uint8 batteryLevel,
+     35                                                                         uint8 programEventSource,
+     36                                                                         uint8 programEventCode );
+     37          
+     38          /******************************************************************************
+     39                                             uplink
+     40          ******************************************************************************/
+     41          static ZStatus_t AT_DoorLock_Rsp(uint8 *buf, uint8 len);
+     42          static ZStatus_t AT_DoorLock_Upload(uint8 *buf, uint8 len);
+     43          static ZStatus_t AT_DoorLock_Ack(uint8 *buf, uint8 len);
+     44          
+     45          /******************************************************************************
+     46                                            utilities
+     47          ******************************************************************************/
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     47          static uint8 sum_check(uint8 *buf, uint8 len)
+     48          static uint8 sum_check(uint8 *buf, uint8 len)
    \                     sum_check:
-     48          {
+     49          {
    \   000000   74F7         MOV       A,#-0x9
    \   000002   12....       LCALL     ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 9
    \   000005                ; Auto size: 0
    \   000005   E9           MOV       A,R1
    \   000006   FD           MOV       R5,A
-     49            uint8 i = 0;
+     50            uint8 i = 0;
    \   000007   7C00         MOV       R4,#0x0
-     50            uint16 sum = 0;
+     51            uint16 sum = 0;
    \   000009   7800         MOV       R0,#0x0
-     51          
-     52            for(i=0;i<len;i++)
+     52          
+     53            for(i=0;i<len;i++)
    \   00000B   8010         SJMP      ??sum_check_0
-     53            {
-     54              sum += buf[i];
+     54            {
+     55              sum += buf[i];
    \                     ??sum_check_1:
    \   00000D   EC           MOV       A,R4
    \   00000E   FE           MOV       R6,A
@@ -197,216 +198,219 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   000019   E8           MOV       A,R0
    \   00001A   2E           ADD       A,R6
    \   00001B   F8           MOV       R0,A
-     55            }
+     56            }
    \   00001C   0C           INC       R4
    \                     ??sum_check_0:
    \   00001D   EC           MOV       A,R4
    \   00001E   C3           CLR       C
    \   00001F   9D           SUBB      A,R5
    \   000020   40EB         JC        ??sum_check_1
-     56          
-     57            return ((sum&0xFF)^0xFF);
+     57          
+     58            return ((sum&0xFF)^0xFF);
    \   000022   E8           MOV       A,R0
    \   000023   F4           CPL       A
    \   000024   F9           MOV       R1,A
    \   000025   7F01         MOV       R7,#0x1
    \   000027   02....       LJMP      ?BANKED_LEAVE_XDATA
-     58          }
-     59          static uint32 UTCTime_To_SEC(uint8 *buf)
-     60          {
-     61            UTCTimeStruct UTCTime;
-     62            UTCTime.year    = buf[0]+2000;
-     63            UTCTime.month   = buf[1];
-     64            UTCTime.day     = buf[2];
-     65            UTCTime.hour    = buf[3];
-     66            UTCTime.minutes = buf[4];
-     67            UTCTime.seconds = buf[5];
-     68          
-     69            uint32 Seconds;
-     70            Seconds = osal_ConvertUTCSecs( &UTCTime );
-     71          
-     72            return Seconds;
-     73          }
-     74          static uint8 AT_DoorLock_GetOperationEventSource( uint8 type )
-     75          {
-     76            switch( type )
-     77            {
-     78              case WITH_FINGERPRINT:
-     79                return OPERATION_EVENT_SOURCE_FINGERPRINT;
-     80                break;
-     81          
-     82              case WITH_KEYPAD_CODE:
-     83                return OPERATION_EVENT_SOURCE_KEYPAD;
-     84                break;
-     85          
-     86              case WITH_RFID_CARD:
-     87                return OPERATION_EVENT_SOURCE_RFID;
-     88                break;
-     89          
-     90              case WITH_REMOTE_CONTROL:
-     91                return OPERATION_EVENT_SOURCE_REMOTE_CONTROL;
-     92                break;
-     93          
-     94              case WITH_MANUAL_KEY:
-     95                return OPERATION_EVENT_SOURCE_MANUAL;// "Reserved" for Programming Event
-     96                break;
-     97          
-     98              case WITH_TEMP_PIN:
-     99                return OPERATION_EVENT_SOURCE_TEMP_PIN;
-    100                break;
-    101          
-    102              case WITH_REMOTE_APP:
-    103                return OPERATION_EVENT_SOURCE_RF;
-    104                break;
-    105          
-    106              default:
-    107                return OPERATION_EVENT_SOURCE_INDETERMINATE;
-    108                break;
-    109            }
-    110          }
-    111          static uint8 AT_DoorLock_GetProgramEventCode_Add_User( uint8 type )
-    112          {
-    113            switch( type )
-    114            {
-    115              case WITH_FINGERPRINT:
-    116                return PROGRAMMING_EVENT_CODE_FINGERPRINT_ADDED;
-    117                break;
-    118          
-    119              case WITH_KEYPAD_CODE:
-    120                return PROGRAMMING_EVENT_CODE_PIN_CODE_ADDED;
-    121                break;
-    122          
-    123              case WITH_RFID_CARD:
-    124                return PROGRAMMING_EVENT_CODE_RFID_CODE_ADDED;
-    125                break;
-    126          
-    127              default:
-    128                return PROGRAMMING_EVENT_CODE_UNKNOWN_OR_MFG_SPECIFIC;
-    129                break;
-    130            }
-    131          }
-    132          static uint8 AT_DoorLock_GetProgramEventCode_Delete_User( uint8 type )
-    133          {
-    134            switch( type )
-    135            {
-    136              case WITH_FINGERPRINT:
-    137                return PROGRAMMING_EVENT_CODE_FINGERPRINT_DELETED;
-    138                break;
-    139          
-    140              case WITH_KEYPAD_CODE:
-    141                return PROGRAMMING_EVENT_CODE_PIN_CODE_DELETED;
-    142                break;
-    143          
-    144              case WITH_RFID_CARD:
-    145                return PROGRAMMING_EVENT_CODE_RFID_CODE_DELETED;
-    146                break;
-    147          
-    148              default:
-    149                return PROGRAMMING_EVENT_CODE_UNKNOWN_OR_MFG_SPECIFIC;
-    150                break;
-    151            }
-    152          }
-    153          static ZStatus_t AT_DoorLock_SendOperationEventNotification( uint16 userID,
-    154                                                                       uint32 zigBeeLocalTime,
-    155                                                                       uint8 batteryLevel,
-    156                                                                       uint8 operationEventSource,
-    157                                                                       uint8 operationEventCode )
-    158          {
-    159            ZStatus_t status;
-    160          
-    161            // build destination address
-    162            afAddrType_t dstAddr;
-    163            dstAddr.addrMode = (afAddrMode_t)Addr16Bit;
-    164            dstAddr.addr.shortAddr = NWK_PAN_COORD_ADDR;// default send to Coordinator
-    165            dstAddr.endPoint = 0x0B;//GENERIC_ENDPOINT on Coordinator
-    166          
-    167            //build DoorLock Operation Event Notification
-    168            zclDoorLockOperationEventNotification_t pPayload;
-    169            pPayload.operationEventSource = operationEventSource;
-    170            pPayload.operationEventCode = operationEventCode;
-    171            pPayload.userID = userID;
-    172            pPayload.pin = batteryLevel; // it is battery level actually
-    173            pPayload.zigBeeLocalTime = zigBeeLocalTime;
-    174          
-    175            pPayload.pData = (uint8 *)osal_mem_alloc(1);
-    176            pPayload.pData[0] = 0;
-    177          
-    178            status = zclClosures_SendDoorLockOperationEventNotification( DOORLOCK_ENDPOINT,//uint8 srcEP,
-    179                                                                         &dstAddr,//afAddrType_t *dstAddr,
-    180                                                                         &pPayload,//zclDoorLockOperationEventNotification_t *pPayload,
-    181                                                                         TRUE,//uint8 disableDefaultRsp,
-    182                                                                         bdb_getZCLFrameCounter());//uint8 seqNum
-    183          
-    184            osal_mem_free( pPayload.pData );
-    185          
-    186            return status;
-    187          }
-    188          static ZStatus_t AT_DoorLock_SendProgrammingEventNotification( uint16 userID,
-    189                                                                         uint32 zigBeeLocalTime,
-    190                                                                         uint8 batteryLevel,
-    191                                                                         uint8 programEventSource,
-    192                                                                         uint8 programEventCode )
-    193          {
-    194            ZStatus_t status;
-    195          
-    196            // build destination address
-    197            afAddrType_t dstAddr;
-    198            dstAddr.addrMode = (afAddrMode_t)Addr16Bit;
-    199            dstAddr.addr.shortAddr = NWK_PAN_COORD_ADDR;// default send to Coordinator
-    200            dstAddr.endPoint = 0x0B;//GENERIC_ENDPOINT on Coordinator
-    201          
-    202            //build DoorLock Programming Event Notification
-    203            zclDoorLockProgrammingEventNotification_t pPayload;
-    204            pPayload.programEventSource = programEventSource;
-    205            pPayload.programEventCode = programEventCode;
-    206            pPayload.userID = userID;
-    207            pPayload.pin = batteryLevel; // it is battery level actually
-    208            pPayload.userType = USER_TYPE_UNRESTRICTED_USER;
-    209            pPayload.userStatus = USER_STATUS_AVAILABLE;
-    210            pPayload.zigBeeLocalTime = zigBeeLocalTime;
-    211          
-    212            pPayload.pData = (uint8 *)osal_mem_alloc(1);
-    213            pPayload.pData[0] = 0;
-    214          
-    215            status = zclClosures_SendDoorLockProgrammingEventNotification( DOORLOCK_ENDPOINT,//uint8 srcEP,
-    216                                                                           &dstAddr,//afAddrType_t *dstAddr,
-    217                                                                           &pPayload,//zclDoorLockProgrammingEventNotification_t *pPayload,
-    218                                                                           TRUE,//uint8 disableDefaultRsp,
-    219                                                                           bdb_getZCLFrameCounter());//uint8 seqNum
-    220          
-    221            osal_mem_free( pPayload.pData );
-    222          
-    223            return status;
-    224          }
-    225          
-    226          /******************************************************************************
-    227                                               init
-    228          ******************************************************************************/
+     59          }
+     60          static uint32 UTCTime_To_SEC(uint8 *buf)
+     61          {
+     62            UTCTimeStruct UTCTime;
+     63            UTCTime.year    = buf[0]+2000;
+     64            UTCTime.month   = buf[1];
+     65            UTCTime.day     = buf[2];
+     66            UTCTime.hour    = buf[3];
+     67            UTCTime.minutes = buf[4];
+     68            UTCTime.seconds = buf[5];
+     69          
+     70            uint32 Seconds;
+     71            Seconds = osal_ConvertUTCSecs( &UTCTime );
+     72          
+     73            return Seconds;
+     74          }
+     75          static uint8 AT_DoorLock_GetOperationEventSource( uint8 type )
+     76          {
+     77            switch( type )
+     78            {
+     79              case WITH_FINGERPRINT:
+     80                return OPERATION_EVENT_SOURCE_FINGERPRINT;
+     81                break;
+     82          
+     83              case WITH_KEYPAD_CODE:
+     84                return OPERATION_EVENT_SOURCE_KEYPAD;
+     85                break;
+     86          
+     87              case WITH_RFID_CARD:
+     88                return OPERATION_EVENT_SOURCE_RFID;
+     89                break;
+     90          
+     91              case WITH_REMOTE_CONTROL:
+     92                return OPERATION_EVENT_SOURCE_REMOTE_CONTROL;
+     93                break;
+     94          
+     95              case WITH_MANUAL_KEY:
+     96                return OPERATION_EVENT_SOURCE_MANUAL;// "Reserved" for Programming Event
+     97                break;
+     98          
+     99              case WITH_TEMP_PIN:
+    100                return OPERATION_EVENT_SOURCE_TEMP_PIN;
+    101                break;
+    102          
+    103              case WITH_REMOTE_APP:
+    104                return OPERATION_EVENT_SOURCE_RF;
+    105                break;
+    106          
+    107              default:
+    108                return OPERATION_EVENT_SOURCE_INDETERMINATE;
+    109                break;
+    110            }
+    111          }
+    112          static uint8 AT_DoorLock_GetProgramEventCode_Add_User( uint8 type )
+    113          {
+    114            switch( type )
+    115            {
+    116              case WITH_FINGERPRINT:
+    117                return PROGRAMMING_EVENT_CODE_FINGERPRINT_ADDED;
+    118                break;
+    119          
+    120              case WITH_KEYPAD_CODE:
+    121                return PROGRAMMING_EVENT_CODE_PIN_CODE_ADDED;
+    122                break;
+    123          
+    124              case WITH_RFID_CARD:
+    125                return PROGRAMMING_EVENT_CODE_RFID_CODE_ADDED;
+    126                break;
+    127          
+    128              default:
+    129                return PROGRAMMING_EVENT_CODE_UNKNOWN_OR_MFG_SPECIFIC;
+    130                break;
+    131            }
+    132          }
+    133          static uint8 AT_DoorLock_GetProgramEventCode_Delete_User( uint8 type )
+    134          {
+    135            switch( type )
+    136            {
+    137              case WITH_FINGERPRINT:
+    138                return PROGRAMMING_EVENT_CODE_FINGERPRINT_DELETED;
+    139                break;
+    140          
+    141              case WITH_KEYPAD_CODE:
+    142                return PROGRAMMING_EVENT_CODE_PIN_CODE_DELETED;
+    143                break;
+    144          
+    145              case WITH_RFID_CARD:
+    146                return PROGRAMMING_EVENT_CODE_RFID_CODE_DELETED;
+    147                break;
+    148          
+    149              default:
+    150                return PROGRAMMING_EVENT_CODE_UNKNOWN_OR_MFG_SPECIFIC;
+    151                break;
+    152            }
+    153          }
+    154          static ZStatus_t AT_DoorLock_SendOperationEventNotification( uint16 userID,
+    155                                                                       uint32 zigBeeLocalTime,
+    156                                                                       uint8 batteryLevel,
+    157                                                                       uint8 operationEventSource,
+    158                                                                       uint8 operationEventCode )
+    159          {
+    160            ZStatus_t status;
+    161          
+    162            // build destination address
+    163            afAddrType_t dstAddr;
+    164            dstAddr.addrMode = (afAddrMode_t)Addr16Bit;
+    165            dstAddr.addr.shortAddr = NWK_PAN_COORD_ADDR;// default send to Coordinator
+    166            dstAddr.endPoint = 0x0B;//GENERIC_ENDPOINT on Coordinator
+    167          
+    168            //build DoorLock Operation Event Notification
+    169            zclDoorLockOperationEventNotification_t pPayload;
+    170            pPayload.operationEventSource = operationEventSource;
+    171            pPayload.operationEventCode = operationEventCode;
+    172            pPayload.userID = userID;
+    173            pPayload.pin = batteryLevel; // it is battery level actually
+    174            pPayload.zigBeeLocalTime = zigBeeLocalTime;
+    175          
+    176            pPayload.pData = (uint8 *)osal_mem_alloc(1);
+    177            pPayload.pData[0] = 0;
+    178          
+    179            status = zclClosures_SendDoorLockOperationEventNotification( DOORLOCK_ENDPOINT,//uint8 srcEP,
+    180                                                                         &dstAddr,//afAddrType_t *dstAddr,
+    181                                                                         &pPayload,//zclDoorLockOperationEventNotification_t *pPayload,
+    182                                                                         TRUE,//uint8 disableDefaultRsp,
+    183                                                                         bdb_getZCLFrameCounter());//uint8 seqNum
+    184          
+    185            osal_mem_free( pPayload.pData );
+    186          
+    187            return status;
+    188          }
+    189          static ZStatus_t AT_DoorLock_SendProgrammingEventNotification( uint16 userID,
+    190                                                                         uint32 zigBeeLocalTime,
+    191                                                                         uint8 batteryLevel,
+    192                                                                         uint8 programEventSource,
+    193                                                                         uint8 programEventCode )
+    194          {
+    195            ZStatus_t status;
+    196          
+    197            // build destination address
+    198            afAddrType_t dstAddr;
+    199            dstAddr.addrMode = (afAddrMode_t)Addr16Bit;
+    200            dstAddr.addr.shortAddr = NWK_PAN_COORD_ADDR;// default send to Coordinator
+    201            dstAddr.endPoint = 0x0B;//GENERIC_ENDPOINT on Coordinator
+    202          
+    203            //build DoorLock Programming Event Notification
+    204            zclDoorLockProgrammingEventNotification_t pPayload;
+    205            pPayload.programEventSource = programEventSource;
+    206            pPayload.programEventCode = programEventCode;
+    207            pPayload.userID = userID;
+    208            pPayload.pin = batteryLevel; // it is battery level actually
+    209            pPayload.userType = USER_TYPE_UNRESTRICTED_USER;
+    210            pPayload.userStatus = USER_STATUS_AVAILABLE;
+    211            pPayload.zigBeeLocalTime = zigBeeLocalTime;
+    212          
+    213            pPayload.pData = (uint8 *)osal_mem_alloc(1);
+    214            pPayload.pData[0] = 0;
+    215          
+    216            status = zclClosures_SendDoorLockProgrammingEventNotification( DOORLOCK_ENDPOINT,//uint8 srcEP,
+    217                                                                           &dstAddr,//afAddrType_t *dstAddr,
+    218                                                                           &pPayload,//zclDoorLockProgrammingEventNotification_t *pPayload,
+    219                                                                           TRUE,//uint8 disableDefaultRsp,
+    220                                                                           bdb_getZCLFrameCounter());//uint8 seqNum
+    221          
+    222            osal_mem_free( pPayload.pData );
+    223          
+    224            return status;
+    225          }
+    226          
+    227          /******************************************************************************
+    228                                               init
+    229          ******************************************************************************/
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    229          void AT_DoorLock_Init(void)
+    230          void AT_DoorLock_Init(void)
    \                     AT_DoorLock_Init:
-    230          {
+    231          {
    \   000000   C082         PUSH      DPL
    \   000002   C083         PUSH      DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-    231            AT_single_bus_init();
+    232            AT_single_bus_init();
    \   000004                ; Setup parameters for call to function AT_single_bus_init
    \   000004   12....       LCALL     `??AT_single_bus_init::?relay`; Banked call to: AT_single_bus_init
-    232          }
-   \   000007   D083         POP       DPH
-   \   000009   D082         POP       DPL
-   \   00000B   02....       LJMP      ?BRET
-    233          
-    234          /******************************************************************************
-    235                                             downlink
-    236          ******************************************************************************/
+    233            AT_pwr_single_bus_init();
+   \   000007                ; Setup parameters for call to function AT_pwr_single_bus_init
+   \   000007   12....       LCALL     `??AT_pwr_single_bus_init::?relay`; Banked call to: AT_pwr_single_bus_init
+    234          }
+   \   00000A   D083         POP       DPH
+   \   00000C   D082         POP       DPL
+   \   00000E   02....       LJMP      ?BRET
+    235          
+    236          /******************************************************************************
+    237                                             downlink
+    238          ******************************************************************************/
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    237          ZStatus_t AT_DoorLock_Unlock( zclDoorLock_t *pInCmd )
+    239          ZStatus_t AT_DoorLock_Unlock( zclDoorLock_t *pInCmd )
    \                     AT_DoorLock_Unlock:
-    238          {
+    240          {
    \   000000                REQUIRE ?V0
    \   000000                REQUIRE ?V1
    \   000000                REQUIRE ?V2
@@ -417,55 +421,55 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   000005                ; Auto size: 0
    \   000005   8A..         MOV       ?V0,R2
    \   000007   8B..         MOV       ?V1,R3
-    239            uint8 *buf = (uint8 *)osal_mem_alloc( LEN_DOORLOCK_UNLOCK );
+    241            uint8 *buf = (uint8 *)osal_mem_alloc( LEN_DOORLOCK_UNLOCK );
    \   000009                ; Setup parameters for call to function osal_mem_alloc
    \   000009   7A1B         MOV       R2,#0x1b
    \   00000B   12....       LCALL     ?Subroutine4 & 0xFFFF
-    240            if(buf == NULL)
+    242            if(buf == NULL)
    \                     ??CrossCallReturnLabel_4:
    \   00000E   7004         JNZ       ??AT_DoorLock_Unlock_0
-    241              return ZMemError;
+    243              return ZMemError;
    \   000010   7910         MOV       R1,#0x10
    \   000012   802C         SJMP      ??CrossCallReturnLabel_19
-    242            else
-    243              osal_memset(buf, 0x00, LEN_DOORLOCK_UNLOCK);
+    244            else
+    245              osal_memset(buf, 0x00, LEN_DOORLOCK_UNLOCK);
    \                     ??AT_DoorLock_Unlock_0:
    \   000014                ; Setup parameters for call to function osal_memset
    \   000014   7C1B         MOV       R4,#0x1b
    \   000016   12....       LCALL     ?Subroutine8 & 0xFFFF
-    244          
-    245            buf[0] = CMD_DOORLOCK_UNLOCK;
+    246          
+    247            buf[0] = CMD_DOORLOCK_UNLOCK;
    \                     ??CrossCallReturnLabel_13:
    \   000019   7401         MOV       A,#0x1
    \   00001B   12....       LCALL     ?Subroutine7 & 0xFFFF
-    246          
-    247            if(pInCmd->pPinRfidCode[0] == PIN_LEN_NULL)
+    248          
+    249            if(pInCmd->pPinRfidCode[0] == PIN_LEN_NULL)
    \                     ??CrossCallReturnLabel_11:
    \   00001E   7022         JNZ       ??AT_DoorLock_Unlock_1
-    248            {
-    249              buf[1] |=  CHECK_PIN_Y_N;   // do not check pin
-    250              buf[1] &= ~CHECK_SET_TIME;  // do not check and set time
+    250            {
+    251              buf[1] |=  CHECK_PIN_Y_N;   // do not check pin
+    252              buf[1] &= ~CHECK_SET_TIME;  // do not check and set time
    \   000020   E0           MOVX      A,@DPTR
    \   000021   C2E1         CLR       0xE0 /* A   */.1
    \   000023   F0           MOVX      @DPTR,A
    \   000024   D2E2         SETB      0xE0 /* A   */.2
    \   000026   F0           MOVX      @DPTR,A
-    251            }
-    252            else if((pInCmd->pPinRfidCode[0] >= PIN_LEN_MIN) && (pInCmd->pPinRfidCode[0] <= PIN_LEN_MAX))
-    253            {
-    254              buf[1] &= ~CHECK_PIN_Y_N;   // check pin
-    255              buf[1] |=  CHECK_PIN_A_U_T; // check administrator/user/temp
-    256              buf[1] &= ~CHECK_SET_TIME;  // do not check and set time
-    257          
-    258              osal_memcpy(&buf[10], &(pInCmd->pPinRfidCode[1]), pInCmd->pPinRfidCode[0]);
-    259            }
-    260            else
-    261            {
-    262              osal_mem_free( buf );
-    263              return ZFailure;
-    264            }
-    265          
-    266            buf[LEN_DOORLOCK_UNLOCK-1] = sum_check(buf, LEN_DOORLOCK_UNLOCK-1);
+    253            }
+    254            else if((pInCmd->pPinRfidCode[0] >= PIN_LEN_MIN) && (pInCmd->pPinRfidCode[0] <= PIN_LEN_MAX))
+    255            {
+    256              buf[1] &= ~CHECK_PIN_Y_N;   // check pin
+    257              buf[1] |=  CHECK_PIN_A_U_T; // check administrator/user/temp
+    258              buf[1] &= ~CHECK_SET_TIME;  // do not check and set time
+    259          
+    260              osal_memcpy(&buf[10], &(pInCmd->pPinRfidCode[1]), pInCmd->pPinRfidCode[0]);
+    261            }
+    262            else
+    263            {
+    264              osal_mem_free( buf );
+    265              return ZFailure;
+    266            }
+    267          
+    268            buf[LEN_DOORLOCK_UNLOCK-1] = sum_check(buf, LEN_DOORLOCK_UNLOCK-1);
    \                     ??AT_DoorLock_Unlock_2:
    \   000027                ; Setup parameters for call to function sum_check
    \   000027   791A         MOV       R1,#0x1a
@@ -482,15 +486,15 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   000037   F583         MOV       DPH,A
    \   000039   E9           MOV       A,R1
    \   00003A   F0           MOVX      @DPTR,A
-    267          
-    268            AT_single_bus_send_buf(buf, LEN_DOORLOCK_UNLOCK);
+    269          
+    270            AT_single_bus_send_buf(buf, LEN_DOORLOCK_UNLOCK);
    \   00003B                ; Setup parameters for call to function AT_single_bus_send_buf
    \   00003B   791B         MOV       R1,#0x1b
    \   00003D   12....       LCALL     ?Subroutine10 & 0xFFFF
-    269          
-    270            osal_mem_free( buf );
     271          
-    272            return ZSuccess;
+    272            osal_mem_free( buf );
+    273          
+    274            return ZSuccess;
    \                     ??CrossCallReturnLabel_19:
    \   000040   80..         SJMP      ?Subroutine0
    \                     ??AT_DoorLock_Unlock_1:
@@ -534,7 +538,7 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   000079   12....       LCALL     `??osal_mem_free::?relay`; Banked call to: osal_mem_free
    \   00007C   7901         MOV       R1,#0x1
    \   00007E   80C0         SJMP      ??CrossCallReturnLabel_19
-    273          }
+    275          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine0:
@@ -639,9 +643,9 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   000009   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    274          ZStatus_t AT_DoorLock_Lock( zclDoorLock_t *pInCmd )
+    276          ZStatus_t AT_DoorLock_Lock( zclDoorLock_t *pInCmd )
    \                     AT_DoorLock_Lock:
-    275          {
+    277          {
    \   000000                REQUIRE ?V0
    \   000000                REQUIRE ?V1
    \   000000                REQUIRE ?V2
@@ -652,46 +656,46 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   000005                ; Auto size: 0
    \   000005   8A..         MOV       ?V0,R2
    \   000007   8B..         MOV       ?V1,R3
-    276            uint8 *buf = (uint8 *)osal_mem_alloc( LEN_DOORLOCK_LOCK );
+    278            uint8 *buf = (uint8 *)osal_mem_alloc( LEN_DOORLOCK_LOCK );
    \   000009                ; Setup parameters for call to function osal_mem_alloc
    \   000009   7A17         MOV       R2,#0x17
    \   00000B   12....       LCALL     ?Subroutine4 & 0xFFFF
-    277            if(buf == NULL)
+    279            if(buf == NULL)
    \                     ??CrossCallReturnLabel_5:
    \   00000E   7004         JNZ       ??AT_DoorLock_Lock_0
-    278              return ZMemError;
+    280              return ZMemError;
    \   000010   7910         MOV       R1,#0x10
    \   000012   804A         SJMP      ??CrossCallReturnLabel_20
-    279            else
-    280              osal_memset(buf, 0x00, LEN_DOORLOCK_LOCK);
+    281            else
+    282              osal_memset(buf, 0x00, LEN_DOORLOCK_LOCK);
    \                     ??AT_DoorLock_Lock_0:
    \   000014                ; Setup parameters for call to function osal_memset
    \   000014   7C17         MOV       R4,#0x17
    \   000016   12....       LCALL     ?Subroutine8 & 0xFFFF
-    281          
-    282            buf[0] = CMD_DOORLOCK_LOCK;
+    283          
+    284            buf[0] = CMD_DOORLOCK_LOCK;
    \                     ??CrossCallReturnLabel_14:
    \   000019   7402         MOV       A,#0x2
    \   00001B   12....       LCALL     ?Subroutine13 & 0xFFFF
-    283          
-    284            if(pInCmd->pPinRfidCode[0] == PIN_LEN_NULL)
+    285          
+    286            if(pInCmd->pPinRfidCode[0] == PIN_LEN_NULL)
    \                     ??CrossCallReturnLabel_27:
    \   00001E   8882         MOV       DPL,R0
    \   000020   F583         MOV       DPH,A
    \   000022   E0           MOVX      A,@DPTR
    \   000023   FC           MOV       R4,A
    \   000024   601F         JZ        ??AT_DoorLock_Lock_1
-    285            {
-    286              // do nothing
-    287            }
-    288            else if((pInCmd->pPinRfidCode[0] >= PIN_LEN_MIN) && (pInCmd->pPinRfidCode[0] <= PIN_LEN_MAX))
+    287            {
+    288              // do nothing
+    289            }
+    290            else if((pInCmd->pPinRfidCode[0] >= PIN_LEN_MIN) && (pInCmd->pPinRfidCode[0] <= PIN_LEN_MAX))
    \   000026   74FA         MOV       A,#-0x6
    \   000028   2C           ADD       A,R4
    \   000029   C3           CLR       C
    \   00002A   9407         SUBB      A,#0x7
    \   00002C   5032         JNC       ??AT_DoorLock_Lock_2
-    289            {
-    290              osal_memcpy(&buf[10], &(pInCmd->pPinRfidCode[1]), pInCmd->pPinRfidCode[0]);
+    291            {
+    292              osal_memcpy(&buf[10], &(pInCmd->pPinRfidCode[1]), pInCmd->pPinRfidCode[0]);
    \   00002E                ; Setup parameters for call to function osal_memcpy
    \   00002E   A3           INC       DPTR
    \   00002F   A982         MOV       R1,DPL
@@ -702,16 +706,16 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   00003A   78..         MOV       R0,#?V0
    \   00003C   12....       LCALL     ?PUSH_XSTACK_I_THREE
    \   00003F   12....       LCALL     ?Subroutine18 & 0xFFFF
-    291            }
+    293            }
    \                     ??CrossCallReturnLabel_39:
    \   000042   12....       LCALL     ?DEALLOC_XSTACK8
-    292            else
-    293            {
-    294              osal_mem_free( buf );
-    295              return ZFailure;
-    296            }
-    297          
-    298            buf[LEN_DOORLOCK_LOCK-1] = sum_check(buf, LEN_DOORLOCK_LOCK-1);
+    294            else
+    295            {
+    296              osal_mem_free( buf );
+    297              return ZFailure;
+    298            }
+    299          
+    300            buf[LEN_DOORLOCK_LOCK-1] = sum_check(buf, LEN_DOORLOCK_LOCK-1);
    \                     ??AT_DoorLock_Lock_1:
    \   000045                ; Setup parameters for call to function sum_check
    \   000045   7916         MOV       R1,#0x16
@@ -728,15 +732,15 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   000055   F583         MOV       DPH,A
    \   000057   E9           MOV       A,R1
    \   000058   F0           MOVX      @DPTR,A
-    299          
-    300            AT_single_bus_send_buf(buf, LEN_DOORLOCK_LOCK);
+    301          
+    302            AT_single_bus_send_buf(buf, LEN_DOORLOCK_LOCK);
    \   000059                ; Setup parameters for call to function AT_single_bus_send_buf
    \   000059   7917         MOV       R1,#0x17
    \   00005B   12....       LCALL     ?Subroutine10 & 0xFFFF
-    301          
-    302            osal_mem_free( buf );
     303          
-    304            return ZSuccess;
+    304            osal_mem_free( buf );
+    305          
+    306            return ZSuccess;
    \                     ??CrossCallReturnLabel_20:
    \   00005E   80..         SJMP      ?Subroutine0
    \                     ??AT_DoorLock_Lock_2:
@@ -748,12 +752,12 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   000064   12....       LCALL     `??osal_mem_free::?relay`; Banked call to: osal_mem_free
    \   000067   7901         MOV       R1,#0x1
    \   000069   80F3         SJMP      ??CrossCallReturnLabel_20
-    305          }
+    307          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    306          ZStatus_t AT_DoorLock_SetTemporaryPin_Req( zclDoorLockSetTemporaryPin_t *pCmd )
+    308          ZStatus_t AT_DoorLock_SetTemporaryPin_Req( zclDoorLockSetTemporaryPin_t *pCmd )
    \                     AT_DoorLock_SetTemporaryPin_Req:
-    307          {
+    309          {
    \   000000                REQUIRE ?V0
    \   000000                REQUIRE ?V1
    \   000000                REQUIRE ?V2
@@ -767,51 +771,51 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   000005                ; Auto size: 0
    \   000005   8A..         MOV       ?V0,R2
    \   000007   8B..         MOV       ?V1,R3
-    308            uint8 *buf = (uint8 *)osal_mem_alloc( LEN_DOORLOCK_SET_TEMPORARY_PIN );
+    310            uint8 *buf = (uint8 *)osal_mem_alloc( LEN_DOORLOCK_SET_TEMPORARY_PIN );
    \   000009                ; Setup parameters for call to function osal_mem_alloc
    \   000009   7A28         MOV       R2,#0x28
    \   00000B   12....       LCALL     ?Subroutine4 & 0xFFFF
-    309            if(buf == NULL)
+    311            if(buf == NULL)
    \                     ??CrossCallReturnLabel_6:
    \   00000E   7005         JNZ       ??AT_DoorLock_SetTemporaryPin_Req_0
-    310              return ZMemError;
+    312              return ZMemError;
    \   000010   7910         MOV       R1,#0x10
    \   000012   02....       LJMP      ??CrossCallReturnLabel_21 & 0xFFFF
-    311            else
-    312              osal_memset(buf, 0x00, LEN_DOORLOCK_SET_TEMPORARY_PIN);
+    313            else
+    314              osal_memset(buf, 0x00, LEN_DOORLOCK_SET_TEMPORARY_PIN);
    \                     ??AT_DoorLock_SetTemporaryPin_Req_0:
    \   000015                ; Setup parameters for call to function osal_memset
    \   000015   7C28         MOV       R4,#0x28
    \   000017   12....       LCALL     ?Subroutine8 & 0xFFFF
-    313          
-    314            buf[0] = CMD_DOORLOCK_SET_TEMPORARY_PIN;
+    315          
+    316            buf[0] = CMD_DOORLOCK_SET_TEMPORARY_PIN;
    \                     ??CrossCallReturnLabel_15:
    \   00001A   7404         MOV       A,#0x4
    \   00001C   12....       LCALL     ?Subroutine7 & 0xFFFF
-    315          
-    316            if(pCmd->adminPin[0] == PIN_LEN_NULL)
+    317          
+    318            if(pCmd->adminPin[0] == PIN_LEN_NULL)
    \                     ??CrossCallReturnLabel_12:
    \   00001F   6003         JZ        $+5
    \   000021   02....       LJMP      ??AT_DoorLock_SetTemporaryPin_Req_1 & 0xFFFF
-    317            {
-    318              buf[1] |=  CHECK_PIN_Y_N;   // do not check admin pin
+    319            {
+    320              buf[1] |=  CHECK_PIN_Y_N;   // do not check admin pin
    \   000024   E0           MOVX      A,@DPTR
    \   000025   D2E2         SETB      0xE0 /* A   */.2
    \   000027   F0           MOVX      @DPTR,A
-    319            }
-    320            else if((pCmd->adminPin[0] >= PIN_LEN_MIN) && (pCmd->adminPin[0] <= PIN_LEN_MAX))
-    321            {
-    322              buf[1] &= ~CHECK_PIN_Y_N;   // check admin pin
-    323          
-    324              osal_memcpy(&buf[10], &(pCmd->adminPin[1]), pCmd->adminPin[0]);
-    325            }
-    326            else
-    327            {
-    328              osal_mem_free( buf );
-    329              return ZFailure;
-    330            }
-    331          
-    332            osal_memcpy(&buf[22], &(pCmd->tempPin[1]), pCmd->tempPin[0]);
+    321            }
+    322            else if((pCmd->adminPin[0] >= PIN_LEN_MIN) && (pCmd->adminPin[0] <= PIN_LEN_MAX))
+    323            {
+    324              buf[1] &= ~CHECK_PIN_Y_N;   // check admin pin
+    325          
+    326              osal_memcpy(&buf[10], &(pCmd->adminPin[1]), pCmd->adminPin[0]);
+    327            }
+    328            else
+    329            {
+    330              osal_mem_free( buf );
+    331              return ZFailure;
+    332            }
+    333          
+    334            osal_memcpy(&buf[22], &(pCmd->tempPin[1]), pCmd->tempPin[0]);
    \                     ??AT_DoorLock_SetTemporaryPin_Req_2:
    \   000028   85..82       MOV       DPL,?V0
    \   00002B   85..83       MOV       DPH,?V1
@@ -830,8 +834,8 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   000041   12....       LCALL     ??Subroutine21_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_41:
    \   000044   12....       LCALL     ?DEALLOC_XSTACK8
-    333          
-    334            buf[34] = pCmd->activeTimes;
+    335          
+    336            buf[34] = pCmd->activeTimes;
    \   000047   85..82       MOV       DPL,?V0
    \   00004A   85..83       MOV       DPH,?V1
    \   00004D   A3           INC       DPTR
@@ -848,8 +852,8 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   00005B   F583         MOV       DPH,A
    \   00005D   D0E0         POP       A
    \   00005F   F0           MOVX      @DPTR,A
-    335          
-    336            buf[35] = BREAK_UINT32( pCmd->activeTime, 3 );
+    337          
+    338            buf[35] = BREAK_UINT32( pCmd->activeTime, 3 );
    \   000060   E5..         MOV       A,?V0
    \   000062   2405         ADD       A,#0x5
    \   000064   F8           MOV       R0,A
@@ -869,7 +873,7 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   00007C   EE           MOV       A,R6
    \   00007D   2423         ADD       A,#0x23
    \   00007F   12....       LCALL     ?Subroutine9 & 0xFFFF
-    337            buf[36] = BREAK_UINT32( pCmd->activeTime, 2 );
+    339            buf[36] = BREAK_UINT32( pCmd->activeTime, 2 );
    \                     ??CrossCallReturnLabel_16:
    \   000082   12....       LCALL     ?L_MOV_X
    \   000085   7410         MOV       A,#0x10
@@ -878,7 +882,7 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   00008C   EE           MOV       A,R6
    \   00008D   2424         ADD       A,#0x24
    \   00008F   12....       LCALL     ?Subroutine9 & 0xFFFF
-    338            buf[37] = BREAK_UINT32( pCmd->activeTime, 1 );
+    340            buf[37] = BREAK_UINT32( pCmd->activeTime, 1 );
    \                     ??CrossCallReturnLabel_17:
    \   000092   12....       LCALL     ?L_MOV_X
    \   000095   E5..         MOV       A,?V1
@@ -886,7 +890,7 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   000099   EE           MOV       A,R6
    \   00009A   2425         ADD       A,#0x25
    \   00009C   12....       LCALL     ?Subroutine9 & 0xFFFF
-    339            buf[38] = BREAK_UINT32( pCmd->activeTime, 0 );
+    341            buf[38] = BREAK_UINT32( pCmd->activeTime, 0 );
    \                     ??CrossCallReturnLabel_18:
    \   00009F   12....       LCALL     ?L_MOV_X
    \   0000A2   EE           MOV       A,R6
@@ -897,8 +901,8 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   0000A9   F583         MOV       DPH,A
    \   0000AB   E5..         MOV       A,?V0
    \   0000AD   F0           MOVX      @DPTR,A
-    340          
-    341            buf[LEN_DOORLOCK_SET_TEMPORARY_PIN-1] = sum_check(buf, LEN_DOORLOCK_SET_TEMPORARY_PIN-1);
+    342          
+    343            buf[LEN_DOORLOCK_SET_TEMPORARY_PIN-1] = sum_check(buf, LEN_DOORLOCK_SET_TEMPORARY_PIN-1);
    \   0000AE                ; Setup parameters for call to function sum_check
    \   0000AE   7927         MOV       R1,#0x27
    \   0000B0   EE           MOV       A,R6
@@ -914,15 +918,15 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   0000BE   F583         MOV       DPH,A
    \   0000C0   E9           MOV       A,R1
    \   0000C1   F0           MOVX      @DPTR,A
-    342          
-    343            AT_single_bus_send_buf(buf, LEN_DOORLOCK_SET_TEMPORARY_PIN);
+    344          
+    345            AT_single_bus_send_buf(buf, LEN_DOORLOCK_SET_TEMPORARY_PIN);
    \   0000C2                ; Setup parameters for call to function AT_single_bus_send_buf
    \   0000C2   7928         MOV       R1,#0x28
    \   0000C4   12....       LCALL     ?Subroutine10 & 0xFFFF
-    344          
-    345            osal_mem_free( buf );
     346          
-    347            return ZSuccess;
+    347            osal_mem_free( buf );
+    348          
+    349            return ZSuccess;
    \                     ??CrossCallReturnLabel_21:
    \   0000C7   02....       LJMP      ?Subroutine1 & 0xFFFF
    \                     ??AT_DoorLock_SetTemporaryPin_Req_1:
@@ -952,7 +956,7 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   0000EF   12....       LCALL     `??osal_mem_free::?relay`; Banked call to: osal_mem_free
    \   0000F2   7901         MOV       R1,#0x1
    \   0000F4   80D1         SJMP      ??CrossCallReturnLabel_21
-    348          }
+    350          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine9:
@@ -995,79 +999,79 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \                     ?Subroutine1:
    \   000000   7F07         MOV       R7,#0x7
    \   000002   02....       LJMP      ?BANKED_LEAVE_XDATA
-    349          
-    350          /******************************************************************************
-    351                                             uplink
-    352          ******************************************************************************/
-    353          static ZStatus_t AT_DoorLock_Rsp(uint8 *buf, uint8 len)
-    354          {
-    355            ZStatus_t result = ZFailure;
-    356          
-    357            afAddrType_t dstAddr;
-    358            dstAddr.addr.shortAddr = NWK_PAN_COORD_ADDR;
-    359            dstAddr.addrMode = (afAddrMode_t)Addr16Bit;
-    360            dstAddr.endPoint = 0x0B;
-    361          
-    362            uint8 cmd = 0xFF;
-    363            uint8 status = ZCL_STATUS_FAILURE;
-    364          
-    365            switch(buf[0])
-    366            {
-    367              case CMD_DOORLOCK_UNLOCK:
-    368                cmd = COMMAND_CLOSURES_UNLOCK_DOOR_RSP;
-    369                if(buf[1] == UNLOCK_SUCCESS)
-    370                  status = ZCL_STATUS_SUCCESS;
-    371                else
-    372                  status = ZCL_STATUS_FAILURE;
-    373                break;
-    374          
-    375              case CMD_DOORLOCK_LOCK:
-    376                cmd = COMMAND_CLOSURES_LOCK_DOOR_RSP;
-    377                status = ZCL_STATUS_SUCCESS;
-    378                break;
-    379          
-    380              case CMD_DOORLOCK_SET_TEMPORARY_PIN:
-    381                cmd = COMMAND_CLOSURES_SET_TEMPORARY_PIN_RSP;
-    382                switch(buf[1])
-    383                {
-    384                  case SET_TEMPORARY_PIN_SUCCESS:
-    385                    status = ZCL_STATUS_SUCCESS;
-    386                    break;
-    387          
-    388                  case SET_TEMPORARY_PIN_FAILED:
-    389                    status = ZCL_STATUS_FAILURE;
-    390                    break;
-    391          
-    392                  case SET_TEMPORARY_PIN_SAME_PIN:
-    393                    status = ZCL_STATUS_SAME_PIN;
-    394                    break;
-    395          
-    396                  default:
-    397                    status = ZCL_STATUS_FAILURE;
-    398                    break;
-    399                }
-    400                break;
-    401          
-    402              default:
-    403                break;
-    404            }
-    405          
-    406            result = zclClosures_SendDoorLockStatusResponse( DOORLOCK_ENDPOINT,
-    407                                                             &dstAddr,
-    408                                                             cmd,
-    409                                                             status,
-    410                                                             TRUE,
-    411                                                             bdb_getZCLFrameCounter() );
-    412          
-    413            printf("AF, AT_DoorLock_Rsp: 0x%02X\r\n", result);
+    351          
+    352          /******************************************************************************
+    353                                             uplink
+    354          ******************************************************************************/
+    355          static ZStatus_t AT_DoorLock_Rsp(uint8 *buf, uint8 len)
+    356          {
+    357            ZStatus_t result = ZFailure;
+    358          
+    359            afAddrType_t dstAddr;
+    360            dstAddr.addr.shortAddr = NWK_PAN_COORD_ADDR;
+    361            dstAddr.addrMode = (afAddrMode_t)Addr16Bit;
+    362            dstAddr.endPoint = 0x0B;
+    363          
+    364            uint8 cmd = 0xFF;
+    365            uint8 status = ZCL_STATUS_FAILURE;
+    366          
+    367            switch(buf[0])
+    368            {
+    369              case CMD_DOORLOCK_UNLOCK:
+    370                cmd = COMMAND_CLOSURES_UNLOCK_DOOR_RSP;
+    371                if(buf[1] == UNLOCK_SUCCESS)
+    372                  status = ZCL_STATUS_SUCCESS;
+    373                else
+    374                  status = ZCL_STATUS_FAILURE;
+    375                break;
+    376          
+    377              case CMD_DOORLOCK_LOCK:
+    378                cmd = COMMAND_CLOSURES_LOCK_DOOR_RSP;
+    379                status = ZCL_STATUS_SUCCESS;
+    380                break;
+    381          
+    382              case CMD_DOORLOCK_SET_TEMPORARY_PIN:
+    383                cmd = COMMAND_CLOSURES_SET_TEMPORARY_PIN_RSP;
+    384                switch(buf[1])
+    385                {
+    386                  case SET_TEMPORARY_PIN_SUCCESS:
+    387                    status = ZCL_STATUS_SUCCESS;
+    388                    break;
+    389          
+    390                  case SET_TEMPORARY_PIN_FAILED:
+    391                    status = ZCL_STATUS_FAILURE;
+    392                    break;
+    393          
+    394                  case SET_TEMPORARY_PIN_SAME_PIN:
+    395                    status = ZCL_STATUS_SAME_PIN;
+    396                    break;
+    397          
+    398                  default:
+    399                    status = ZCL_STATUS_FAILURE;
+    400                    break;
+    401                }
+    402                break;
+    403          
+    404              default:
+    405                break;
+    406            }
+    407          
+    408            result = zclClosures_SendDoorLockStatusResponse( DOORLOCK_ENDPOINT,
+    409                                                             &dstAddr,
+    410                                                             cmd,
+    411                                                             status,
+    412                                                             TRUE,
+    413                                                             bdb_getZCLFrameCounter() );
     414          
-    415            return result;
-    416          }
+    415            printf("AF, AT_DoorLock_Rsp: 0x%02X\r\n", result);
+    416          
+    417            return result;
+    418          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    417          static ZStatus_t AT_DoorLock_Upload(uint8 *buf, uint8 len)
+    419          static ZStatus_t AT_DoorLock_Upload(uint8 *buf, uint8 len)
    \                     AT_DoorLock_Upload:
-    418          {
+    420          {
    \   000000                REQUIRE ?V0
    \   000000                REQUIRE ?V1
    \   000000                REQUIRE ?V2
@@ -1090,33 +1094,33 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   000007   12....       LCALL     ?ALLOC_XSTACK8
    \   00000A   EB           MOV       A,R3
    \   00000B   FD           MOV       R5,A
-    419            ZStatus_t result = ZFailure;
+    421            ZStatus_t result = ZFailure;
    \   00000C   7F01         MOV       R7,#0x1
-    420          
-    421            uint8 flag = EVENT_FLAG_UNKNOWN;
-   \   00000E   75..FF       MOV       ?V5,#-0x1
     422          
-    423            uint16 userID = 0xFFFF;
+    423            uint8 flag = EVENT_FLAG_UNKNOWN;
+   \   00000E   75..FF       MOV       ?V5,#-0x1
+    424          
+    425            uint16 userID = 0xFFFF;
    \   000011   75..FF       MOV       ?V0,#-0x1
    \   000014   75..FF       MOV       ?V1,#-0x1
-    424            uint32 zigBeeLocalTime = 0xFFFFFFFF;
+    426            uint32 zigBeeLocalTime = 0xFFFFFFFF;
    \   000017   75..FF       MOV       ?V8,#-0x1
    \   00001A   75..FF       MOV       ?V9,#-0x1
    \   00001D   75..FF       MOV       ?V10,#-0x1
    \   000020   75..FF       MOV       ?V11,#-0x1
-    425            uint8 batteryLevel = 0xFF;
+    427            uint8 batteryLevel = 0xFF;
    \   000023   75..FF       MOV       ?V4,#-0x1
-    426          
-    427            uint8 operationEventSource = OPERATION_EVENT_SOURCE_INDETERMINATE;
+    428          
+    429            uint8 operationEventSource = OPERATION_EVENT_SOURCE_INDETERMINATE;
    \   000026   7EFF         MOV       R6,#-0x1
-    428            uint8 operationEventCode = OPERATION_EVENT_CODE_UNKNOWN_OR_MFG_SPECIFIC;
-    429          
-    430            uint8 programEventSource = OPERATION_EVENT_SOURCE_INDETERMINATE;
+    430            uint8 operationEventCode = OPERATION_EVENT_CODE_UNKNOWN_OR_MFG_SPECIFIC;
+    431          
+    432            uint8 programEventSource = OPERATION_EVENT_SOURCE_INDETERMINATE;
    \   000028   79FF         MOV       R1,#-0x1
-    431            uint8 programEventCode = PROGRAMMING_EVENT_CODE_UNKNOWN_OR_MFG_SPECIFIC;
+    433            uint8 programEventCode = PROGRAMMING_EVENT_CODE_UNKNOWN_OR_MFG_SPECIFIC;
    \   00002A   7800         MOV       R0,#0x0
-    432          
-    433            switch(buf[0])
+    434          
+    435            switch(buf[0])
    \   00002C   8A82         MOV       DPL,R2
    \   00002E   F583         MOV       DPH,A
    \   000030   E0           MOVX      A,@DPTR
@@ -1126,17 +1130,17 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   000038   243C         ADD       A,#0x3c
    \   00003A   6003         JZ        $+5
    \   00003C   02....       LJMP      ??AT_DoorLock_Upload_1 & 0xFFFF
-    434            {
-    435              case CMD_DOORLOCK_WAKE_UP:
-    436                flag = EVENT_FLAG_OPERATION;
-    437                operationEventCode = OPERATION_EVENT_CODE_WAKE_UP;
+    436            {
+    437              case CMD_DOORLOCK_WAKE_UP:
+    438                flag = EVENT_FLAG_OPERATION;
+    439                operationEventCode = OPERATION_EVENT_CODE_WAKE_UP;
    \   00003F   75..26       MOV       ?V2,#0x26
-    438                NLME_SetPollRate(DOORLOCK_POLL_RATE_ACTIVE);
+    440                NLME_SetPollRate(DOORLOCK_POLL_RATE_ACTIVE);
    \   000042                ; Setup parameters for call to function NLME_SetPollRate
    \   000042   90....       MOV       DPTR,#__Constant_12c
    \   000045   12....       LCALL     ?XLOAD_R2345
    \   000048   12....       LCALL     `??NLME_SetPollRate::?relay`; Banked call to: NLME_SetPollRate
-    439                osal_start_timerEx(zclDoorLock_TaskID, DOORLOCK_SET_DORMANT_EVT, DOORLOCK_KEEP_ACTIVE_TIME_WAKEUP);
+    441                osal_start_timerEx(zclDoorLock_TaskID, DOORLOCK_SET_DORMANT_EVT, DOORLOCK_KEEP_ACTIVE_TIME_WAKEUP);
    \   00004B                ; Setup parameters for call to function osal_start_timerEx
    \   00004B   90....       MOV       DPTR,#__Constant_3a98
    \                     ??AT_DoorLock_Upload_2:
@@ -1149,85 +1153,85 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   00005A   12....       LCALL     `??osal_start_timerEx::?relay`; Banked call to: osal_start_timerEx
    \   00005D   7404         MOV       A,#0x4
    \   00005F   12....       LCALL     ?DEALLOC_XSTACK8
-    440                break;
-    441          
-    442              case CMD_DOORLOCK_EVT_UPLOAD:
-    443                switch(buf[13])
-    444                {
-    445                  case EVT_DOORLOCK_UPLOAD_ADD_USER:
-    446                    flag = EVENT_FLAG_PROGRAMMING;
-    447                    userID = (buf[15]<<8) | buf[16];
-    448                    batteryLevel = buf[10];
-    449                    programEventSource = OPERATION_EVENT_SOURCE_KEYPAD;
-    450                    programEventCode = AT_DoorLock_GetProgramEventCode_Add_User( buf[14] );
-    451                    break;
-    452          
-    453                  case EVT_DOORLOCK_UPLOAD_DELETE_USER:
-    454                    flag = EVENT_FLAG_PROGRAMMING;
-    455                    userID = (buf[15]<<8) | buf[16];
-    456                    batteryLevel = buf[10];
-    457                    programEventSource = OPERATION_EVENT_SOURCE_KEYPAD;
-    458                    programEventCode = AT_DoorLock_GetProgramEventCode_Delete_User( buf[14] );
-    459                    break;
-    460          
-    461                  case EVT_DOORLOCK_UPLOAD_UNLOCK:
-    462                    flag = EVENT_FLAG_OPERATION;
-    463                    userID = (buf[15]<<8) | buf[16];
-    464                    zigBeeLocalTime = UTCTime_To_SEC( &buf[17] );
-    465                    batteryLevel = buf[10];
-    466                    operationEventSource = AT_DoorLock_GetOperationEventSource( buf[14] );
-    467                    operationEventCode = OPERATION_EVENT_CODE_UNLOCK;
-    468                    osal_set_event(zclDoorLock_TaskID, DOORLOCK_REPORT_UNLOCK_EVT);
-    469                    break;
-    470          
-    471                  case EVT_DOORLOCK_UPLOAD_FORCE_PRY_LOCK:
-    472                    flag = EVENT_FLAG_OPERATION;
-    473                    batteryLevel = buf[10];
-    474                    operationEventCode = OPERATION_EVENT_CODE_FORCE_PRY_LOCK;
-    475                    break;
-    476          
-    477                  case EVT_DOORLOCK_UPLOAD_ENTER_LOCKED_STATE:
-    478                    flag = EVENT_FLAG_OPERATION;
-    479                    batteryLevel = buf[10];
-    480                    operationEventCode = OPERATION_EVENT_CODE_ENTER_LOCKED_STATE;
-    481                    break;
-    482          
-    483                  case EVT_DOORLOCK_UPLOAD_LOW_POWER:
-    484                    flag = EVENT_FLAG_OPERATION;
-    485                    batteryLevel = buf[10];
-    486                    operationEventCode = OPERATION_EVENT_CODE_LOW_POWER;
-    487                    break;
-    488          
-    489                  case EVT_DOORLOCK_UPLOAD_DOORBELL:
-    490                    flag = EVENT_FLAG_OPERATION;
-    491                    batteryLevel = buf[10];
-    492                    operationEventCode = OPERATION_EVENT_CODE_DOORBELL;
-    493                    NLME_SetPollRate(DOORLOCK_POLL_RATE_ACTIVE);
-    494                    osal_start_timerEx(zclDoorLock_TaskID, DOORLOCK_SET_DORMANT_EVT, DOORLOCK_KEEP_ACTIVE_TIME_DOORBELL);
-    495                    break;
-    496          
-    497                  case EVT_DOORLOCK_UPLOAD_EXIT_LOCKED_STATE:
-    498                    flag = EVENT_FLAG_OPERATION;
-    499                    batteryLevel = buf[10];
-    500                    operationEventCode = OPERATION_EVENT_CODE_EXIT_LOCKED_STATE;
-    501                    break;
-    502          
-    503                  default:
-    504                    break;
-    505                }
-    506                break;
-    507          
-    508              default:
-    509                break;
-    510            }
-    511          
-    512            if(flag == EVENT_FLAG_OPERATION)
-    513            {
-    514              result = AT_DoorLock_SendOperationEventNotification( userID,
-    515                                                                   zigBeeLocalTime,
-    516                                                                   batteryLevel,
-    517                                                                   operationEventSource,
-    518                                                                   operationEventCode );
+    442                break;
+    443          
+    444              case CMD_DOORLOCK_EVT_UPLOAD:
+    445                switch(buf[13])
+    446                {
+    447                  case EVT_DOORLOCK_UPLOAD_ADD_USER:
+    448                    flag = EVENT_FLAG_PROGRAMMING;
+    449                    userID = (buf[15]<<8) | buf[16];
+    450                    batteryLevel = buf[10];
+    451                    programEventSource = OPERATION_EVENT_SOURCE_KEYPAD;
+    452                    programEventCode = AT_DoorLock_GetProgramEventCode_Add_User( buf[14] );
+    453                    break;
+    454          
+    455                  case EVT_DOORLOCK_UPLOAD_DELETE_USER:
+    456                    flag = EVENT_FLAG_PROGRAMMING;
+    457                    userID = (buf[15]<<8) | buf[16];
+    458                    batteryLevel = buf[10];
+    459                    programEventSource = OPERATION_EVENT_SOURCE_KEYPAD;
+    460                    programEventCode = AT_DoorLock_GetProgramEventCode_Delete_User( buf[14] );
+    461                    break;
+    462          
+    463                  case EVT_DOORLOCK_UPLOAD_UNLOCK:
+    464                    flag = EVENT_FLAG_OPERATION;
+    465                    userID = (buf[15]<<8) | buf[16];
+    466                    zigBeeLocalTime = UTCTime_To_SEC( &buf[17] );
+    467                    batteryLevel = buf[10];
+    468                    operationEventSource = AT_DoorLock_GetOperationEventSource( buf[14] );
+    469                    operationEventCode = OPERATION_EVENT_CODE_UNLOCK;
+    470                    osal_set_event(zclDoorLock_TaskID, DOORLOCK_REPORT_UNLOCK_EVT);
+    471                    break;
+    472          
+    473                  case EVT_DOORLOCK_UPLOAD_FORCE_PRY_LOCK:
+    474                    flag = EVENT_FLAG_OPERATION;
+    475                    batteryLevel = buf[10];
+    476                    operationEventCode = OPERATION_EVENT_CODE_FORCE_PRY_LOCK;
+    477                    break;
+    478          
+    479                  case EVT_DOORLOCK_UPLOAD_ENTER_LOCKED_STATE:
+    480                    flag = EVENT_FLAG_OPERATION;
+    481                    batteryLevel = buf[10];
+    482                    operationEventCode = OPERATION_EVENT_CODE_ENTER_LOCKED_STATE;
+    483                    break;
+    484          
+    485                  case EVT_DOORLOCK_UPLOAD_LOW_POWER:
+    486                    flag = EVENT_FLAG_OPERATION;
+    487                    batteryLevel = buf[10];
+    488                    operationEventCode = OPERATION_EVENT_CODE_LOW_POWER;
+    489                    break;
+    490          
+    491                  case EVT_DOORLOCK_UPLOAD_DOORBELL:
+    492                    flag = EVENT_FLAG_OPERATION;
+    493                    batteryLevel = buf[10];
+    494                    operationEventCode = OPERATION_EVENT_CODE_DOORBELL;
+    495                    NLME_SetPollRate(DOORLOCK_POLL_RATE_ACTIVE);
+    496                    osal_start_timerEx(zclDoorLock_TaskID, DOORLOCK_SET_DORMANT_EVT, DOORLOCK_KEEP_ACTIVE_TIME_DOORBELL);
+    497                    break;
+    498          
+    499                  case EVT_DOORLOCK_UPLOAD_EXIT_LOCKED_STATE:
+    500                    flag = EVENT_FLAG_OPERATION;
+    501                    batteryLevel = buf[10];
+    502                    operationEventCode = OPERATION_EVENT_CODE_EXIT_LOCKED_STATE;
+    503                    break;
+    504          
+    505                  default:
+    506                    break;
+    507                }
+    508                break;
+    509          
+    510              default:
+    511                break;
+    512            }
+    513          
+    514            if(flag == EVENT_FLAG_OPERATION)
+    515            {
+    516              result = AT_DoorLock_SendOperationEventNotification( userID,
+    517                                                                   zigBeeLocalTime,
+    518                                                                   batteryLevel,
+    519                                                                   operationEventSource,
+    520                                                                   operationEventCode );
    \                     ??AT_DoorLock_Upload_3:
    \   000062   741C         MOV       A,#0x1c
    \   000064   12....       LCALL     ?XSTACK_DISP0_8
@@ -1295,9 +1299,9 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   0000DB   7429         MOV       A,#0x29
    \   0000DD   12....       LCALL     ?XSTACK_DISP0_8
    \   0000E0   12....       LCALL     ?Subroutine5 & 0xFFFF
-    519          
-    520              printf("AF, EVENT_FLAG_OPERATION: 0x%02X\r\n", result);
-    521            }
+    521          
+    522              printf("AF, EVENT_FLAG_OPERATION: 0x%02X\r\n", result);
+    523            }
    \                     ??CrossCallReturnLabel_7:
    \   0000E3   12....       LCALL     ?PUSH_XSTACK_I_TWO
    \   0000E6   7A..         MOV       R2,#`?<Constant "AF, EVENT_FLAG_OPERAT...">` & 0xff
@@ -1306,28 +1310,28 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   0000EA   12....       LCALL     ??Subroutine22_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_44:
    \   0000ED   12....       LCALL     ?DEALLOC_XSTACK8
-    522            else if(flag == EVENT_FLAG_PROGRAMMING)
-    523            {
-    524              result = AT_DoorLock_SendProgrammingEventNotification( userID,
-    525                                                                     zigBeeLocalTime,
-    526                                                                     batteryLevel,
-    527                                                                     programEventSource,
-    528                                                                     programEventCode );
-    529          
-    530              printf("AF, EVENT_FLAG_PROGRAMMING: 0x%02X\r\n", result);
-    531            }
-    532            else
-    533            {
-    534              result = ZFailure;
-    535              printf("AF, EVENT_FLAG_UNKNOWN: 0x%02X\r\n", result);
-    536            }
-    537          
-    538            if(result == ZNwkInvalidRequest)
+    524            else if(flag == EVENT_FLAG_PROGRAMMING)
+    525            {
+    526              result = AT_DoorLock_SendProgrammingEventNotification( userID,
+    527                                                                     zigBeeLocalTime,
+    528                                                                     batteryLevel,
+    529                                                                     programEventSource,
+    530                                                                     programEventCode );
+    531          
+    532              printf("AF, EVENT_FLAG_PROGRAMMING: 0x%02X\r\n", result);
+    533            }
+    534            else
+    535            {
+    536              result = ZFailure;
+    537              printf("AF, EVENT_FLAG_UNKNOWN: 0x%02X\r\n", result);
+    538            }
+    539          
+    540            if(result == ZNwkInvalidRequest)
    \   0000F0   74C2         MOV       A,#-0x3e
    \   0000F2   6F           XRL       A,R7
    \   0000F3   7018         JNZ       ??AT_DoorLock_Upload_5
-    539            {
-    540              osal_stop_timerEx(zclATApp_TaskID, ATAPP_END_DEVICE_REJOIN_EVT);
+    541            {
+    542              osal_stop_timerEx(zclATApp_TaskID, ATAPP_END_DEVICE_REJOIN_EVT);
    \   0000F5                ; Setup parameters for call to function osal_stop_timerEx
    \   0000F5   7A01         MOV       R2,#0x1
    \   0000F7   7B00         MOV       R3,#0x0
@@ -1335,7 +1339,7 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   0000FC   E0           MOVX      A,@DPTR
    \   0000FD   F9           MOV       R1,A
    \   0000FE   12....       LCALL     `??osal_stop_timerEx::?relay`; Banked call to: osal_stop_timerEx
-    541              osal_set_event(zclATApp_TaskID, ATAPP_END_DEVICE_REJOIN_EVT);
+    543              osal_set_event(zclATApp_TaskID, ATAPP_END_DEVICE_REJOIN_EVT);
    \   000101                ; Setup parameters for call to function osal_set_event
    \   000101   7A01         MOV       R2,#0x1
    \   000103   7B00         MOV       R3,#0x0
@@ -1343,9 +1347,9 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   000108   E0           MOVX      A,@DPTR
    \   000109   F9           MOV       R1,A
    \   00010A   12....       LCALL     `??osal_set_event::?relay`; Banked call to: osal_set_event
-    542            }
-    543          
-    544            return result;
+    544            }
+    545          
+    546            return result;
    \                     ??AT_DoorLock_Upload_5:
    \   00010D   EF           MOV       A,R7
    \   00010E   F9           MOV       R1,A
@@ -1698,7 +1702,7 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \                     ??CrossCallReturnLabel_45:
    \   000377   12....       LCALL     ?DEALLOC_XSTACK8
    \   00037A   02....       LJMP      ??AT_DoorLock_Upload_5 & 0xFFFF
-    545          }
+    547          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine15:
@@ -1785,19 +1789,19 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   000000   12....       LCALL     `??printf::?relay`; Banked call to: printf
    \   000003   7402         MOV       A,#0x2
    \   000005   22           RET
-    546          static ZStatus_t AT_DoorLock_Ack(uint8 *buf, uint8 len)
-    547          {
-    548            uint8 ackBuf[2] = {0xE0, 0x1F};
-    549          
-    550            AT_single_bus_send_buf(ackBuf, 2);
+    548          static ZStatus_t AT_DoorLock_Ack(uint8 *buf, uint8 len)
+    549          {
+    550            uint8 ackBuf[2] = {0xE0, 0x1F};
     551          
-    552            return ZSuccess;
-    553          }
+    552            AT_single_bus_send_buf(ackBuf, 2);
+    553          
+    554            return ZSuccess;
+    555          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    554          ZStatus_t AT_DoorLock_Handle_Rsp(uint8 *buf, uint8 len)
+    556          ZStatus_t AT_DoorLock_Handle_Rsp(uint8 *buf, uint8 len)
    \                     AT_DoorLock_Handle_Rsp:
-    555          {
+    557          {
    \   000000                REQUIRE ?V0
    \   000000                REQUIRE ?V1
    \   000000                REQUIRE ?V2
@@ -1816,11 +1820,11 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   00000C   EB           MOV       A,R3
    \   00000D   FF           MOV       R7,A
    \   00000E   89..         MOV       ?V6,R1
-    556            ZStatus_t status = ZSuccess;
+    558            ZStatus_t status = ZSuccess;
    \   000010   75..00       MOV       ?V2,#0x0
-    557            uint8 i;
-    558          
-    559            if(sum_check(buf, len-1) == buf[len-1])
+    559            uint8 i;
+    560          
+    561            if(sum_check(buf, len-1) == buf[len-1])
    \   000013                ; Setup parameters for call to function sum_check
    \   000013   19           DEC       R1
    \   000014   12....       LCALL     `??sum_check::?relay`; Banked call to: sum_check
@@ -1848,8 +1852,8 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   000039   78..         MOV       R0,#?V4
    \   00003B   6003         JZ        $+5
    \   00003D   02....       LJMP      ??AT_DoorLock_Handle_Rsp_0 & 0xFFFF
-    560            {
-    561              printf("| up |right|%02d bytes|: ", len);
+    562            {
+    563              printf("| up |right|%02d bytes|: ", len);
    \   000040                ; Setup parameters for call to function printf
    \   000040   12....       LCALL     ?PUSH_XSTACK_I_TWO
    \   000043   7A..         MOV       R2,#`?<Constant "| up |right|%02d byte...">` & 0xff
@@ -1857,15 +1861,15 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   000047   12....       LCALL     ??Subroutine22_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_46:
    \   00004A   12....       LCALL     ?DEALLOC_XSTACK8
-    562              for(i=0; i<len; i++)
+    564              for(i=0; i<len; i++)
    \   00004D   75..00       MOV       ?V3,#0x0
    \   000050   800E         SJMP      ??AT_DoorLock_Handle_Rsp_1
-    563              {
-    564                printf("%02X ", buf[i]);
+    565              {
+    566                printf("%02X ", buf[i]);
    \                     ??AT_DoorLock_Handle_Rsp_2:
    \   000052                ; Setup parameters for call to function printf
    \   000052   12....       LCALL     ?Subroutine12 & 0xFFFF
-    565              }
+    567              }
    \                     ??CrossCallReturnLabel_24:
    \   000055   12....       LCALL     ?PUSH_XSTACK_I_TWO
    \   000058   12....       LCALL     ?Subroutine16 & 0xFFFF
@@ -1877,27 +1881,27 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   000062   C3           CLR       C
    \   000063   95..         SUBB      A,?V6
    \   000065   40EB         JC        ??AT_DoorLock_Handle_Rsp_2
-    566              printf("\r\n");
+    568              printf("\r\n");
    \   000067                ; Setup parameters for call to function printf
    \   000067   7A..         MOV       R2,#`?<Constant "\\r\\n">` & 0xff
    \   000069   7B..         MOV       R3,#(`?<Constant "\\r\\n">` >> 8) & 0xff
    \   00006B   12....       LCALL     `??printf::?relay`; Banked call to: printf
-    567            }
-    568            else
-    569            {
-    570              printf("\r\n| up |error|%02d bytes|: ", len);
-    571              for(i=0; i<len; i++)
-    572              {
-    573                printf("%02X ", buf[i]);
-    574              }
-    575              printf("\r\n\r\n");
-    576              status = ZFailure;
-    577            }
-    578          
-    579            if(status == ZFailure)
-    580              return status;
-    581          
-    582            switch(buf[0])
+    569            }
+    570            else
+    571            {
+    572              printf("\r\n| up |error|%02d bytes|: ", len);
+    573              for(i=0; i<len; i++)
+    574              {
+    575                printf("%02X ", buf[i]);
+    576              }
+    577              printf("\r\n\r\n");
+    578              status = ZFailure;
+    579            }
+    580          
+    581            if(status == ZFailure)
+    582              return status;
+    583          
+    584            switch(buf[0])
    \   00006E   8E82         MOV       DPL,R6
    \   000070   8F83         MOV       DPH,R7
    \   000072   E0           MOVX      A,@DPTR
@@ -1923,11 +1927,11 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   00009A   7003         JNZ       $+5
    \   00009C   02....       LJMP      ??AT_DoorLock_Handle_Rsp_7 & 0xFFFF
    \   00009F   02....       LJMP      ??AT_DoorLock_Handle_Rsp_8 & 0xFFFF
-    583            {
-    584              case CMD_DOORLOCK_UNLOCK:
-    585              case CMD_DOORLOCK_LOCK:
-    586              case CMD_DOORLOCK_SET_TEMPORARY_PIN:
-    587                status = AT_DoorLock_Rsp( buf, len );
+    585            {
+    586              case CMD_DOORLOCK_UNLOCK:
+    587              case CMD_DOORLOCK_LOCK:
+    588              case CMD_DOORLOCK_SET_TEMPORARY_PIN:
+    589                status = AT_DoorLock_Rsp( buf, len );
    \                     ??AT_DoorLock_Handle_Rsp_3:
    \   0000A2   7402         MOV       A,#0x2
    \   0000A4   12....       LCALL     ?XSTACK_DISP0_8
@@ -2036,12 +2040,12 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \                     ??CrossCallReturnLabel_48:
    \   00015F   12....       LCALL     ?DEALLOC_XSTACK8
    \   000162   8E..         MOV       ?V2,R6
-    588                break;
+    590                break;
    \   000164   8036         SJMP      ??AT_DoorLock_Handle_Rsp_8
-    589          
-    590              case CMD_DOORLOCK_EVT_UPLOAD:
-    591              case CMD_DOORLOCK_WAKE_UP:
-    592                status = AT_DoorLock_Upload( buf, len );
+    591          
+    592              case CMD_DOORLOCK_EVT_UPLOAD:
+    593              case CMD_DOORLOCK_WAKE_UP:
+    594                status = AT_DoorLock_Upload( buf, len );
    \                     ??AT_DoorLock_Handle_Rsp_4:
    \   000166                ; Setup parameters for call to function AT_DoorLock_Upload
    \   000166   A9..         MOV       R1,?V6
@@ -2052,18 +2056,18 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   00016C   12....       LCALL     `??AT_DoorLock_Upload::?relay`; Banked call to: AT_DoorLock_Upload
    \   00016F   E9           MOV       A,R1
    \   000170   F5..         MOV       ?V2,A
-    593                break;
+    595                break;
    \   000172   8028         SJMP      ??AT_DoorLock_Handle_Rsp_8
-    594          
-    595              case CMD_DOORLOCK_KEY_SHORT_PRESS:
-    596                bdb_resetLocalAction(); // factory new
-    597                break;
-    598          
-    599              case CMD_DOORLOCK_RESET_TO_FACT_NEW:
-    600                break;
-    601          
-    602              case CMD_DOORLOCK_MATCH:
-    603                status = AT_DoorLock_Ack( buf, len );
+    596          
+    597              case CMD_DOORLOCK_KEY_SHORT_PRESS:
+    598                bdb_resetLocalAction(); // factory new
+    599                break;
+    600          
+    601              case CMD_DOORLOCK_RESET_TO_FACT_NEW:
+    602                break;
+    603          
+    604              case CMD_DOORLOCK_MATCH:
+    605                status = AT_DoorLock_Ack( buf, len );
    \                     ??AT_DoorLock_Handle_Rsp_6:
    \   000174   90....       MOV       DPTR,#`?<Constant {224, 31}>`
    \   000177   AC..         MOV       R4,?XSP + 0
@@ -2075,11 +2079,11 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   000182   AA..         MOV       R2,?XSP + 0
    \   000184   AB..         MOV       R3,?XSP + 1
    \   000186   12....       LCALL     `??AT_single_bus_send_buf::?relay`; Banked call to: AT_single_bus_send_buf
-    604                break;
+    606                break;
    \   000189   8011         SJMP      ??AT_DoorLock_Handle_Rsp_8
-    605          
-    606              case CMD_DOORLOCK_RESET_TO_FACT_NEW_ALL:
-    607                if((len==4) && (buf[3]==0x1F))
+    607          
+    608              case CMD_DOORLOCK_RESET_TO_FACT_NEW_ALL:
+    609                if((len==4) && (buf[3]==0x1F))
    \                     ??AT_DoorLock_Handle_Rsp_7:
    \   00018B   7404         MOV       A,#0x4
    \   00018D   65..         XRL       A,?V6
@@ -2090,24 +2094,24 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
    \   000194   E0           MOVX      A,@DPTR
    \   000195   641F         XRL       A,#0x1f
    \   000197   7003         JNZ       ??AT_DoorLock_Handle_Rsp_8
-    608                  bdb_resetLocalAction();//factory new
+    610                  bdb_resetLocalAction();//factory new
    \                     ??AT_DoorLock_Handle_Rsp_5:
    \   000199                ; Setup parameters for call to function bdb_resetLocalAction
    \   000199   12....       LCALL     `??bdb_resetLocalAction::?relay`; Banked call to: bdb_resetLocalAction
-    609                break;
-    610          
-    611              default:
-    612                break;
-    613            }
-    614          
-    615            return status;
+    611                break;
+    612          
+    613              default:
+    614                break;
+    615            }
+    616          
+    617            return status;
    \                     ??AT_DoorLock_Handle_Rsp_8:
    \   00019C   A9..         MOV       R1,?V2
    \   00019E   740E         MOV       A,#0xe
    \   0001A0   12....       LCALL     ?DEALLOC_XSTACK8
    \   0001A3                REQUIRE ?Subroutine1
    \   0001A3                ; // Fall through to label ?Subroutine1
-    616          }
+    618          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine16:
@@ -2260,6 +2264,7 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
         0     29   -> sum_check
         0     31   -> zclClosures_SendDoorLockStatusResponse
       2      0   AT_DoorLock_Init
+        2      0   -> AT_pwr_single_bus_init
         2      0   -> AT_single_bus_init
       1     15   AT_DoorLock_Lock
         0     12   -> AT_single_bus_send_buf
@@ -2335,7 +2340,7 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
       12  ?Subroutine8
       16  ?Subroutine9
      419  AT_DoorLock_Handle_Rsp
-      14  AT_DoorLock_Init
+      17  AT_DoorLock_Init
      107  AT_DoorLock_Lock
      246  AT_DoorLock_SetTemporaryPin_Req
      128  AT_DoorLock_Unlock
@@ -2347,13 +2352,13 @@ F:\2workspace\doorlock-CC2530\ZigBee-DoorLock-2021.09.27\Projects\zstack\AT-comm
       42  -- Other
 
  
- 2 138 bytes in segment BANKED_CODE
+ 2 141 bytes in segment BANKED_CODE
     42 bytes in segment BANK_RELAYS
    217 bytes in segment XDATA_ROM_C
  
     42 bytes of CODE     memory
    205 bytes of CONST    memory (+ 12 bytes shared)
- 2 138 bytes of HUGECODE memory
+ 2 141 bytes of HUGECODE memory
 
 Errors: none
 Warnings: none

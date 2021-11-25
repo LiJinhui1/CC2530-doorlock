@@ -6,6 +6,7 @@
 *******************************************************************************/
 #include "AT_doorlock.h"
 #include "AT_single_bus.h"
+#include "AT_pwr_single_bus.h"
 #include "hal_uart.h"
 #include "OSAL.h"
 #include "bdb_interface.h"
@@ -229,6 +230,7 @@ static ZStatus_t AT_DoorLock_SendProgrammingEventNotification( uint16 userID,
 void AT_DoorLock_Init(void)
 {
   AT_single_bus_init();
+  AT_pwr_single_bus_init();
 }
 
 /******************************************************************************

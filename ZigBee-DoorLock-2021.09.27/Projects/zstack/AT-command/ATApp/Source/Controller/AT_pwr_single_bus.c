@@ -49,8 +49,8 @@ void AT_pwr_single_bus_init(void)
   AT_pwr_single_bus_input();
 
   // set IPG1(ADC/P1/P2INT) to the highest priority
-  IP0 |= BV(1);         //interrupt priority
-  IP1 |= BV(1);
+  IP1 = 0x12;         //interrupt priority
+  IP0 = 0x10;
 }
 static void AT_pwr_single_bus_send_byte(uint8 dataByte)
 {
@@ -113,11 +113,11 @@ HAL_ISR_FUNCTION( pwr_single_bus_Isr, P2INT_VECTOR )
 
   if(PWR_SINGLE_BUS_PIN)
   {
-    goto isr_exit;
+    goto pwr_isr_exit;
   }
 
   // start to capture the head (4 ms)
-  AT_Timer4_Set_Clear_Start_US(7000);
+  AT_Timer4_Set_Clear_Start_US(0xFA);    //(250*7)*4=7000
   while(1)
   {
 #ifdef WDT_IN_PM1
@@ -125,16 +125,21 @@ HAL_ISR_FUNCTION( pwr_single_bus_Isr, P2INT_VECTOR )
 #endif
     if(T4IF)
     {
+      if(tim4_tick_peroid==7)    //overflow
+      {
+        T4IF = 0;
+        goto pwr_isr_exit;
+      }
       T4IF = 0;
-      goto isr_exit;
+      
     }
     if(PWR_SINGLE_BUS_PIN)
       break;
   }
-  pwr_single_bus_rcv_low = AT_Timer4_Stop_Get();
-  if(pwr_single_bus_rcv_low < 2000)
+  pwr_single_bus_rcv_low = AT_Timer4_Stop_Get()+tim4_tick_peroid*256;
+  if(pwr_single_bus_rcv_low < 500)      //现在的每次计数相当于原来的4个计数
   {
-    goto isr_exit;
+    goto pwr_isr_exit;
   }
 
   pwr_single_bus_rcv_len = 0;
@@ -148,7 +153,7 @@ HAL_ISR_FUNCTION( pwr_single_bus_Isr, P2INT_VECTOR )
 #endif
 
     // get high level time
-    AT_Timer4_Set_Clear_Start_US(400);
+    AT_Timer4_Set_Clear_Start_US(100);
     while(PWR_SINGLE_BUS_PIN)
     {
       if(T4IF)
@@ -158,31 +163,32 @@ HAL_ISR_FUNCTION( pwr_single_bus_Isr, P2INT_VECTOR )
         if((pwr_single_bus_rcv_len > 0) && (pwr_single_bus_rcv_bit == 0))
         {
           //osal_set_event(zclDoorLock_TaskID, DOORLOCK_HANDLE_RSP_EVT);
-          printf();
-          goto isr_exit;
+          for(uint8 i=0;i!=pwr_single_bus_rcv_bit;++i)
+            printf("%02x\r\n",pwr_single_bus_rcv_buf[i]);
+          goto pwr_isr_exit;
         }
 
-        goto isr_exit;
+        goto pwr_isr_exit;
       }
     }
     pwr_single_bus_rcv_high = AT_Timer4_Stop_Get();
 
     // get low level time
-    AT_Timer4_Set_Clear_Start_US(400);
+    AT_Timer4_Set_Clear_Start_US(100);
     while(!PWR_SINGLE_BUS_PIN)
     {
       if(T4IF)
       {
         T4IF = 0;
-        goto isr_exit;
+        goto pwr_isr_exit;
       }
     }
     pwr_single_bus_rcv_low = AT_Timer4_Stop_Get();
 
     // check the total time
     pwr_single_bus_rcv_total = pwr_single_bus_rcv_high + pwr_single_bus_rcv_low;
-    if ((pwr_single_bus_rcv_total < 120) || (pwr_single_bus_rcv_total > 350))
-      goto isr_exit; // tolerance of 30%
+    if ((pwr_single_bus_rcv_total < 30) || (pwr_single_bus_rcv_total > 87))
+      goto pwr_isr_exit; // tolerance of 30%
 
     // save the data bit
     if(pwr_single_bus_rcv_high > pwr_single_bus_rcv_low)
@@ -198,7 +204,7 @@ HAL_ISR_FUNCTION( pwr_single_bus_Isr, P2INT_VECTOR )
     }
   }
 
-isr_exit:
+pwr_isr_exit:
 
   IEN2  |= BV(1); // enable port interrupt
   P2IEN |= PWR_SINGLE_BUS_BV; // enable pin interrupt

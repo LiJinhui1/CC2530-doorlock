@@ -2,8 +2,8 @@
   Filename:       AT_single_bus.h
   Author:         Yang Wang
 *********************************************************************/
-#ifndef AT_SINGLE_BUS_H
-#define AT_SINGLE_BUS_H
+#ifndef AT_PWR_SINGLE_BUS_H
+#define AT_PWR_SINGLE_BUS_H
 
 #ifdef __cplusplus
 extern "C"

@@ -25,7 +25,7 @@ extern "C"
 #define PWR_SINGLE_BUS_HIGH    1
 #define PWR_SINGLE_BUS_LOW     0
 
-#define PWR_SINGLE_BUS_RCV_MAX 100
+#define PWR_SINGLE_BUS_RCV_MAX 10
 
 extern uint8 pwr_single_bus_rcv_state;
 extern uint8 pwr_single_bus_rcv_buf[PWR_SINGLE_BUS_RCV_MAX];

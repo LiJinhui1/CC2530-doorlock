@@ -8,6 +8,7 @@
 #include "zcl_doorlock.h"
 #include "OnBoard.h"
 #include "AT_printf.h"
+#include "bdb.h"
 
 uint8 pwr_single_bus_rcv_buf[PWR_SINGLE_BUS_RCV_MAX] = {0x00};
 uint8 pwr_single_bus_rcv_len = 0;
@@ -20,6 +21,7 @@ uint16 pwr_single_bus_rcv_low = 0;
 static void AT_pwr_single_bus_input(void);
 static void AT_pwr_single_bus_output(void);
 static void AT_pwr_single_bus_send_byte(uint8 dataByte);
+static void pwr_senddata(uint8* buf);
 
 static void AT_pwr_single_bus_input(void)
 {
@@ -103,7 +105,38 @@ void AT_pwr_single_bus_send_buf(uint8 *buf, uint8 len)
 
   AT_pwr_single_bus_input();
 }
+static void pwr_senddata(uint8* buf)
+{
+  if(pwr_single_bus_rcv_len == 8)
+  {
+    afAddrType_t dstAddr;
+    dstAddr.addrMode = (afAddrMode_t)Addr16Bit;
+    dstAddr.addr.shortAddr = NWK_PAN_COORD_ADDR;// default send to Coordinator
+    dstAddr.endPoint = 0x0B;//GENERIC_ENDPOINT on Coordinator
 
+    //build DoorLock Operation Event Notification
+    zclDoorLockOperationEventNotification_t pPayload;
+    pPayload.operationEventSource = 0xFE;
+    pPayload.operationEventCode = buf[0];
+    pPayload.userID = BUILD_UINT16(buf[1], buf[2]);
+    pPayload.pin = buf[3]; // it is battery level actually
+    pPayload.zigBeeLocalTime = BUILD_UINT32(buf[4], buf[5], buf[6], buf[7]);
+
+    pPayload.pData = (uint8 *)osal_mem_alloc(1);
+    pPayload.pData[0] = 0;
+    /*pPayload.pData = (uint8 *)osal_mem_alloc(8);
+    for(uint8 i=0;i!=8;++i){
+      pPayload.pData[i]=buf[i];
+    }*/
+    zclClosures_SendDoorLockOperationEventNotification( DOORLOCK_ENDPOINT,//uint8 srcEP,
+                                                      &dstAddr,//afAddrType_t *dstAddr,
+                                                      &pPayload,//zclDoorLockOperationEventNotification_t *pPayload,
+                                                      TRUE,//uint8 disableDefaultRsp,
+                                                      ++bdb_ZclTransactionSequenceNumber);//uint8 seqNum
+
+  osal_mem_free( pPayload.pData );
+  }
+}
 HAL_ISR_FUNCTION( pwr_single_bus_Isr, P2INT_VECTOR )
 {
   HAL_ENTER_ISR();
@@ -162,9 +195,7 @@ HAL_ISR_FUNCTION( pwr_single_bus_Isr, P2INT_VECTOR )
 
         if((pwr_single_bus_rcv_len > 0) && (pwr_single_bus_rcv_bit == 0))
         {
-          //osal_set_event(zclDoorLock_TaskID, DOORLOCK_HANDLE_RSP_EVT);
-          for(uint8 i=0;i!=pwr_single_bus_rcv_bit;++i)
-            printf("%02x\r\n",pwr_single_bus_rcv_buf[i]);
+          pwr_senddata(pwr_single_bus_rcv_buf);
           goto pwr_isr_exit;
         }
 
